@@ -176,11 +176,13 @@ code_sign_if_enabled() {
 }
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SQLiteRepairKit/sqliterk.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/WCDB/WCDB.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/WCDBOptimizedSQLCipher/sqlcipher.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SQLiteRepairKit/sqliterk.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/WCDB/WCDB.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/WCDBOptimizedSQLCipher/sqlcipher.framework"

@@ -1,4 +1,5 @@
 ${PODS_ROOT}/Target Support Files/Pods-WeChat/Pods-WeChat-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework
 ${BUILT_PRODUCTS_DIR}/SQLiteRepairKit/sqliterk.framework
 ${BUILT_PRODUCTS_DIR}/WCDB/WCDB.framework
 ${BUILT_PRODUCTS_DIR}/WCDBOptimizedSQLCipher/sqlcipher.framework
