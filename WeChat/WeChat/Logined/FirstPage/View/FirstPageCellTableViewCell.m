@@ -60,14 +60,6 @@
         make.centerY.equalTo(self.personLab);
         make.size.mas_equalTo(CGSizeMake(50, 20));
     }];
-    //bellImageView
-//    [self.bellImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.size.mas_equalTo(CGSizeMake(20, 25));
-//        make.right.equalTo(self.contentView).offset(-10);
-//        make.top.equalTo(self.dateLab.mas_bottom).offset(10);
-////        make.right.equalTo(self.dateLab);
-////        make.centerY.equalTo(self.textLab);
-//    }];
     //separator
     [self.separator mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.contentView);

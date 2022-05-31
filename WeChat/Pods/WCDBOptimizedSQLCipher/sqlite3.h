@@ -2288,7 +2288,7 @@ SQLITE_API int sqlite3_busy_handler(sqlite3*,int(*)(void*,int),void*);
 ** turns off all busy handlers.
 **
 ** ^(There can only be a single busy handler for a particular
-** [database connection] at any given moment.  If another busy handler
+** [database connection] at any given moments.  If another busy handler
 ** was defined  (using [sqlite3_busy_handler()]) prior to calling
 ** this routine, that other busy handler is cleared.)^
 **
@@ -4053,7 +4053,7 @@ SQLITE_API const void *sqlite3_column_decltype16(sqlite3_stmt*,int);
 ** already been [sqlite3_finalize | finalized] or on one that had
 ** previously returned [SQLITE_ERROR] or [SQLITE_DONE].  Or it could
 ** be the case that the same database connection is being used by two or
-** more threads at the same moment in time.
+** more threads at the same moments in time.
 **
 ** For all versions of SQLite up to and including 3.6.23.1, a call to
 ** [sqlite3_reset()] was required after sqlite3_step() returned anything

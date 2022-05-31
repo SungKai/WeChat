@@ -9,7 +9,7 @@
 //VC
 #import "FirstPageVC.h"
 #import "AddressBookVC.h"
-#import "FriendsPageVC.h"
+#import "MomentsPageVC.h"
 #import "PersonPageVC.h"
 
 @interface TabBarVC ()
@@ -18,7 +18,7 @@
 
 @property (nonatomic, strong) AddressBookVC *addressBookVC;
 
-@property (nonatomic, strong) FriendsPageVC *friendsPageVC;
+@property (nonatomic, strong) MomentsPageVC *momentsPageVC;
 
 @property (nonatomic, strong) PersonPageVC *personPageVC;
 
@@ -31,7 +31,7 @@
     if (self) {
         self.view.backgroundColor = [UIColor colorNamed:@"#EDEDED'00^#111111'00"];
         [[UITabBar appearance] setBackgroundColor:[UIColor colorNamed:@"#F8F8F8'90^#1D1D1D'90"]];
-        self.viewControllers = @[self.firstPageVC, self.addressBookVC, self.friendsNav, self.personNav];
+        self.viewControllers = @[self.firstPageVC, self.addressBookVC, self.momentsNav, self.personNav];
         self.tabBar.tintColor = [UIColor colorNamed:@"#00DF6C'00^#00DF6C'00"];
     }
     return self;
@@ -44,11 +44,11 @@
 }
 
 #pragma mark - Getter
-- (UINavigationController *)friendsNav {
-    UINavigationController *friendsNav = [[UINavigationController alloc] initWithRootViewController:self.friendsPageVC];
-    friendsNav.navigationBarHidden = NO;
-    friendsNav.navigationBar.translucent = YES;
-    return friendsNav;
+- (UINavigationController *)momentsNav {
+    UINavigationController *momentsNav = [[UINavigationController alloc] initWithRootViewController:self.momentsPageVC];
+    momentsNav.navigationBarHidden = NO;
+    momentsNav.navigationBar.translucent = YES;
+    return momentsNav;
 }
 
 - (UINavigationController *)personNav {
@@ -79,16 +79,16 @@
     return _addressBookVC;
 }
 
-- (FriendsPageVC *)friendsPageVC {
-    if (_friendsPageVC == nil) {
-        _friendsPageVC = [[FriendsPageVC alloc] init];
-        _friendsPageVC.title = @"发现";
-        _friendsPageVC.tabBarItem.title = @"发现";
-        _friendsPageVC.tabBarItem.image = [UIImage systemImageNamed:@"safari"];
-        _friendsPageVC.tabBarItem.selectedImage = [UIImage systemImageNamed:@"safari.fill"];
+- (MomentsPageVC *)momentsPageVC {
+    if (_momentsPageVC == nil) {
+        _momentsPageVC = [[MomentsPageVC alloc] init];
+        _momentsPageVC.title = @"发现";
+        _momentsPageVC.tabBarItem.title = @"发现";
+        _momentsPageVC.tabBarItem.image = [UIImage systemImageNamed:@"safari"];
+        _momentsPageVC.tabBarItem.selectedImage = [UIImage systemImageNamed:@"safari.fill"];
         
     }
-    return _friendsPageVC;
+    return _momentsPageVC;
 }
 
 - (PersonPageVC *)personPageVC {

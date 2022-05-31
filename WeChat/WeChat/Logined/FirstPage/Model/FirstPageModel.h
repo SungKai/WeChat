@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// KVC字典转模型
 /// @param dic 字典
-- (instancetype) FirstPageModelWithDic:(NSDictionary *)dic;
+- (instancetype)FirstPageModelWithDic:(NSDictionary *)dic;
 
 @end
 

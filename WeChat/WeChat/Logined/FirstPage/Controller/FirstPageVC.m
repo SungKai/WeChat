@@ -12,9 +12,9 @@
 
 @interface FirstPageVC ()
 
-@property (nonatomic, strong)NSArray<FirstPageModel *> *dataArray;
+@property (nonatomic, strong) NSArray<FirstPageModel *> *dataArray;
 
-@property (nonatomic, strong)UIView *topView;
+@property (nonatomic, strong) UIView *topView;
 
 @end
 
@@ -28,7 +28,7 @@
     [self.view addSubview:self.firstTableView];
     //传递数据给TableView
     self.firstTableView.data = self.dataArray;
-    [self.firstTableView reloadData];
+//    [self.firstTableView reloadData];
 }
 
 #pragma mark - Getter
@@ -50,7 +50,7 @@
 
 - (FirstPageView *)firstTableView {
     if (_firstTableView == nil) {
-        _firstTableView = [[FirstPageView alloc] initWithFrame:CGRectMake(0, StatusBarHeight + 60, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStylePlain];
+        _firstTableView = [[FirstPageView alloc] initWithFrame:CGRectMake(0, StatusBarHeight + 50, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStylePlain];
 //        _firstTableView.backgroundColor = [UIColor grayColor];
     }
     return _firstTableView;
@@ -59,16 +59,16 @@
 - (UIView *)topView {
     if (_topView == nil) {
         _topView = [[UIView alloc] init];
-        _topView.frame = CGRectMake(0, StatusBarHeight, SCREEN_WIDTH, 60);
+        _topView.frame = CGRectMake(0, StatusBarHeight, SCREEN_WIDTH, 50);
         _topView.backgroundColor = [UIColor colorNamed:@"#EDEDED'00^#111111'00"];
         UILabel *weChatLab = [[UILabel alloc] init];
         weChatLab.text = @"微信";
-        weChatLab.font = [UIFont boldSystemFontOfSize:25];
+        weChatLab.font = [UIFont boldSystemFontOfSize:23];
         weChatLab.textAlignment = NSTextAlignmentCenter;
         weChatLab.textColor = [UIColor colorNamed:@"#181818'00^#CFCFCF'00"];
         [_topView addSubview:weChatLab];
         [weChatLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(_topView).offset(5);
+            make.top.equalTo(_topView);
             make.size.mas_equalTo(CGSizeMake(100, 50));
             make.centerX.equalTo(_topView);
         }];

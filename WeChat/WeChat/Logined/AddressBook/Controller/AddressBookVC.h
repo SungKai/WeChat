@@ -7,6 +7,12 @@
 
 #import <UIKit/UIKit.h>
 
+//View
+#import "AddressBookView.h"
+
+//Model
+#import "AddressBookModel.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface AddressBookVC : UIViewController

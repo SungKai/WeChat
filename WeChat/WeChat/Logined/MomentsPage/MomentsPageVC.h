@@ -1,5 +1,5 @@
 //
-//  FriendsPageVC.h
+//  MomentsPageVC.h
 //  WeChat
 //
 //  Created by 宋开开 on 2022/5/29.
@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FriendsPageVC : UIViewController
+@interface MomentsPageVC : UIViewController
 
 @end
 

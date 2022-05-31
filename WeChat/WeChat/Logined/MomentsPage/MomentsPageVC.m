@@ -1,17 +1,17 @@
 //
-//  AddressBookVC.m
-//  WeChat
+//  MomentsPageVC.m
+//  WeChat 
 //
 //  Created by 宋开开 on 2022/5/29.
 //
 
-#import "AddressBookVC.h"
+#import "MomentsPageVC.h"
 
-@interface AddressBookVC ()
+@interface MomentsPageVC ()
 
 @end
 
-@implementation AddressBookVC
+@implementation MomentsPageVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];

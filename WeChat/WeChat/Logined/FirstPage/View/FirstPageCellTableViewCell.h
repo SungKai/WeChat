@@ -29,6 +29,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UIView *separator;
 
+/// 初始化方法
+/// @param person 朋友名字
+/// @param text 信息
+/// @param imgViewData 图片信息
+/// @param date 日期
+/// @param bell 是否免打扰   
 - (instancetype)initWithPerson:(NSString *)person Text:(NSString *)text ImgView:(NSString *)imgViewData Date:(NSString *)date BellImage:(NSNumber *)bell;
 @end
 
