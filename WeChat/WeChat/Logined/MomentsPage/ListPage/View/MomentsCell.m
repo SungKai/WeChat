@@ -17,7 +17,6 @@
     if (self) {
         [self setData];
         [self setPosition];
-//        NSLog(@"[self.likesTextArray class] = %@", [self.likesTextArray class]);
     }
     return self;
 }
@@ -218,7 +217,7 @@
 // MARK: 有评论的情况
 - (void)setCommentsCell {
     NSMutableAttributedString *text = [NSMutableAttributedString new];
-    UIFont *font = [UIFont systemFontOfSize:17];
+    UIFont *font = [UIFont systemFontOfSize:19];
     //1.评论信息
     for (int i = 0; i < self.commentsTextArray.count; i++) {
         NSMutableAttributedString *commentsAtt = [[NSMutableAttributedString alloc] initWithString:[self.commentsTextArray[i] stringByAppendingString:@"\n"]];
@@ -299,6 +298,8 @@
     //评论或点赞的按钮(多功能按钮)
     self.likeOrCommentBtn = [[UIButton alloc] init];
     [self.likeOrCommentBtn setBackgroundImage:[UIImage imageNamed:@"likeComment.white"] forState:UIControlStateNormal];
+    self.likeOrCommentBtn.layer.masksToBounds = YES;
+    self.likeOrCommentBtn.layer.cornerRadius = 5;
     [self.likeOrCommentBtn addTarget:self action:@selector(ClickFuncBtn) forControlEvents:UIControlEventTouchUpInside];
     [self.yyTextLab addSubview:self.likeOrCommentBtn];
     

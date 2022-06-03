@@ -5,7 +5,13 @@
 //  Created by 宋开开 on 2022/5/29.
 //
 
+//camera.fill
 #import "MomentsPageVC.h"
+
+//VC
+#import "PublishVC.h"
+#import "CommentVC.h"
+
 //View
 #import "MomentsCell.h"
 #import "popFuncView.h"
@@ -34,6 +40,9 @@ popFuncViewDelegate
 //背景蒙版（使点击任意一处退出多功能按钮）
 @property (nonatomic, strong) UIView *backView;
 
+//朋友圈顶部的封面
+@property (nonatomic, strong) UIView *topView;
+
 @end
 
 @implementation MomentsPageVC
@@ -50,6 +59,8 @@ popFuncViewDelegate
     [super viewDidLoad];
 //    self.view.backgroundColor = [UIColor grayColor];
     [self.view addSubview:self.tableView];
+    self.tableView.tableHeaderView = self.topView;
+//    [self.view addSubview:self.topView];
 }
 
 #pragma mark - Method
@@ -129,6 +140,10 @@ popFuncViewDelegate
     
 }
 
+
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+//    return 200;
+//}
 // MARK: <popFuncViewDelegate>
 /// 点击点赞按钮
 /// @param sender 该按钮
@@ -137,7 +152,6 @@ popFuncViewDelegate
     long tag = self.dataArray.count - 1 - sender.tag;
     NSMutableArray *tempArray = [NSMutableArray arrayWithArray:self.dataArray[tag].likes];
 
-    
     sender.selected = !sender.selected;
     //取消选中状态
     if (!sender.selected) {
@@ -157,12 +171,13 @@ popFuncViewDelegate
 /// 店家评论按钮
 /// @param sender 该按钮
 - (void)clickCommentBtn:(UIButton *)sender {
+    //跳转到评论界面
     
 }
 #pragma mark - Getter
 - (UITableView *)tableView {
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, - StatusBarHeight - 60, SCREEN_WIDTH, SCREEN_HEIGHT + 60) style:UITableViewStylePlain];
         _tableView.dataSource = self;
         _tableView.delegate = self;
         
@@ -181,11 +196,6 @@ popFuncViewDelegate
             [model MomentsMomentsModelWithDic:dic];
             [_dataArray addObject:model];
         }
-//        //倒转
-//        int i = (int)data.count - 1;
-//        for (; i >= 0; i--) {
-//            [_dataArray addObject:tempMa[i]];
-//        }
     }
     return _dataArray;
 }
@@ -207,16 +217,45 @@ popFuncViewDelegate
         [_backView addGestureRecognizer:dismiss];
     }
     return _backView;
-    
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (UIView *)topView {
+    if (_topView == nil) {
+        _topView = [[UIView alloc] init];
+        _topView.frame = CGRectMake(0, -65, SCREEN_WIDTH, 350);
+        //topImageView
+        UIImageView *topImageView = [[UIImageView alloc] init];
+        topImageView.image = [UIImage imageNamed:@"topImage"];
+        topImageView.frame = CGRectMake(0, -45, SCREEN_WIDTH, 350);
+        //avaterImgView
+        UIImageView *avaterImgView = [[UIImageView alloc] init];
+        avaterImgView.image = [UIImage imageNamed:@"avatar"];
+        avaterImgView.layer.masksToBounds = YES;
+        avaterImgView.layer.cornerRadius = 8;
+//        //nameLab
+        UILabel *nameLab = [[UILabel alloc] init];
+        nameLab.text = @"Vermouth";
+        nameLab.textColor = [UIColor whiteColor];
+        nameLab.textAlignment = NSTextAlignmentRight;
+        nameLab.font = [UIFont boldSystemFontOfSize:22];
+        
+        [_topView addSubview:topImageView];
+        [_topView addSubview:nameLab];
+        [_topView addSubview:avaterImgView];
+        
+        //位置
+        [avaterImgView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(_topView).offset(-15);
+            make.bottom.equalTo(_topView).offset(-20);
+            make.size.mas_equalTo(CGSizeMake(80, 80));
+        }];
+        
+        [nameLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(avaterImgView.mas_left).offset(-10);
+            make.centerY.equalTo(avaterImgView).offset(-5);
+            make.size.mas_equalTo(CGSizeMake(100, 50));
+        }];
+    }
+    return _topView;
 }
-*/
-
 @end

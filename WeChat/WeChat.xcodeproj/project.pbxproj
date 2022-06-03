@@ -31,6 +31,10 @@
 		B56E97772849DE1000FC5D5F /* popFuncView.m in Sources */ = {isa = PBXBuildFile; fileRef = B56E97762849DE1000FC5D5F /* popFuncView.m */; };
 		B56E977A2849DE1800FC5D5F /* SKKImageZoom.m in Sources */ = {isa = PBXBuildFile; fileRef = B56E97792849DE1800FC5D5F /* SKKImageZoom.m */; };
 		B56E97802849F8A100FC5D5F /* momentData.plist in Resources */ = {isa = PBXBuildFile; fileRef = B56E977F2849F8A100FC5D5F /* momentData.plist */; };
+		B56E97852849FEBD00FC5D5F /* PublishVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B56E97842849FEBD00FC5D5F /* PublishVC.m */; };
+		B56E97892849FEF100FC5D5F /* SettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B56E97882849FEF100FC5D5F /* SettingVC.m */; };
+		B56E978D2849FF5400FC5D5F /* CommentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B56E978C2849FF5400FC5D5F /* CommentVC.m */; };
+		B56E9790284A597B00FC5D5F /* TopView.m in Sources */ = {isa = PBXBuildFile; fileRef = B56E978F284A597B00FC5D5F /* TopView.m */; };
 		B5FB337828435BA20024532F /* FirstPageCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B5FB337728435BA20024532F /* FirstPageCellTableViewCell.m */; };
 		B5FB33EA2844E2EF0024532F /* addressBookData.plist in Resources */ = {isa = PBXBuildFile; fileRef = B5FB33E92844E2EF0024532F /* addressBookData.plist */; };
 		B5FB33EC2844E3250024532F /* AddressBookImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5FB33EB2844E3250024532F /* AddressBookImage.xcassets */; };
@@ -83,6 +87,14 @@
 		B56E97782849DE1800FC5D5F /* SKKImageZoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKKImageZoom.h; sourceTree = "<group>"; };
 		B56E97792849DE1800FC5D5F /* SKKImageZoom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKKImageZoom.m; sourceTree = "<group>"; };
 		B56E977F2849F8A100FC5D5F /* momentData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = momentData.plist; path = ../../MomentPageData/momentData.plist; sourceTree = "<group>"; };
+		B56E97832849FEBD00FC5D5F /* PublishVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PublishVC.h; sourceTree = "<group>"; };
+		B56E97842849FEBD00FC5D5F /* PublishVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PublishVC.m; sourceTree = "<group>"; };
+		B56E97872849FEF100FC5D5F /* SettingVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingVC.h; sourceTree = "<group>"; };
+		B56E97882849FEF100FC5D5F /* SettingVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingVC.m; sourceTree = "<group>"; };
+		B56E978B2849FF5400FC5D5F /* CommentVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommentVC.h; sourceTree = "<group>"; };
+		B56E978C2849FF5400FC5D5F /* CommentVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommentVC.m; sourceTree = "<group>"; };
+		B56E978E284A597B00FC5D5F /* TopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopView.h; sourceTree = "<group>"; };
+		B56E978F284A597B00FC5D5F /* TopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopView.m; sourceTree = "<group>"; };
 		B5FB337628435BA20024532F /* FirstPageCellTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstPageCellTableViewCell.h; sourceTree = "<group>"; };
 		B5FB337728435BA20024532F /* FirstPageCellTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstPageCellTableViewCell.m; sourceTree = "<group>"; };
 		B5FB33E92844E2EF0024532F /* addressBookData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = addressBookData.plist; path = ../../AddressBookData/addressBookData.plist; sourceTree = "<group>"; };
@@ -246,9 +258,9 @@
 		B54643BA2842FD950027ECD4 /* MomentsPage */ = {
 			isa = PBXGroup;
 			children = (
-				B56E976A2849DD1200FC5D5F /* Controller */,
-				B56E976B2849DD2200FC5D5F /* View */,
-				B56E976C2849DD2A00FC5D5F /* Model */,
+				B56E97812849FE4100FC5D5F /* ListPage */,
+				B56E97822849FE5B00FC5D5F /* PublishPage */,
+				B56E978A2849FF4200FC5D5F /* CommentPage */,
 				B56E97682849DCDB00FC5D5F /* MomentsImage.xcassets */,
 			);
 			path = MomentsPage;
@@ -257,6 +269,7 @@
 		B54643BE2842FDBF0027ECD4 /* PersonPage */ = {
 			isa = PBXGroup;
 			children = (
+				B56E97862849FEC900FC5D5F /* SettingPage */,
 				B54643BF2842FDE90027ECD4 /* PersonPageVC.h */,
 				B54643C02842FDE90027ECD4 /* PersonPageVC.m */,
 			);
@@ -304,6 +317,8 @@
 		B56E976B2849DD2200FC5D5F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B56E978E284A597B00FC5D5F /* TopView.h */,
+				B56E978F284A597B00FC5D5F /* TopView.m */,
 				B56E97702849DDEE00FC5D5F /* MomentsCell.h */,
 				B56E976F2849DDEE00FC5D5F /* MomentsCell.m */,
 				B56E97752849DE1000FC5D5F /* popFuncView.h */,
@@ -319,6 +334,43 @@
 				B56E97722849DE0600FC5D5F /* MomentsModel.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		B56E97812849FE4100FC5D5F /* ListPage */ = {
+			isa = PBXGroup;
+			children = (
+				B56E976A2849DD1200FC5D5F /* Controller */,
+				B56E976B2849DD2200FC5D5F /* View */,
+				B56E976C2849DD2A00FC5D5F /* Model */,
+			);
+			path = ListPage;
+			sourceTree = "<group>";
+		};
+		B56E97822849FE5B00FC5D5F /* PublishPage */ = {
+			isa = PBXGroup;
+			children = (
+				B56E97832849FEBD00FC5D5F /* PublishVC.h */,
+				B56E97842849FEBD00FC5D5F /* PublishVC.m */,
+			);
+			path = PublishPage;
+			sourceTree = "<group>";
+		};
+		B56E97862849FEC900FC5D5F /* SettingPage */ = {
+			isa = PBXGroup;
+			children = (
+				B56E97872849FEF100FC5D5F /* SettingVC.h */,
+				B56E97882849FEF100FC5D5F /* SettingVC.m */,
+			);
+			path = SettingPage;
+			sourceTree = "<group>";
+		};
+		B56E978A2849FF4200FC5D5F /* CommentPage */ = {
+			isa = PBXGroup;
+			children = (
+				B56E978B2849FF5400FC5D5F /* CommentVC.h */,
+				B56E978C2849FF5400FC5D5F /* CommentVC.m */,
+			);
+			path = CommentPage;
 			sourceTree = "<group>";
 		};
 		B5FB33ED2844E3410024532F /* Controller */ = {
@@ -471,6 +523,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B56E978D2849FF5400FC5D5F /* CommentVC.m in Sources */,
 				B56E977A2849DE1800FC5D5F /* SKKImageZoom.m in Sources */,
 				B54643C12842FDE90027ECD4 /* PersonPageVC.m in Sources */,
 				B56E97712849DDEE00FC5D5F /* MomentsCell.m in Sources */,
@@ -485,7 +538,10 @@
 				B5FB33F42844E3A70024532F /* AddressBookModel.m in Sources */,
 				B5FB33F12844E38E0024532F /* AddressBookView.m in Sources */,
 				B56E97772849DE1000FC5D5F /* popFuncView.m in Sources */,
+				B56E97852849FEBD00FC5D5F /* PublishVC.m in Sources */,
 				B54643B92842FD5A0027ECD4 /* AddressBookVC.m in Sources */,
+				B56E97892849FEF100FC5D5F /* SettingVC.m in Sources */,
+				B56E9790284A597B00FC5D5F /* TopView.m in Sources */,
 				B5FB337828435BA20024532F /* FirstPageCellTableViewCell.m in Sources */,
 				B54643AD284285320027ECD4 /* LoginView.m in Sources */,
 				B54643B32842FCB20027ECD4 /* TabBarVC.m in Sources */,
