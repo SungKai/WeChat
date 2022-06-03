@@ -6,10 +6,12 @@ PODS:
     - SQLiteRepairKit (~> 1.2.0)
     - WCDBOptimizedSQLCipher (~> 1.2.0)
   - WCDBOptimizedSQLCipher (1.2.1)
+  - YYText (1.0.7)
 
 DEPENDENCIES:
   - Masonry (~> 1.1.0)
   - WCDB
+  - YYText
 
 SPEC REPOS:
   https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git:
@@ -17,13 +19,15 @@ SPEC REPOS:
     - SQLiteRepairKit
     - WCDB
     - WCDBOptimizedSQLCipher
+    - YYText
 
 SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   SQLiteRepairKit: 35aaae5a8838adb85f5b1eb4d796055be6060a4b
   WCDB: 8e90babdeb7784c569353a4bd22a66c0a175a882
   WCDBOptimizedSQLCipher: baf44493b0c7a3d49e97bc5b64a3856f6428ddd1
+  YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 3755db38d665a953de616c0f2b91c21aaed5a8e5
+PODFILE CHECKSUM: dc2cdffe3f38a4f71339c94051052ccd7f608658
 
 COCOAPODS: 1.11.2

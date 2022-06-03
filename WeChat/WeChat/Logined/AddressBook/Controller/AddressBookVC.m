@@ -24,7 +24,6 @@
     [self.view addSubview:self.topView];
     [self.view addSubview:self.tableView];
     self.tableView.data = self.dataArray;
-    
 }
 
 

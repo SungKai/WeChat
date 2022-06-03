@@ -15,9 +15,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol AddressBookViewDelegate <NSObject>
+
+
+@end
+
 @interface AddressBookView : UITableView <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) NSArray <AddressBookModel *> *data;
+
+@property (nonatomic, weak) id<AddressBookViewDelegate> cellDelegate;
 
 @end
 

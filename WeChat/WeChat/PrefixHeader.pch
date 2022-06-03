@@ -17,4 +17,13 @@
 
 //NSUserDefaults
 #define UserDefaults [NSUserDefaults standardUserDefaults]
+
+//点赞时自己的名字
+#define LikeName @"Vermouth"
+
+//MomentsCell里面的位置
+#define Right 80
+#define TopAndBottomMargin 20
+#define LeftAndRightMargin 14
+
 #endif /* PrefixHeader_pch */

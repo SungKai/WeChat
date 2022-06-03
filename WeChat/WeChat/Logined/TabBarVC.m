@@ -82,6 +82,7 @@
 - (MomentsPageVC *)momentsPageVC {
     if (_momentsPageVC == nil) {
         _momentsPageVC = [[MomentsPageVC alloc] init];
+        _momentsPageVC.view.backgroundColor = [UIColor yellowColor];
         _momentsPageVC.title = @"发现";
         _momentsPageVC.tabBarItem.title = @"发现";
         _momentsPageVC.tabBarItem.image = [UIImage systemImageNamed:@"safari"];
