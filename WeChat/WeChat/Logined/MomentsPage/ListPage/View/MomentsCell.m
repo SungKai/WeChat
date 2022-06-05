@@ -15,6 +15,7 @@
 {
     self = [super init];
     if (self) {
+        self.contentView.backgroundColor = [UIColor colorNamed:@"#FEFEFE'00^#191919'00"];
         [self setData];
         [self setPosition];
     }
@@ -305,7 +306,7 @@
     
     //separator
     self.separator = [[UIView alloc] init];
-    self.separator.backgroundColor = [UIColor colorNamed:@"#CCCCCC'00^#2F2F2F"];
+    self.separator.backgroundColor = [UIColor colorNamed:@"#E5E5E5'00^#252524'00"];
     
 }
 //点击多功能按钮

@@ -12,6 +12,7 @@
 - (instancetype)initWithPerson:(NSString *)person Text:(NSString *)text ImgView:(NSString *)imgViewData Date:(NSString *)date BellImage:(NSNumber *)bell {
     self = [super init];
     if (self) {
+        self.backgroundColor = [UIColor colorNamed:@"#FEFEFE'00^#191919'00"];
         self.personLab.text = person;
         self.textLab.text = text;
         self.imgView.image = [UIImage imageNamed:imgViewData];
@@ -36,7 +37,7 @@
 - (void)setPosition {
     //imgView
     [self.imgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(CGSizeMake(67, 67));
+        make.size.mas_equalTo(CGSizeMake(58, 58));
         make.centerY.equalTo(self.contentView);
         make.left.equalTo(self.contentView).offset(20);
     }];
@@ -44,15 +45,16 @@
     [self.personLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.imgView.mas_right).offset(15);
         make.right.equalTo(self.contentView).offset(-40);
-        make.top.equalTo(self.imgView);
+        make.top.equalTo(self.imgView).offset(1);
         make.height.mas_equalTo(30);
     }];
 //    //textLab
     [self.textLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.personLab.mas_bottom).offset(10);
+        make.top.equalTo(self.personLab.mas_bottom).offset(5);
         make.left.equalTo(self.personLab);
         make.right.equalTo(self.personLab);
-        make.height.mas_equalTo(20);
+        make.bottom.equalTo(self.imgView).offset(-3);
+//        make.height.mas_equalTo(20);
     }];
     //dateLab
     [self.dateLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -63,7 +65,7 @@
     //separator
     [self.separator mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.contentView);
-        make.height.mas_equalTo(0.7);
+        make.height.mas_equalTo(1);
         make.right.equalTo(self.contentView);
         make.left.equalTo(self.personLab);
     }];
@@ -84,7 +86,7 @@
 - (UILabel *)textLab {
     if (_textLab == nil) {
         _textLab = [[UILabel alloc] init];
-        _textLab.font = [UIFont systemFontOfSize:18];
+        _textLab.font = [UIFont systemFontOfSize:17];
         _textLab.textColor = [UIColor colorNamed:@"#B3B3B3'00^#5D5D5D'00"];
         _textLab.textAlignment = NSTextAlignmentLeft;
     }
@@ -104,7 +106,8 @@
     if (_dateLab == nil) {
         _dateLab = [[UILabel alloc] init];
         _dateLab.font = [UIFont systemFontOfSize:15];
-        _dateLab.textColor = [UIColor colorNamed:@"#CCCCCC'00^#2F2F2F"];
+//        _dateLab.textColor = [UIColor colorNamed:@"#CCCCCC'00^#2F2F2F"];
+        _dateLab.textColor = [UIColor colorNamed:@"#B3B3B3'00^#5D5D5D'00"];
         _dateLab.textAlignment = NSTextAlignmentCenter;
     }
     return _dateLab;
@@ -114,7 +117,8 @@
     if (_bellImageView == nil) {
         _bellImageView = [[UIImageView alloc] init];
         _bellImageView.image = [UIImage systemImageNamed:@"bell.slash"];
-        _bellImageView.tintColor = [UIColor colorNamed:@"#CCCCCC'00^#2F2F2F"];
+//        _bellImageView.tintColor = [UIColor colorNamed:@"#CCCCCC'00^#2F2F2F"];
+        _bellImageView.tintColor = [UIColor colorNamed:@"#B3B3B3'00^#5D5D5D'00"];
     }
     return _bellImageView;
 }
@@ -122,7 +126,7 @@
 - (UIView *)separator {
     if (_separator == nil) {
         _separator = [[UIView alloc] init];
-        _separator.backgroundColor = [UIColor colorNamed:@"#CCCCCC'00^#2F2F2F"];
+        _separator.backgroundColor = [UIColor colorNamed:@"#E5E5E5'00^#252524'00"];
     }
     return _separator;
 }

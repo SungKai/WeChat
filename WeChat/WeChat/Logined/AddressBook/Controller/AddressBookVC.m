@@ -30,7 +30,7 @@
 #pragma mark - Getter
 - (AddressBookView *)tableView {
     if (_tableView == nil) {
-        _tableView = [[AddressBookView alloc] initWithFrame:CGRectMake(0, StatusBarHeight + 60, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStylePlain];
+        _tableView = [[AddressBookView alloc] initWithFrame:CGRectMake(0, StatusBarHeight + 50, SCREEN_WIDTH, SCREEN_HEIGHT - StatusBarHeight - 50) style:UITableViewStylePlain];
     }
     return _tableView;
 }
@@ -53,7 +53,7 @@
     if (_topView == nil) {
         _topView = [[UIView alloc] init];
         _topView.backgroundColor = [UIColor colorNamed:@"#EDEDED'00^#111111'00"];
-        _topView.frame = CGRectMake(0, StatusBarHeight, SCREEN_WIDTH, 60);
+        _topView.frame = CGRectMake(0, StatusBarHeight, SCREEN_WIDTH, 50);
         UILabel *addressBookLab = [[UILabel alloc] init];
         addressBookLab.text = @"通讯录";
         addressBookLab.font = [UIFont boldSystemFontOfSize:23];
@@ -61,7 +61,7 @@
         addressBookLab.textColor = [UIColor colorNamed:@"#181818'00^#CFCFCF'00"];
         [_topView addSubview:addressBookLab];
         [addressBookLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(_topView).offset(5);
+            make.top.equalTo(_topView);
             make.size.mas_equalTo(CGSizeMake(100, 50));
             make.centerX.equalTo(_topView);
         }];

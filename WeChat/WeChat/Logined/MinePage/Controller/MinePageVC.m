@@ -26,6 +26,7 @@ PHPickerViewControllerDelegate
 
 @property (nonatomic, strong) NSArray<MineModel *> *dataArray;
 
+@property (nonatomic, strong) UIImageView *avaterImageView;
 @end
 
 @implementation MinePageVC
@@ -40,6 +41,14 @@ PHPickerViewControllerDelegate
 #pragma mark - Method
 - (void)clickToChangeAvater {
     NSLog(@"换头像");
+    PHPickerConfiguration *picker = [[PHPickerConfiguration alloc] init];
+    picker.selectionLimit = 1;
+    picker.filter = [PHPickerFilter imagesFilter];
+    //安装配置
+    PHPickerViewController *pVC = [[PHPickerViewController alloc] initWithConfiguration:picker];
+    
+    pVC.delegate = self;
+    [self presentViewController:pVC animated:YES completion:nil];
 }
 ///生成退出登录的UILabel
 - (UILabel *)logoutLab {
@@ -56,7 +65,6 @@ PHPickerViewControllerDelegate
         NSLog(@"%@", self.navigationController);
         [UserDefaults setBool:NO forKey:@"login"];
         [self.minePageDelegate logout];
-//        [self.navigationController popToViewController:<#(nonnull UIViewController *)#> animated:<#(BOOL)#>];
     }
 }
 #pragma mark - UITableViewDataSource
@@ -87,6 +95,8 @@ PHPickerViewControllerDelegate
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.imageView.image = [UIImage imageNamed:model.image];
         cell.textLabel.text = model.title;
+        cell.textLabel.font = [UIFont systemFontOfSize:20];
+        cell.textLabel.textColor = [UIColor colorNamed:@"#181818'00^#CFCFCF'00"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }else {
         UILabel *logoutLab = [self logoutLab];
@@ -103,7 +113,7 @@ PHPickerViewControllerDelegate
 
 #pragma mark - Delegate
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 15;
+    return 13;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -121,7 +131,30 @@ PHPickerViewControllerDelegate
     UIView *view = [[UIView alloc] init];
     return view;
 }
-//heightForHeaderInSection
+
+// MARK: <PHPickerViewControllerDelegate>
+- (void)picker:(PHPickerViewController *)picker didFinishPicking:(NSArray<PHPickerResult *> *)results{
+    //picker消失
+    [picker dismissViewControllerAnimated:YES completion:nil];
+
+    for (PHPickerResult *result in results) {
+        [result.itemProvider loadObjectOfClass:[UIImage class] completionHandler:^(__kindof id <NSItemProviderReading>  _Nullable object, NSError * _Nullable error) {
+            //如果结果的类型是UIImage
+            if ([object isKindOfClass:[UIImage class]]) {
+               //获取主线程（更新UI）
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    //设置头像
+                    self.avaterImageView.image = object;
+                    //数据存储
+                    
+                });
+            }
+        }];
+        
+    }
+}
+
+
 #pragma mark - Getter
 - (UITableView *)tableView {
     if (_tableView == nil) {
@@ -136,11 +169,7 @@ PHPickerViewControllerDelegate
     if (_topView == nil) {
         _topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 190)];
         _topView.backgroundColor = [UIColor colorNamed:@"#FEFEFE'00^#191919'00"];
-        //avaterImageView
-        UIImageView *avaterImageView = [[UIImageView alloc] init];
-        avaterImageView.image = [UIImage imageNamed:@"avatar"];
-        avaterImageView.layer.masksToBounds = YES;
-        avaterImageView.layer.cornerRadius = 7;
+        
         //nameLab
         UILabel *nameLab = [[UILabel alloc] init];
         nameLab.text = @"Vermouth";
@@ -152,24 +181,23 @@ PHPickerViewControllerDelegate
         chevronImageView.image = [UIImage systemImageNamed:@"chevron.right"];
         chevronImageView.tintColor = [UIColor colorNamed:@"#B3B3B3'00^#5D5D5D'00"];
         
-        [_topView addSubview:avaterImageView];
         [_topView addSubview:nameLab];
         [_topView addSubview:chevronImageView];
+        [_topView addSubview:self.avaterImageView];
         //设置位置
-        [avaterImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.avaterImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(_topView).offset(30);
             make.left.equalTo(_topView).offset(30);
             make.size.mas_equalTo(CGSizeMake(70, 70));
         }];
         [nameLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(avaterImageView);
-            make.left.equalTo(avaterImageView.mas_right).offset(30);
+            make.centerY.equalTo(self.avaterImageView);
+            make.left.equalTo(self.avaterImageView.mas_right).offset(30);
             make.size.mas_equalTo(CGSizeMake(200, 50));
         }];
         [chevronImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(avaterImageView);
+            make.centerY.equalTo(self.avaterImageView);
             make.right.equalTo(_topView).offset(-20);
-//            make.size.mas_equalTo(CGSizeMake(17, 22));
         }];
         //设置点击手势
         UIGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickToChangeAvater)];
@@ -177,6 +205,18 @@ PHPickerViewControllerDelegate
         _topView.userInteractionEnabled = YES;
     }
     return _topView;
+}
+- (UIImageView *)avaterImageView {
+    if (_avaterImageView == nil) {
+        _avaterImageView = [[UIImageView alloc] init];
+        _avaterImageView.image = [UIImage imageNamed:@"avatar"];
+        _avaterImageView.layer.masksToBounds = YES;
+        _avaterImageView.layer.cornerRadius = 7;
+        
+        
+        
+    }
+    return _avaterImageView;
 }
 
 - (NSArray<MineModel *> *)dataArray {

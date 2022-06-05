@@ -27,7 +27,6 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    NSLog(@"self.data.count = %ld", self.data.count);
     return self.data.count;
 }
 
@@ -37,12 +36,14 @@
     FirstPageCellTableViewCell *firstCell = [tableView dequeueReusableCellWithIdentifier:firstPageCellID];
     if (firstCell == nil) {
         firstCell = [[FirstPageCellTableViewCell alloc]initWithPerson:dataModel.person Text:dataModel.text ImgView:dataModel.image Date:dataModel.date BellImage:dataModel.bell];
+        //设置cell无法点击
+        [firstCell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }
     return firstCell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 90;
+    return 85;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

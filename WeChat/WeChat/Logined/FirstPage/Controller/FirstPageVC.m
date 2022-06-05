@@ -49,8 +49,8 @@
 
 - (FirstPageView *)firstTableView {
     if (_firstTableView == nil) {
-        _firstTableView = [[FirstPageView alloc] initWithFrame:CGRectMake(0, StatusBarHeight + 50, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStylePlain];
-//        _firstTableView.backgroundColor = [UIColor grayColor];
+        _firstTableView = [[FirstPageView alloc] initWithFrame:CGRectMake(0, StatusBarHeight + 50, SCREEN_WIDTH, SCREEN_HEIGHT - StatusBarHeight - 50) style:UITableViewStylePlain];
+        _firstTableView.backgroundColor = [UIColor colorNamed:@"#FEFEFE'00^#191919'00"];
     }
     return _firstTableView;
 }

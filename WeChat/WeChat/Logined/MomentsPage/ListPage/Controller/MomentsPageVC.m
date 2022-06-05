@@ -175,6 +175,7 @@ popFuncViewDelegate
 - (UITableView *)tableView {
     if (_tableView == nil) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, - StatusBarHeight - 60, SCREEN_WIDTH, SCREEN_HEIGHT + 60) style:UITableViewStylePlain];
+       _tableView.backgroundColor = [UIColor colorNamed:@"#FEFEFE'00^#191919'00"];
         _tableView.dataSource = self;
         _tableView.delegate = self;
         

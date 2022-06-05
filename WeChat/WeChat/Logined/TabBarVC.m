@@ -44,20 +44,15 @@
 }
 
 #pragma mark - Method
+//退出登录
 - (void)logout {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popToRootViewControllerAnimated:NO];
 }
 #pragma mark - Getter
 - (UINavigationController *)momentsNav {
     UINavigationController *momentsNav = [[UINavigationController alloc] initWithRootViewController:self.momentsPageVC];
     momentsNav.navigationBarHidden = NO;
     momentsNav.navigationBar.translucent = YES;
-    //发布按钮
-//    UIButton *publishBtn = [[UIButton alloc] init];
-//    [publishBtn setBackgroundImage:[UIImage systemImageNamed:@"camera.fill"] forState:UIControlStateNormal];
-//    publishBtn.tintColor = [UIColor colorNamed:@"#1A1A1A'00^#D0D0D0'00"];
-//    publishBtn.frame = CGRectMake(SCREEN_WIDTH - 40, StatusBarHeight + 12, 28, 20);
-//    [momentsNav.view addSubview:publishBtn];
     
     return momentsNav;
 }

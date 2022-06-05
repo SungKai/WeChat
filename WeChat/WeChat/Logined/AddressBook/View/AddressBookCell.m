@@ -15,6 +15,7 @@
 - (instancetype)initWithTitle:(NSString *)title ImageData:(NSString *)imageData {
     self = [super init];
     if (self) {
+        self.backgroundColor = [UIColor colorNamed:@"#FEFEFE'00^#191919'00"];
         self.nameLab.text = title;
         self.avatarImgView.image = [UIImage imageNamed:imageData];
         [self.contentView addSubview:self.avatarImgView];

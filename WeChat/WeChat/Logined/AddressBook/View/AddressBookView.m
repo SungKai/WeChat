@@ -34,6 +34,8 @@
     AddressBookCell *cell = [tableView dequeueReusableCellWithIdentifier:addressBookID];
     if (cell == nil) {
         cell = [[AddressBookCell alloc] initWithTitle:model.title ImageData:model.image];
+        //设置cell无法点击
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }
     return cell;
 }
