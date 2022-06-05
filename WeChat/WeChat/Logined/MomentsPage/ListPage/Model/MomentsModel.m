@@ -10,7 +10,7 @@
 @implementation MomentsModel
 /// KVC字典转模型
 /// @param dic 字典
-- (instancetype)MomentsMomentsModelWithDic:(NSDictionary *)dic {
+- (instancetype)MomentsModelWithDic:(NSDictionary *)dic {
     [self setValuesForKeysWithDictionary:dic];
     return self;
 }

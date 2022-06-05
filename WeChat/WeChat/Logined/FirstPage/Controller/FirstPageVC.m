@@ -43,7 +43,6 @@
             [ma addObject:model];
         }
         _dataArray = ma;
-//        NSLog(@"_dataArray.count = %ld", _dataArray.count);
     }
     return _dataArray;
 }

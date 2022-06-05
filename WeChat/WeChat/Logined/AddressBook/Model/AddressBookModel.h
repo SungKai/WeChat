@@ -11,9 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AddressBookModel : NSObject
 
-@property (nonatomic, strong) NSString *title;
+@property (nonatomic, copy) NSString *title;
 
-@property (nonatomic, strong) NSString *image;
+@property (nonatomic, copy) NSString *image;
 
 /// KVC字典转模型
 /// @param dic 字典

@@ -5,7 +5,6 @@
 //  Created by 宋开开 on 2022/5/29.
 //
 
-//camera.fill
 #import "MomentsPageVC.h"
 
 //VC
@@ -46,25 +45,26 @@ popFuncViewDelegate
 @end
 
 @implementation MomentsPageVC
-//- (instancetype)init
-//{
-//    self = [super init];
-//    if (self) {
-//        self.view.backgroundColor = [UIColor greenColor];
-//    }
-//    return self;
-//}
+
 #pragma mark - Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.view.backgroundColor = [UIColor grayColor];
     [self.view addSubview:self.tableView];
     self.tableView.tableHeaderView = self.topView;
-//    [self.view addSubview:self.topView];
+    [self getIntoPublishVC];
 }
 
 #pragma mark - Method
-
+///进入发布界面
+- (void)getIntoPublishVC {
+    UIButton *publishBtn = [[UIButton alloc] init];
+    [publishBtn setBackgroundImage:[UIImage systemImageNamed:@"camera.fill"] forState:UIControlStateNormal];
+    publishBtn.tintColor = [UIColor colorNamed:@"#1A1A1A'00^#D0D0D0'00"];
+    publishBtn.frame = CGRectMake(SCREEN_WIDTH - 40, StatusBarHeight + 12, 28, 20);
+    //navigationBar
+//    [self.navigationController.navigationBar addSubview:publishBtn];
+    [self.navigationController.view addSubview:publishBtn];
+}
 ///加上背景蒙版（使点击任意一处退出多功能按钮）
 - (void)showBackViewWithGesture {
     [self.view.window addSubview:self.backView];
@@ -93,6 +93,8 @@ popFuncViewDelegate
     if (momentsCell == nil) {
         momentsCell = [[MomentsCell alloc] init];
         momentsCell.cellDelegate = self;
+        //设置cell无法点击
+        [momentsCell setSelectionStyle:UITableViewCellSelectionStyleNone];
         //点赞
         NSMutableArray *likesMutArray = [NSMutableArray array];
         NSLog(@"model.likes.count = %lu", model.likes.count);
@@ -107,7 +109,6 @@ popFuncViewDelegate
 //        NSLog(@"likes : %@", likesMutArray);
         //设置数据
         [momentsCell setAvatarImgData:model.avatar NameText:model.person Text:model.text ImagesArray:model.images DateText:model.time LikesTextArray:likesMutArray CommentsTextArray:commentsMutArray];
-        [momentsCell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }
     return momentsCell;
 }
@@ -140,10 +141,6 @@ popFuncViewDelegate
     
 }
 
-
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-//    return 200;
-//}
 // MARK: <popFuncViewDelegate>
 /// 点击点赞按钮
 /// @param sender 该按钮
@@ -190,10 +187,9 @@ popFuncViewDelegate
         _dataArray = [NSMutableArray array];
         NSString *filePath = [[NSBundle mainBundle] pathForResource:@"momentData.plist" ofType:nil];
         NSArray *data = [NSArray arrayWithContentsOfFile:filePath];
-//        NSMutableArray *tempMa = [NSMutableArray array];
         for (NSDictionary *dic in data) {
             MomentsModel *model = [[MomentsModel alloc] init];
-            [model MomentsMomentsModelWithDic:dic];
+            [model MomentsModelWithDic:dic];
             [_dataArray addObject:model];
         }
     }

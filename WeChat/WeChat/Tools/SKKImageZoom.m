@@ -58,24 +58,36 @@ UIButton *downloadBtn;
     imgView.image = image;
     [imgView setTag:1];
     [backgroundView addSubview:imgView];
-    //设置缩放尺寸
-    backgroundView.maximumZoomScale = 3.2;
-    backgroundView.minimumZoomScale = 1.0;
-    backgroundView.zoomScale = 1.0;
-    //使视图保持中心位置
-    [self centerScrollViewContents:backgroundView];
-    [window addSubview:backgroundView];
     //动画放大
+    CGFloat width = SCREENWIDTH;
+    CGFloat height = image.size.height * (SCREENWIDTH / image.size.width);
+    CGFloat y = (SCREENHEIGHT - height) * 0.5;
+    
     [UIView animateWithDuration:0.4 animations:^{
-        CGFloat width = SCREENWIDTH;
-        CGFloat height = image.size.height * (SCREENWIDTH / image.size.width);
-        CGFloat y = (SCREENHEIGHT - height) * 0.5;
         [imgView setFrame:CGRectMake(0, y, width, height)];
         //此时显示视图
         [backgroundView setAlpha:1];
     } completion:^(BOOL finished) {
         
     }];
+    //设置缩放尺寸
+    backgroundView.maximumZoomScale = SCREEN_HEIGHT / height + 0.1;
+    backgroundView.minimumZoomScale = 1.0;
+    backgroundView.zoomScale = 1.0;
+    //使视图保持中心位置
+    [self centerScrollViewContents:backgroundView];
+    [window addSubview:backgroundView];
+//    //动画放大
+//    [UIView animateWithDuration:0.4 animations:^{
+//        CGFloat width = SCREENWIDTH;
+//        CGFloat height = image.size.height * (SCREENWIDTH / image.size.width);
+//        CGFloat y = (SCREENHEIGHT - height) * 0.5;
+//        [imgView setFrame:CGRectMake(0, y, width, height)];
+//        //此时显示视图
+//        [backgroundView setAlpha:1];
+//    } completion:^(BOOL finished) {
+//
+//    }];
     //1.恢复原图手势
     UITapGestureRecognizer *tapRecoverGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideImageView:)];
     [backgroundView addGestureRecognizer:tapRecoverGestureRecognizer];

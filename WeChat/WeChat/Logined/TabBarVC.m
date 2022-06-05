@@ -10,9 +10,9 @@
 #import "FirstPageVC.h"
 #import "AddressBookVC.h"
 #import "MomentsPageVC.h"
-#import "PersonPageVC.h"
+#import "MinePageVC.h"
 
-@interface TabBarVC ()
+@interface TabBarVC () <MinePageVCDelegate>
 
 @property (nonatomic, strong) FirstPageVC *firstPageVC;
 
@@ -20,7 +20,7 @@
 
 @property (nonatomic, strong) MomentsPageVC *momentsPageVC;
 
-@property (nonatomic, strong) PersonPageVC *personPageVC;
+@property (nonatomic, strong) MinePageVC *minePageVC;
 
 @end
 
@@ -43,16 +43,27 @@
     // Do any additional setup after loading the view.
 }
 
+#pragma mark - Method
+- (void)logout {
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
 #pragma mark - Getter
 - (UINavigationController *)momentsNav {
     UINavigationController *momentsNav = [[UINavigationController alloc] initWithRootViewController:self.momentsPageVC];
     momentsNav.navigationBarHidden = NO;
     momentsNav.navigationBar.translucent = YES;
+    //发布按钮
+//    UIButton *publishBtn = [[UIButton alloc] init];
+//    [publishBtn setBackgroundImage:[UIImage systemImageNamed:@"camera.fill"] forState:UIControlStateNormal];
+//    publishBtn.tintColor = [UIColor colorNamed:@"#1A1A1A'00^#D0D0D0'00"];
+//    publishBtn.frame = CGRectMake(SCREEN_WIDTH - 40, StatusBarHeight + 12, 28, 20);
+//    [momentsNav.view addSubview:publishBtn];
+    
     return momentsNav;
 }
 
 - (UINavigationController *)personNav {
-    UINavigationController *personNav = [[UINavigationController alloc] initWithRootViewController:self.personPageVC];
+    UINavigationController *personNav = [[UINavigationController alloc] initWithRootViewController:self.minePageVC];
     personNav.navigationBarHidden = NO;
     personNav.navigationBar.translucent = YES;
     return personNav;
@@ -82,7 +93,6 @@
 - (MomentsPageVC *)momentsPageVC {
     if (_momentsPageVC == nil) {
         _momentsPageVC = [[MomentsPageVC alloc] init];
-        _momentsPageVC.view.backgroundColor = [UIColor yellowColor];
         _momentsPageVC.title = @"发现";
         _momentsPageVC.tabBarItem.title = @"发现";
         _momentsPageVC.tabBarItem.image = [UIImage systemImageNamed:@"safari"];
@@ -92,15 +102,15 @@
     return _momentsPageVC;
 }
 
-- (PersonPageVC *)personPageVC {
-    if (_personPageVC == nil) {
-        _personPageVC = [[PersonPageVC alloc] init];
-        _personPageVC.title = @"我";
-        _personPageVC.tabBarItem.title = @"我";
-        _personPageVC.tabBarItem.image = [UIImage systemImageNamed:@"person"];
-        _personPageVC.tabBarItem.selectedImage = [UIImage systemImageNamed:@"person.fill"];
+- (MinePageVC *)minePageVC {
+    if (_minePageVC == nil) {
+        _minePageVC = [[MinePageVC alloc] init];
+        _minePageVC.minePageDelegate = self;
+        _minePageVC.tabBarItem.title = @"我";
+        _minePageVC.tabBarItem.image = [UIImage systemImageNamed:@"person"];
+        _minePageVC.tabBarItem.selectedImage = [UIImage systemImageNamed:@"person.fill"];
     }
-    return _personPageVC;
+    return _minePageVC;
 }
 /*
 #pragma mark - Navigation
