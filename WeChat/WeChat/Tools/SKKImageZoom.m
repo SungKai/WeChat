@@ -49,7 +49,6 @@ UIButton *downloadBtn;
     backgroundView.delegate = self;
     backgroundView.showsVerticalScrollIndicator = NO;
     backgroundView.showsHorizontalScrollIndicator = NO;
-//    backgroundView.bounces = NO;
     //此时视图不会显示
     [backgroundView setAlpha:0];
     
@@ -58,6 +57,7 @@ UIButton *downloadBtn;
     imgView.image = image;
     [imgView setTag:1];
     [backgroundView addSubview:imgView];
+    
     //动画放大
     CGFloat width = SCREENWIDTH;
     CGFloat height = image.size.height * (SCREENWIDTH / image.size.width);
@@ -77,22 +77,12 @@ UIButton *downloadBtn;
     //使视图保持中心位置
     [self centerScrollViewContents:backgroundView];
     [window addSubview:backgroundView];
-//    //动画放大
-//    [UIView animateWithDuration:0.4 animations:^{
-//        CGFloat width = SCREENWIDTH;
-//        CGFloat height = image.size.height * (SCREENWIDTH / image.size.width);
-//        CGFloat y = (SCREENHEIGHT - height) * 0.5;
-//        [imgView setFrame:CGRectMake(0, y, width, height)];
-//        //此时显示视图
-//        [backgroundView setAlpha:1];
-//    } completion:^(BOOL finished) {
-//
-//    }];
+
     //1.恢复原图手势
     UITapGestureRecognizer *tapRecoverGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideImageView:)];
     [backgroundView addGestureRecognizer:tapRecoverGestureRecognizer];
     //点击下载Btn，保存图片到相册
-    downloadBtn = [[UIButton alloc]initWithFrame:CGRectMake(320, 550, 50, 50)];
+    downloadBtn = [[UIButton alloc] initWithFrame:CGRectMake(320, 550, 50, 50)];
     [downloadBtn setBackgroundImage:[UIImage systemImageNamed:@"square.and.arrow.down"] forState:UIControlStateNormal];
     [downloadBtn setTintColor:[UIColor whiteColor]];
     [downloadBtn addTarget:self action:@selector(clickDownload) forControlEvents:UIControlEventTouchUpInside];
@@ -117,6 +107,7 @@ UIButton *downloadBtn;
     }
     imgView.frame = contentsFrame;
 }
+
 /// 恢复原图
 /// @param tap 手势
 - (void)hideImageView:(UITapGestureRecognizer *)tap {
@@ -135,7 +126,7 @@ UIButton *downloadBtn;
 
 /// 点击下载图片
 - (void)clickDownload {
-    UIImageWriteToSavedPhotosAlbum(imgView.image, self,@selector(imageSavedToPhotosAlbum:didFinishSavingWithError:contextInfo:) ,nil);
+    UIImageWriteToSavedPhotosAlbum(imgView.image, self, @selector(imageSavedToPhotosAlbum:didFinishSavingWithError:contextInfo:) ,nil);
 }
 
 /// 保存图片后的回调
@@ -156,6 +147,7 @@ UIButton *downloadBtn;
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
     return imgView;
 }
+
 //保持中心位置
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView {
     [self centerScrollViewContents:(scrollView)];

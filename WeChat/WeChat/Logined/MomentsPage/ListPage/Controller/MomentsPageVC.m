@@ -5,6 +5,8 @@
 //  Created by 宋开开 on 2022/5/29.
 //
 
+//发布和评论的数据存储
+
 #import "MomentsPageVC.h"
 
 //VC
@@ -21,7 +23,11 @@
 //Tools
 #import "YYText.h"
 #import "Masonry.h"
+#import "Publish.h"
+#import "Comment.h"
 
+#define PublishManager [PublishManager shareInstance]
+#define CommentManager [CommentManager shareInstance]
 @interface MomentsPageVC ()<
 UITableViewDataSource,
 UITableViewDelegate,
@@ -55,6 +61,21 @@ popFuncViewDelegate
 }
 
 #pragma mark - Method
+///把plist文件里的数据写入数据存储
+- (void)saveData {
+    //创建数据库
+    BOOL result = [PublishManager creatWCDB];
+    if (result) {
+        //创建成功，添加plist数据
+        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"momentData.plist" ofType:nil];
+        NSArray *data = [NSArray arrayWithContentsOfFile:filePath];
+        for (NSDictionary *dic in data) {
+            MomentsModel *model = [[MomentsModel alloc] init];
+            [model MomentsModelWithDic:dic];
+            [_dataArray addObject:model];
+        }
+    }
+}
 ///进入发布界面
 - (void)getIntoPublishVC {
     UIButton *publishBtn = [[UIButton alloc] init];
@@ -97,7 +118,6 @@ popFuncViewDelegate
         [momentsCell setSelectionStyle:UITableViewCellSelectionStyleNone];
         //点赞
         NSMutableArray *likesMutArray = [NSMutableArray array];
-        NSLog(@"model.likes.count = %lu", model.likes.count);
         for (int i = 0; i < model.likes.count; i++) {
             [likesMutArray addObject:model.likes[i]];
         }

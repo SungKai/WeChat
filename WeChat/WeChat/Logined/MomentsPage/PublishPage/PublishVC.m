@@ -6,16 +6,23 @@
 //
 
 #import "PublishVC.h"
-
+////发布和评论的数据存储
+#define PublishManager [PublishManager shareInstance]
+#define CommentManager [CommentManager shareInstance]
 @interface PublishVC ()
 
+//@property (nonatomic, )
 @end
 
 @implementation PublishVC
 
+
+#pragma mark - Method
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor grayColor];
+    self.navigationController.navigationBar.hidden = YES;
+    self.tabBarController.tabBar.hidden = YES;
     // Do any additional setup after loading the view.
 }
 

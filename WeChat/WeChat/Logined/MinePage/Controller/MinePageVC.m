@@ -146,6 +146,7 @@ PHPickerViewControllerDelegate
                     //设置头像
                     self.avaterImageView.image = object;
                     //数据存储
+//                    NSData *data = UIImagePNGRepresentation(object);
                     
                 });
             }
@@ -212,9 +213,6 @@ PHPickerViewControllerDelegate
         _avaterImageView.image = [UIImage imageNamed:@"avatar"];
         _avaterImageView.layer.masksToBounds = YES;
         _avaterImageView.layer.cornerRadius = 7;
-        
-        
-        
     }
     return _avaterImageView;
 }

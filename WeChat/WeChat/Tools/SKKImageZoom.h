@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @protocol SKKImageZoomDelegate <NSObject>
 
-- (void)saveAlertControllerApper:(UIAlertController *)alertController;
+- (void)saveAlertControllerAppear:(UIAlertController *)alertController;
 
 @end
 

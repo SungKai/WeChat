@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		31B57CFE521B3BB6B2607FF7 /* Pods_WeChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73A68825826A990CB809893C /* Pods_WeChat.framework */; };
+		B5007520284E14AD0067AAAF /* Publish.mm in Sources */ = {isa = PBXBuildFile; fileRef = B500751B284E14AD0067AAAF /* Publish.mm */; };
+		B5007521284E14AD0067AAAF /* Comment.mm in Sources */ = {isa = PBXBuildFile; fileRef = B500751E284E14AD0067AAAF /* Comment.mm */; };
+		B5007524284E1C400067AAAF /* PublishView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5007523284E1C400067AAAF /* PublishView.m */; };
 		B52A261428420D2400607363 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B52A261328420D2400607363 /* AppDelegate.m */; };
 		B52A261D28420D2400607363 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B52A261B28420D2400607363 /* Main.storyboard */; };
 		B52A261F28420D2500607363 /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B52A261E28420D2500607363 /* Color.xcassets */; };
@@ -49,6 +52,14 @@
 		09F1320FC9D24D0CE36AE86D /* Pods-WeChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeChat.debug.xcconfig"; path = "Target Support Files/Pods-WeChat/Pods-WeChat.debug.xcconfig"; sourceTree = "<group>"; };
 		73A68825826A990CB809893C /* Pods_WeChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C4D6A455DC381C0CB994636 /* Pods-WeChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeChat.release.xcconfig"; path = "Target Support Files/Pods-WeChat/Pods-WeChat.release.xcconfig"; sourceTree = "<group>"; };
+		B500751A284E14AD0067AAAF /* Publish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Publish.h; sourceTree = "<group>"; };
+		B500751B284E14AD0067AAAF /* Publish.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Publish.mm; sourceTree = "<group>"; };
+		B500751C284E14AD0067AAAF /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
+		B500751D284E14AD0067AAAF /* Publish+WCTTableCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Publish+WCTTableCoding.h"; sourceTree = "<group>"; };
+		B500751E284E14AD0067AAAF /* Comment.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Comment.mm; sourceTree = "<group>"; };
+		B500751F284E14AD0067AAAF /* Comment+WCTTableCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Comment+WCTTableCoding.h"; sourceTree = "<group>"; };
+		B5007522284E1C400067AAAF /* PublishView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PublishView.h; sourceTree = "<group>"; };
+		B5007523284E1C400067AAAF /* PublishView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PublishView.m; sourceTree = "<group>"; };
 		B52A260F28420D2400607363 /* WeChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B52A261228420D2400607363 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B52A261328420D2400607363 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -212,6 +223,12 @@
 			children = (
 				B56E97782849DE1800FC5D5F /* SKKImageZoom.h */,
 				B56E97792849DE1800FC5D5F /* SKKImageZoom.m */,
+				B500751A284E14AD0067AAAF /* Publish.h */,
+				B500751B284E14AD0067AAAF /* Publish.mm */,
+				B500751D284E14AD0067AAAF /* Publish+WCTTableCoding.h */,
+				B500751C284E14AD0067AAAF /* Comment.h */,
+				B500751E284E14AD0067AAAF /* Comment.mm */,
+				B500751F284E14AD0067AAAF /* Comment+WCTTableCoding.h */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -356,6 +373,8 @@
 			children = (
 				B56E97832849FEBD00FC5D5F /* PublishVC.h */,
 				B56E97842849FEBD00FC5D5F /* PublishVC.m */,
+				B5007522284E1C400067AAAF /* PublishView.h */,
+				B5007523284E1C400067AAAF /* PublishView.m */,
 			);
 			path = PublishPage;
 			sourceTree = "<group>";
@@ -551,11 +570,14 @@
 				B54643BD2842FDB70027ECD4 /* MomentsPageVC.m in Sources */,
 				B5FB33F82844E5510024532F /* AddressBookCell.m in Sources */,
 				B54643A0284246490027ECD4 /* LoginVC.m in Sources */,
+				B5007524284E1C400067AAAF /* PublishView.m in Sources */,
 				B5FB33F42844E3A70024532F /* AddressBookModel.m in Sources */,
+				B5007521284E14AD0067AAAF /* Comment.mm in Sources */,
 				B5FB33F12844E38E0024532F /* AddressBookView.m in Sources */,
 				B56E97772849DE1000FC5D5F /* popFuncView.m in Sources */,
 				B56E97852849FEBD00FC5D5F /* PublishVC.m in Sources */,
 				B54643B92842FD5A0027ECD4 /* AddressBookVC.m in Sources */,
+				B5007520284E14AD0067AAAF /* Publish.mm in Sources */,
 				B56E9790284A597B00FC5D5F /* TopView.m in Sources */,
 				B5FB337828435BA20024532F /* FirstPageCellTableViewCell.m in Sources */,
 				B54643AD284285320027ECD4 /* LoginView.m in Sources */,

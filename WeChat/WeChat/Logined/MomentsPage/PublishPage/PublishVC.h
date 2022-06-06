@@ -11,7 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PublishVC : UIViewController
 
-- (void)initWithTag:(int)tag;
+///返回数据
+@property (nonatomic, copy) void (^getPublishData)(NSString *text, NSArray *imageArray);
 
 @end
 
