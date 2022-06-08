@@ -28,14 +28,16 @@
 
 #define PublishManager [PublishManager shareInstance]
 #define CommentManager [CommentManager shareInstance]
-@interface MomentsPageVC ()<
+#define MomentModelManager [MomentsModelManager shareInstance]
+
+@interface MomentsPageVC () <
 UITableViewDataSource,
 UITableViewDelegate,
 MomentsCellDelegate,
 popFuncViewDelegate
 >
 
-@property (nonatomic, strong) NSMutableArray <MomentsModel *> *dataArray;
+@property (nonatomic, strong) NSArray <MomentsModel *> *dataArray;
 
 @property (nonatomic, strong) UITableView *tableView;
 
@@ -48,6 +50,9 @@ popFuncViewDelegate
 //朋友圈顶部的封面
 @property (nonatomic, strong) UIView *topView;
 
+///是否已经点过赞
+@property (nonatomic) BOOL liked;
+
 @end
 
 @implementation MomentsPageVC
@@ -55,6 +60,12 @@ popFuncViewDelegate
 #pragma mark - Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //从本地读取数据
+    [self saveData];
+    //设置数据
+    self.dataArray = [NSMutableArray array];
+    self.dataArray = [MomentModelManager getAllPublishData];
+   
     [self.view addSubview:self.tableView];
     self.tableView.tableHeaderView = self.topView;
     [self getIntoPublishVC];
@@ -64,16 +75,28 @@ popFuncViewDelegate
 ///把plist文件里的数据写入数据存储
 - (void)saveData {
     //创建数据库
-    BOOL result = [PublishManager creatWCDB];
+    BOOL result = [MomentModelManager creatWCDB];
     if (result) {
         //创建成功，添加plist数据
         NSString *filePath = [[NSBundle mainBundle] pathForResource:@"momentData.plist" ofType:nil];
         NSArray *data = [NSArray arrayWithContentsOfFile:filePath];
+        NSMutableArray *tempMa = [NSMutableArray array];
+        
         for (NSDictionary *dic in data) {
             MomentsModel *model = [[MomentsModel alloc] init];
             [model MomentsModelWithDic:dic];
-            [_dataArray addObject:model];
+            NSLog(@"model.person = %@", model.person);
+            model.published = 1;
+            NSLog(@"%ld", (long)model.published);
+            [tempMa addObject:model];
         }
+        //写入本地
+        BOOL flag = [MomentModelManager insertDatas:tempMa];
+        if (flag) {
+            NSLog(@"初始数据写入成功");
+        }
+    }else {
+        NSLog(@"VC表格已存在");
     }
 }
 ///进入发布界面
@@ -83,7 +106,6 @@ popFuncViewDelegate
     publishBtn.tintColor = [UIColor colorNamed:@"#1A1A1A'00^#D0D0D0'00"];
     publishBtn.frame = CGRectMake(SCREEN_WIDTH - 40, StatusBarHeight + 12, 28, 20);
     //navigationBar
-//    [self.navigationController.navigationBar addSubview:publishBtn];
     [self.navigationController.view addSubview:publishBtn];
 }
 ///加上背景蒙版（使点击任意一处退出多功能按钮）
@@ -148,12 +170,22 @@ popFuncViewDelegate
     UIWindow *window = self.view.window;
     CGRect frame = [cell.likeOrCommentBtn convertRect:cell.likeOrCommentBtn.bounds toView:window];
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    //取反
+    long tag = [MomentModelManager getAllPublishData].count - indexPath.row - 1;
+//    NSLog(@"indexPath = %@", indexPath);
     //加入背景蒙版
     [self showBackViewWithGesture];
     //做标记
-    self.popFuncView.likesBtn.tag = indexPath.row;
-    self.popFuncView.commentsBtn.tag = indexPath.row;
+    self.popFuncView.likesBtn.tag = tag;
+    self.popFuncView.commentsBtn.tag = tag;
     //给点赞设置标题
+    if ([self isLiked:tag]) {
+        self.popFuncView.likeLab.text = @"取消";
+        self.liked = YES;
+    }else {
+        //之前已经点过赞
+        self.popFuncView.likeLab.text = @"赞";
+    }
     //根据数据存储来设定是 "赞" 还是 "取消"
 //    self.popFuncView.likeLab.text = @"赞";
     self.popFuncView.frame = CGRectMake(frame.origin.x - SCREEN_WIDTH * 0.47, frame.origin.y, 172, 35);
@@ -166,25 +198,52 @@ popFuncViewDelegate
 /// @param sender 该按钮
 - (void)clickLikeBtn:(UIButton *)sender {
     //找到该cell(要倒转）
-    long tag = self.dataArray.count - 1 - sender.tag;
+    
+//    long tag = [MomentModelManager getAllPublishData].count - 1 - sender.tag;
+    long tag = sender.tag;
     NSMutableArray *tempArray = [NSMutableArray arrayWithArray:self.dataArray[tag].likes];
 
-    sender.selected = !sender.selected;
-    //取消选中状态
-    if (!sender.selected) {
+    //需要查看是否在上一次已点赞
+    
+//    sender.selected = !sender.selected;
+    if (self.liked) {  //上次已经点了赞
         [tempArray removeObject:LikeName];
-        //同时应该数据存储
-    }else {  //选中状态
-        [tempArray addObject:LikeName];
-        //同时应该数据存储
+        self.popFuncView.likeLab.text = @"赞";
+        self.liked = NO;
+    }else {
+        if (!sender.selected) {
+            [tempArray removeObject:LikeName];
+            self.popFuncView.likeLab.text = @"赞";
+        }else {  //选中状态
+            [tempArray addObject:LikeName];
+            self.popFuncView.likeLab.text = @"取消";
+        }
     }
+    sender.selected = !sender.selected;
+
     self.dataArray[tag].likes = tempArray;
+    //同时数据存储
+    //1.拿到该条数据
+    MomentsModel *model = [MomentModelManager getAllPublishData][tag];
+    NSLog(@"model.person = %@", model.person);
+    //2.修改点赞数据
+    model.likes = tempArray;
+    [MomentModelManager updataLikesData:model];
+//    [self.popFuncView removeFromSuperview];
     [self.tableView reloadData];
-    //2.取消点赞
-    //1）.只有自己的一个点赞就去掉点赞，再把整个点赞框去掉
-    //2）.多人点赞，只去掉自己的名字
 }
 
+///查看是否在上一次已点赞
+- (BOOL)isLiked:(long)tag {
+    MomentsModel *model = [MomentModelManager getAllPublishData][tag];
+    NSArray *likes = model.likes;
+    for (NSString *s in likes) {
+        if ([s isEqual: LikeName]) {
+            return YES;
+        }
+    }
+    return NO;
+}
 /// 店家评论按钮
 /// @param sender 该按钮
 - (void)clickCommentBtn:(UIButton *)sender {
@@ -203,19 +262,19 @@ popFuncViewDelegate
     return _tableView;
 }
 
-- (NSMutableArray<MomentsModel *> *)dataArray {
-    if (_dataArray == nil) {
-        _dataArray = [NSMutableArray array];
-        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"momentData.plist" ofType:nil];
-        NSArray *data = [NSArray arrayWithContentsOfFile:filePath];
-        for (NSDictionary *dic in data) {
-            MomentsModel *model = [[MomentsModel alloc] init];
-            [model MomentsModelWithDic:dic];
-            [_dataArray addObject:model];
-        }
-    }
-    return _dataArray;
-}
+//- (NSMutableArray<MomentsModel *> *)dataArray {
+//    if (_dataArray == nil) {
+//        _dataArray = [NSMutableArray array];
+//        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"momentData.plist" ofType:nil];
+//        NSArray *data = [NSArray arrayWithContentsOfFile:filePath];
+//        for (NSDictionary *dic in data) {
+//            MomentsModel *model = [[MomentsModel alloc] init];
+//            [model MomentsModelWithDic:dic];
+//            [_dataArray addObject:model];
+//        }
+//    }
+//    return _dataArray;
+//}
 
 - (popFuncView *)popFuncView {
     if (_popFuncView == nil) {

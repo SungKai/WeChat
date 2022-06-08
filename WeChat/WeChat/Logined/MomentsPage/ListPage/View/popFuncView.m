@@ -31,11 +31,16 @@
 #pragma mark - Method
 //点击点赞按钮
 - (void)clickLikesBtn:(UIButton *)sender {
-    [self.popFuncViewDelegate clickLikeBtn:sender];
+//    [self.popFuncViewDelegate clickLikeBtn:sender];
     //点赞爱心放大
     CABasicAnimation *anima = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-    anima.byValue = @(0.6);
+    anima.byValue = @(0.7);
     [self.likeImageView.layer addAnimation:anima forKey:@"scaleAnimation"];
+    [self.popFuncViewDelegate clickLikeBtn:sender];
+    dispatch_time_t delayTime =dispatch_time(DISPATCH_TIME_NOW, (int64_t)(500/*延迟执行时间*/*NSEC_PER_MSEC));
+    dispatch_after(delayTime,dispatch_get_main_queue(), ^{
+        [self removeFromSuperview];
+    });
     NSLog(@"点击点赞按钮");
 }
 
@@ -56,7 +61,7 @@
     [self.likeLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.likesBtn).offset(8);
         make.centerY.equalTo(self.likesBtn);
-        make.size.mas_equalTo(CGSizeMake(20, 30));
+        make.size.mas_equalTo(CGSizeMake(40, 30));
     }];
     //likeImageView
     [self.likeImageView mas_makeConstraints:^(MASConstraintMaker *make) {

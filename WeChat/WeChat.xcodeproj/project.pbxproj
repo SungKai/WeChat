@@ -30,7 +30,7 @@
 		B54643CE2843172C0027ECD4 /* FirstPageImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B54643CD2843172C0027ECD4 /* FirstPageImage.xcassets */; };
 		B56E97692849DCDB00FC5D5F /* MomentsImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B56E97682849DCDB00FC5D5F /* MomentsImage.xcassets */; };
 		B56E97712849DDEE00FC5D5F /* MomentsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B56E976F2849DDEE00FC5D5F /* MomentsCell.m */; };
-		B56E97742849DE0600FC5D5F /* MomentsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B56E97722849DE0600FC5D5F /* MomentsModel.m */; };
+		B56E97742849DE0600FC5D5F /* MomentsModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = B56E97722849DE0600FC5D5F /* MomentsModel.mm */; };
 		B56E97772849DE1000FC5D5F /* popFuncView.m in Sources */ = {isa = PBXBuildFile; fileRef = B56E97762849DE1000FC5D5F /* popFuncView.m */; };
 		B56E977A2849DE1800FC5D5F /* SKKImageZoom.m in Sources */ = {isa = PBXBuildFile; fileRef = B56E97792849DE1800FC5D5F /* SKKImageZoom.m */; };
 		B56E97802849F8A100FC5D5F /* momentData.plist in Resources */ = {isa = PBXBuildFile; fileRef = B56E977F2849F8A100FC5D5F /* momentData.plist */; };
@@ -60,6 +60,7 @@
 		B500751F284E14AD0067AAAF /* Comment+WCTTableCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Comment+WCTTableCoding.h"; sourceTree = "<group>"; };
 		B5007522284E1C400067AAAF /* PublishView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PublishView.h; sourceTree = "<group>"; };
 		B5007523284E1C400067AAAF /* PublishView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PublishView.m; sourceTree = "<group>"; };
+		B5007525284EDE2A0067AAAF /* MomentsModel+WCTTableCoding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MomentsModel+WCTTableCoding.h"; sourceTree = "<group>"; };
 		B52A260F28420D2400607363 /* WeChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B52A261228420D2400607363 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B52A261328420D2400607363 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -93,7 +94,7 @@
 		B56E97682849DCDB00FC5D5F /* MomentsImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MomentsImage.xcassets; sourceTree = "<group>"; };
 		B56E976F2849DDEE00FC5D5F /* MomentsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MomentsCell.m; sourceTree = "<group>"; };
 		B56E97702849DDEE00FC5D5F /* MomentsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MomentsCell.h; sourceTree = "<group>"; };
-		B56E97722849DE0600FC5D5F /* MomentsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MomentsModel.m; sourceTree = "<group>"; };
+		B56E97722849DE0600FC5D5F /* MomentsModel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MomentsModel.mm; sourceTree = "<group>"; };
 		B56E97732849DE0600FC5D5F /* MomentsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MomentsModel.h; sourceTree = "<group>"; };
 		B56E97752849DE1000FC5D5F /* popFuncView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = popFuncView.h; sourceTree = "<group>"; };
 		B56E97762849DE1000FC5D5F /* popFuncView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = popFuncView.m; sourceTree = "<group>"; };
@@ -353,7 +354,8 @@
 			isa = PBXGroup;
 			children = (
 				B56E97732849DE0600FC5D5F /* MomentsModel.h */,
-				B56E97722849DE0600FC5D5F /* MomentsModel.m */,
+				B56E97722849DE0600FC5D5F /* MomentsModel.mm */,
+				B5007525284EDE2A0067AAAF /* MomentsModel+WCTTableCoding.h */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -563,7 +565,7 @@
 				B54643C12842FDE90027ECD4 /* MinePageVC.m in Sources */,
 				B56E97712849DDEE00FC5D5F /* MomentsCell.m in Sources */,
 				B54643C6284312350027ECD4 /* FirstPageModel.m in Sources */,
-				B56E97742849DE0600FC5D5F /* MomentsModel.m in Sources */,
+				B56E97742849DE0600FC5D5F /* MomentsModel.mm in Sources */,
 				B54643CA2843125D0027ECD4 /* FirstPageView.m in Sources */,
 				B54643B62842FD3F0027ECD4 /* FirstPageVC.m in Sources */,
 				B52A261428420D2400607363 /* AppDelegate.m in Sources */,

@@ -224,7 +224,7 @@
         NSMutableAttributedString *commentsAtt = [[NSMutableAttributedString alloc] initWithString:[self.commentsTextArray[i] stringByAppendingString:@"\n"]];
         //找到评论人
         NSString *person = [self.commentsTextArray[i] componentsSeparatedByString: @" :"][0];
-        NSLog(@"person = %@", person);
+//        NSLog(@"person = %@", person);
         commentsAtt.yy_font = font;
         commentsAtt.yy_color = [UIColor colorNamed:@"#191919'00^#A5A5A5'00"];
         //设置不同颜色
