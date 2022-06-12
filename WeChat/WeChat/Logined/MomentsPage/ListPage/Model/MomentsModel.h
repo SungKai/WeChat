@@ -37,7 +37,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)deleteData:(MomentsModel *)publishData;
 
 ///查找缓存信息
-- (NSArray<MomentsModel*> *)getData;  //published == 0
+- (BOOL)isCache;  //查看是否有缓存
+
+- (MomentsModel *)getData;  //published == 0
 
 ///查找已发布信息
 - (NSArray<MomentsModel *> *)getAllPublishData;  //published == 1
@@ -54,13 +56,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSString *text;
 
-@property (nonatomic, strong) NSArray *images;
+@property (nonatomic, strong, nullable) NSMutableArray *images;
 
 @property (nonatomic, copy) NSString *time;
 
-@property (nonatomic, strong) NSMutableArray *likes;
+@property (nonatomic, strong, nullable) NSMutableArray *likes;
 
-@property (nonatomic, strong) NSMutableArray *comments;
+@property (nonatomic, strong, nullable) NSMutableArray *comments;
 
 /// KVC字典转模型
 /// @param dic 字典

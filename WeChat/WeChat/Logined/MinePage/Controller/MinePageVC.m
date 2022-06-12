@@ -26,7 +26,7 @@ PHPickerViewControllerDelegate
 
 @property (nonatomic, strong) NSArray<MineModel *> *dataArray;
 
-@property (nonatomic, strong) UIImageView *avaterImageView;
+@property (nonatomic, strong) UIImageView *avatarImageView;
 @end
 
 @implementation MinePageVC
@@ -39,7 +39,7 @@ PHPickerViewControllerDelegate
 }
 
 #pragma mark - Method
-- (void)clickToChangeAvater {
+- (void)clickToChangeavatar {
     NSLog(@"换头像");
     PHPickerConfiguration *picker = [[PHPickerConfiguration alloc] init];
     picker.selectionLimit = 1;
@@ -144,7 +144,7 @@ PHPickerViewControllerDelegate
                //获取主线程（更新UI）
                 dispatch_async(dispatch_get_main_queue(), ^{
                     //设置头像
-                    self.avaterImageView.image = object;
+                    self.avatarImageView.image = object;
                     //数据存储
 //                    NSData *data = UIImagePNGRepresentation(object);
                     
@@ -184,37 +184,37 @@ PHPickerViewControllerDelegate
         
         [_topView addSubview:nameLab];
         [_topView addSubview:chevronImageView];
-        [_topView addSubview:self.avaterImageView];
+        [_topView addSubview:self.avatarImageView];
         //设置位置
-        [self.avaterImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(_topView).offset(30);
             make.left.equalTo(_topView).offset(30);
             make.size.mas_equalTo(CGSizeMake(70, 70));
         }];
         [nameLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(self.avaterImageView);
-            make.left.equalTo(self.avaterImageView.mas_right).offset(30);
+            make.centerY.equalTo(self.avatarImageView);
+            make.left.equalTo(self.avatarImageView.mas_right).offset(30);
             make.size.mas_equalTo(CGSizeMake(200, 50));
         }];
         [chevronImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(self.avaterImageView);
+            make.centerY.equalTo(self.avatarImageView);
             make.right.equalTo(_topView).offset(-20);
         }];
         //设置点击手势
-        UIGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickToChangeAvater)];
+        UIGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickToChangeavatar)];
         [_topView addGestureRecognizer:tapGestureRecognizer];
         _topView.userInteractionEnabled = YES;
     }
     return _topView;
 }
-- (UIImageView *)avaterImageView {
-    if (_avaterImageView == nil) {
-        _avaterImageView = [[UIImageView alloc] init];
-        _avaterImageView.image = [UIImage imageNamed:@"avatar"];
-        _avaterImageView.layer.masksToBounds = YES;
-        _avaterImageView.layer.cornerRadius = 7;
+- (UIImageView *)avatarImageView {
+    if (_avatarImageView == nil) {
+        _avatarImageView = [[UIImageView alloc] init];
+        _avatarImageView.image = [UIImage imageNamed:@"avatar"];
+        _avatarImageView.layer.masksToBounds = YES;
+        _avatarImageView.layer.cornerRadius = 7;
     }
-    return _avaterImageView;
+    return _avatarImageView;
 }
 
 - (NSArray<MineModel *> *)dataArray {

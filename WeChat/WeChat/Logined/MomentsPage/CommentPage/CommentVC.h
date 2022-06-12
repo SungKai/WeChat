@@ -11,9 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CommentVC : UIViewController
 
-/// 初始化方法
-/// @param tag 该cell
-- (instancetype)initWithTag:(int)tag;
+///信息回调
+@property (nonatomic, copy)void (^getCommentsData )(NSString *commentsText);
+
 
 @end
 

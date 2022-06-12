@@ -91,41 +91,7 @@ WCDB_SYNTHESIZE(MomentsModel, comments)
     }
     return [dataBase insertObjects:publishData into:PublishTableName];
 }
-//// WCTDatabase 事务操作，利用WCTTransaction
-//-(BOOL)insertPersonWithTransaction{
-//
-//
-//    BOOL ret = [dataBase beginTransaction];
-//    ret = [self insertPerson];
-//    if (ret) {
-//
-//        [dataBase commitTransaction];
-//
-//    }else
-//
-//        [dataBase rollbackTransaction];
-//
-//    return ret;
-//}
-//// 另一种事务处理方法Block
-//-(BOOL)insertPersonWithBlock{
-//
-//    BOOL commited  =  [dataBase runTransaction:^BOOL{
-//
-//        BOOL result = [self insertPerson];
-//        if (result) {
-//
-//            return YES;
-//
-//        }else
-//            return NO;
-//
-//    } event:^(WCTTransactionEvent event) {
-//
-//        NSLog(@"Event %d", event);
-//    }];
-//    return commited;
-//}
+
 // MARK: 修改信息
 ///text
 - (BOOL)updataTextData:(MomentsModel *)publishData {
@@ -160,12 +126,29 @@ WCDB_SYNTHESIZE(MomentsModel, comments)
     return [dataBase deleteObjectsFromTable:PublishTableName where:MomentsModel.published == 0];
 }
 
+///删除数据
+//- (void)deletePublishData {
+//    //删除缓存的(published == 0)
+//    if (dataBase == nil) {
+//        [self creatWCDB];
+//    }
+//    return [dataBase deleteObjectsFromTable:PublishTableName where:Publish.published == 0];
+//}
 // MARK: 查找缓存信息
-- (NSArray<MomentsModel*> *)getData {  //published == 0
+///查看是否有缓存
+- (BOOL)isCache {
+    if ([dataBase getObjectsOfClass:MomentsModel.class fromTable:PublishTableName where:MomentsModel.published == 0].count != 0) {
+        return YES;
+    }else {
+        return NO;
+    }
+}
+
+- (MomentsModel *)getData {  //published == 0
     if (dataBase == nil) {
         [self creatWCDB];
     }
-    return [dataBase getObjectsOfClass:MomentsModel.class fromTable:PublishTableName where:MomentsModel.published == 0];
+    return [dataBase getObjectsOfClass:MomentsModel.class fromTable:PublishTableName where:MomentsModel.published == 0].firstObject;
 }
 
 ///查找到某条数据

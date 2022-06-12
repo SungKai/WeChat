@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PublishVC : UIViewController
 
 ///返回数据
-@property (nonatomic, copy) void (^getPublishData)(NSString *text, NSArray *imageArray);
+@property (nonatomic, copy) void (^getPublishData)(NSString *text, NSMutableArray *imageArray);
 
 @end
 

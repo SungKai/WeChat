@@ -31,15 +31,15 @@
 #pragma mark - Method
 //点击点赞按钮
 - (void)clickLikesBtn:(UIButton *)sender {
-//    [self.popFuncViewDelegate clickLikeBtn:sender];
     //点赞爱心放大
     CABasicAnimation *anima = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
     anima.byValue = @(0.7);
     [self.likeImageView.layer addAnimation:anima forKey:@"scaleAnimation"];
-    [self.popFuncViewDelegate clickLikeBtn:sender];
+    //popView自动消失
     dispatch_time_t delayTime =dispatch_time(DISPATCH_TIME_NOW, (int64_t)(500/*延迟执行时间*/*NSEC_PER_MSEC));
     dispatch_after(delayTime,dispatch_get_main_queue(), ^{
         [self removeFromSuperview];
+        [self.popFuncViewDelegate clickLikeBtn:sender];
     });
     NSLog(@"点击点赞按钮");
 }

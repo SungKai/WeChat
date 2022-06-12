@@ -120,6 +120,7 @@ UIButton *downloadBtn;
         [backgroundView setAlpha:0];
     } completion:^(BOOL finished) {
         //完成后操作->将背景视图删掉
+        [downloadBtn removeFromSuperview];
         [backgroundView removeFromSuperview];
     }];
 }

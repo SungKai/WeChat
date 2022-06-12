@@ -25,6 +25,7 @@
 #import "Masonry.h"
 #import "Publish.h"
 #import "Comment.h"
+#import "NSDate+Day.h"
 
 #define PublishManager [PublishManager shareInstance]
 #define CommentManager [CommentManager shareInstance]
@@ -49,6 +50,9 @@ popFuncViewDelegate
 
 //朋友圈顶部的封面
 @property (nonatomic, strong) UIView *topView;
+
+///发布按钮
+@property (nonatomic, strong) UIButton *publishBtn;
 
 ///是否已经点过赞
 @property (nonatomic) BOOL liked;
@@ -101,12 +105,14 @@ popFuncViewDelegate
 }
 ///进入发布界面
 - (void)getIntoPublishVC {
-    UIButton *publishBtn = [[UIButton alloc] init];
-    [publishBtn setBackgroundImage:[UIImage systemImageNamed:@"camera.fill"] forState:UIControlStateNormal];
-    publishBtn.tintColor = [UIColor colorNamed:@"#1A1A1A'00^#D0D0D0'00"];
-    publishBtn.frame = CGRectMake(SCREEN_WIDTH - 40, StatusBarHeight + 12, 28, 20);
+    self.publishBtn = [[UIButton alloc] init];
+    [self.publishBtn setBackgroundImage:[UIImage systemImageNamed:@"camera.fill"] forState:UIControlStateNormal];
+    self.publishBtn.tintColor = [UIColor colorNamed:@"#1A1A1A'00^#D0D0D0'00"];
+    self.publishBtn.frame = CGRectMake(SCREEN_WIDTH - 40, StatusBarHeight - 8, 28, 20);
+    [self.publishBtn addTarget:self action:@selector(clickPublishBtn:) forControlEvents:UIControlEventTouchUpInside];
     //navigationBar
-    [self.navigationController.view addSubview:publishBtn];
+    [self.navigationController.navigationBar addSubview:self.publishBtn];
+//    [self.navigationController.view addSubview:self.publishBtn];
 }
 ///加上背景蒙版（使点击任意一处退出多功能按钮）
 - (void)showBackViewWithGesture {
@@ -180,11 +186,12 @@ popFuncViewDelegate
     self.popFuncView.commentsBtn.tag = tag;
     //给点赞设置标题
     if ([self isLiked:tag]) {
+        //之前已经点过赞
         self.popFuncView.likeLab.text = @"取消";
         self.liked = YES;
     }else {
-        //之前已经点过赞
         self.popFuncView.likeLab.text = @"赞";
+        self.liked = NO;
     }
     //根据数据存储来设定是 "赞" 还是 "取消"
 //    self.popFuncView.likeLab.text = @"赞";
@@ -198,28 +205,18 @@ popFuncViewDelegate
 /// @param sender 该按钮
 - (void)clickLikeBtn:(UIButton *)sender {
     //找到该cell(要倒转）
-    
-//    long tag = [MomentModelManager getAllPublishData].count - 1 - sender.tag;
     long tag = sender.tag;
     NSMutableArray *tempArray = [NSMutableArray arrayWithArray:self.dataArray[tag].likes];
 
     //需要查看是否在上一次已点赞
-    
-//    sender.selected = !sender.selected;
     if (self.liked) {  //上次已经点了赞
         [tempArray removeObject:LikeName];
         self.popFuncView.likeLab.text = @"赞";
         self.liked = NO;
     }else {
-        if (!sender.selected) {
-            [tempArray removeObject:LikeName];
-            self.popFuncView.likeLab.text = @"赞";
-        }else {  //选中状态
             [tempArray addObject:LikeName];
             self.popFuncView.likeLab.text = @"取消";
-        }
     }
-    sender.selected = !sender.selected;
 
     self.dataArray[tag].likes = tempArray;
     //同时数据存储
@@ -244,11 +241,70 @@ popFuncViewDelegate
     }
     return NO;
 }
-/// 店家评论按钮
+/// 点击评论按钮
 /// @param sender 该按钮
 - (void)clickCommentBtn:(UIButton *)sender {
-    //跳转到评论界面
-    
+    [self.popFuncView removeFromSuperview];
+    self.navigationController.navigationBarHidden = YES;
+    //取反
+    long tag = sender.tag;
+    __block CommentVC *commentVC = [[CommentVC alloc] init];
+    [self.navigationController pushViewController:commentVC animated:NO];
+    //信息回调
+    commentVC.getCommentsData = ^(NSString * _Nonnull commentsText) {
+        //1.拿到该条cell
+        MomentsModel *model = [MomentModelManager getAllPublishData][tag];
+        //2.修改
+        NSMutableArray *tempArray = [NSMutableArray arrayWithArray:self.dataArray[tag].comments];
+        [tempArray addObject:commentsText];
+        model.comments = tempArray;
+        //3.更新
+        [MomentModelManager updataCommentsData:model];
+        self.dataArray = [MomentModelManager getAllPublishData];
+        [self.tableView reloadData];
+        [self.navigationController popViewControllerAnimated:YES];
+        self.navigationController.navigationBarHidden = NO;
+        self.tabBarController.tabBar.hidden = NO;
+    };
+}
+
+/// 点击发布按钮
+/// @param sender 该按钮
+- (void)clickPublishBtn:(UIButton *)sender {
+    [self.popFuncView removeFromSuperview];
+    self.navigationController.navigationBarHidden = YES;
+    //取反
+//    long tag = sender.tag;
+    PublishVC *publishVC = [[PublishVC alloc] init];
+    [self.navigationController pushViewController:publishVC animated:NO];
+    //成功发布后的信息回调
+    publishVC.getPublishData = ^(NSString * _Nullable text, NSMutableArray * _Nullable imageArray) {
+        MomentsModel *newModel = [[MomentsModel alloc] init];
+        //设置数据
+        newModel.published = 1;
+        newModel.person = @"Vermouth";
+        newModel.avatar = @"avatar";
+        newModel.text = text;
+        newModel.images = imageArray;
+        newModel.time = [self currentTime];
+//        newModel.likes = @[ ];
+//        newModel.comments =
+        //添加到数据库中
+        [MomentModelManager insertData:newModel];
+        self.dataArray = [MomentModelManager getAllPublishData];
+        [self.tableView reloadData];
+        [self.navigationController popViewControllerAnimated:YES];
+        self.navigationController.navigationBarHidden = NO;
+        self.tabBarController.tabBar.hidden = NO;
+    };
+}
+//获取时间
+- (NSString *)currentTime {
+    NSString *hour = [[NSDate today] hour];
+    NSString *separator = @" : ";
+    NSString *min = [separator stringByAppendingString:[[NSDate today] min]];
+    NSString *currentTime = [hour stringByAppendingString:min];
+    return currentTime;
 }
 #pragma mark - Getter
 - (UITableView *)tableView {
@@ -303,11 +359,11 @@ popFuncViewDelegate
         UIImageView *topImageView = [[UIImageView alloc] init];
         topImageView.image = [UIImage imageNamed:@"topImage"];
         topImageView.frame = CGRectMake(0, -45, SCREEN_WIDTH, 350);
-        //avaterImgView
-        UIImageView *avaterImgView = [[UIImageView alloc] init];
-        avaterImgView.image = [UIImage imageNamed:@"avatar"];
-        avaterImgView.layer.masksToBounds = YES;
-        avaterImgView.layer.cornerRadius = 8;
+        //avatarImgView
+        UIImageView *avatarImgView = [[UIImageView alloc] init];
+        avatarImgView.image = [UIImage imageNamed:@"avatar"];
+        avatarImgView.layer.masksToBounds = YES;
+        avatarImgView.layer.cornerRadius = 8;
 //        //nameLab
         UILabel *nameLab = [[UILabel alloc] init];
         nameLab.text = @"Vermouth";
@@ -317,18 +373,18 @@ popFuncViewDelegate
         
         [_topView addSubview:topImageView];
         [_topView addSubview:nameLab];
-        [_topView addSubview:avaterImgView];
+        [_topView addSubview:avatarImgView];
         
         //位置
-        [avaterImgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        [avatarImgView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(_topView).offset(-15);
             make.bottom.equalTo(_topView).offset(-20);
             make.size.mas_equalTo(CGSizeMake(80, 80));
         }];
         
         [nameLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(avaterImgView.mas_left).offset(-10);
-            make.centerY.equalTo(avaterImgView).offset(-5);
+            make.right.equalTo(avatarImgView.mas_left).offset(-10);
+            make.centerY.equalTo(avatarImgView).offset(-5);
             make.size.mas_equalTo(CGSizeMake(100, 50));
         }];
     }

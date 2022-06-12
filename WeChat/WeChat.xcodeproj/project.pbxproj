@@ -40,6 +40,9 @@
 		B56E97A9284B01A000FC5D5F /* MineModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B56E97A8284B01A000FC5D5F /* MineModel.m */; };
 		B56E97AD284B01E700FC5D5F /* MineImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B56E97AC284B01E700FC5D5F /* MineImage.xcassets */; };
 		B56E97AF284B02F500FC5D5F /* minePageData.plist in Resources */ = {isa = PBXBuildFile; fileRef = B56E97AE284B02F500FC5D5F /* minePageData.plist */; };
+		B5E7E8EE2855BF6A007B52A0 /* NSDate+Day.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E7E8EC2855BF6A007B52A0 /* NSDate+Day.m */; };
+		B5E7E8F1285607D3007B52A0 /* PublishCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E7E8F0285607D3007B52A0 /* PublishCollectionViewCell.m */; };
+		B5E7E8F428561033007B52A0 /* PublishCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E7E8F328561033007B52A0 /* PublishCollectionView.m */; };
 		B5FB337828435BA20024532F /* FirstPageCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B5FB337728435BA20024532F /* FirstPageCellTableViewCell.m */; };
 		B5FB33EA2844E2EF0024532F /* addressBookData.plist in Resources */ = {isa = PBXBuildFile; fileRef = B5FB33E92844E2EF0024532F /* addressBookData.plist */; };
 		B5FB33EC2844E3250024532F /* AddressBookImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5FB33EB2844E3250024532F /* AddressBookImage.xcassets */; };
@@ -111,6 +114,12 @@
 		B56E97A8284B01A000FC5D5F /* MineModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineModel.m; sourceTree = "<group>"; };
 		B56E97AC284B01E700FC5D5F /* MineImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MineImage.xcassets; sourceTree = "<group>"; };
 		B56E97AE284B02F500FC5D5F /* minePageData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = minePageData.plist; path = ../../MinePageData/minePageData.plist; sourceTree = "<group>"; };
+		B5E7E8EC2855BF6A007B52A0 /* NSDate+Day.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Day.m"; sourceTree = "<group>"; };
+		B5E7E8ED2855BF6A007B52A0 /* NSDate+Day.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Day.h"; sourceTree = "<group>"; };
+		B5E7E8EF285607D3007B52A0 /* PublishCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PublishCollectionViewCell.h; sourceTree = "<group>"; };
+		B5E7E8F0285607D3007B52A0 /* PublishCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PublishCollectionViewCell.m; sourceTree = "<group>"; };
+		B5E7E8F228561033007B52A0 /* PublishCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PublishCollectionView.h; sourceTree = "<group>"; };
+		B5E7E8F328561033007B52A0 /* PublishCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PublishCollectionView.m; sourceTree = "<group>"; };
 		B5FB337628435BA20024532F /* FirstPageCellTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstPageCellTableViewCell.h; sourceTree = "<group>"; };
 		B5FB337728435BA20024532F /* FirstPageCellTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstPageCellTableViewCell.m; sourceTree = "<group>"; };
 		B5FB33E92844E2EF0024532F /* addressBookData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = addressBookData.plist; path = ../../AddressBookData/addressBookData.plist; sourceTree = "<group>"; };
@@ -224,6 +233,8 @@
 			children = (
 				B56E97782849DE1800FC5D5F /* SKKImageZoom.h */,
 				B56E97792849DE1800FC5D5F /* SKKImageZoom.m */,
+				B5E7E8ED2855BF6A007B52A0 /* NSDate+Day.h */,
+				B5E7E8EC2855BF6A007B52A0 /* NSDate+Day.m */,
 				B500751A284E14AD0067AAAF /* Publish.h */,
 				B500751B284E14AD0067AAAF /* Publish.mm */,
 				B500751D284E14AD0067AAAF /* Publish+WCTTableCoding.h */,
@@ -377,6 +388,10 @@
 				B56E97842849FEBD00FC5D5F /* PublishVC.m */,
 				B5007522284E1C400067AAAF /* PublishView.h */,
 				B5007523284E1C400067AAAF /* PublishView.m */,
+				B5E7E8F228561033007B52A0 /* PublishCollectionView.h */,
+				B5E7E8F328561033007B52A0 /* PublishCollectionView.m */,
+				B5E7E8EF285607D3007B52A0 /* PublishCollectionViewCell.h */,
+				B5E7E8F0285607D3007B52A0 /* PublishCollectionViewCell.m */,
 			);
 			path = PublishPage;
 			sourceTree = "<group>";
@@ -564,6 +579,8 @@
 				B56E977A2849DE1800FC5D5F /* SKKImageZoom.m in Sources */,
 				B54643C12842FDE90027ECD4 /* MinePageVC.m in Sources */,
 				B56E97712849DDEE00FC5D5F /* MomentsCell.m in Sources */,
+				B5E7E8F1285607D3007B52A0 /* PublishCollectionViewCell.m in Sources */,
+				B5E7E8EE2855BF6A007B52A0 /* NSDate+Day.m in Sources */,
 				B54643C6284312350027ECD4 /* FirstPageModel.m in Sources */,
 				B56E97742849DE0600FC5D5F /* MomentsModel.mm in Sources */,
 				B54643CA2843125D0027ECD4 /* FirstPageView.m in Sources */,
@@ -573,6 +590,7 @@
 				B5FB33F82844E5510024532F /* AddressBookCell.m in Sources */,
 				B54643A0284246490027ECD4 /* LoginVC.m in Sources */,
 				B5007524284E1C400067AAAF /* PublishView.m in Sources */,
+				B5E7E8F428561033007B52A0 /* PublishCollectionView.m in Sources */,
 				B5FB33F42844E3A70024532F /* AddressBookModel.m in Sources */,
 				B5007521284E14AD0067AAAF /* Comment.mm in Sources */,
 				B5FB33F12844E38E0024532F /* AddressBookView.m in Sources */,
