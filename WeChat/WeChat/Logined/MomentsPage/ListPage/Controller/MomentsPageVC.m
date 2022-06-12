@@ -23,8 +23,6 @@
 //Tools
 #import "YYText.h"
 #import "Masonry.h"
-#import "Publish.h"
-#import "Comment.h"
 #import "NSDate+Day.h"
 
 #define PublishManager [PublishManager shareInstance]
