@@ -202,7 +202,6 @@
     //2.点赞人
     for (int i = 0; i < self.likesTextArray.count; i++) {
         NSMutableAttributedString *nameAtt;
-        //"Gin,
         if (i != self.likesTextArray.count - 1) {
             nameAtt = [[NSMutableAttributedString alloc] initWithString:[self.likesTextArray[i] stringByAppendingString:@", "]];
         }else {

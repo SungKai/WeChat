@@ -42,6 +42,7 @@ PHPickerViewControllerDelegate
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        self.backgroundColor = [UIColor colorNamed:@"#FEFEFE'00^#191919'00"];
         self.photosArray = [[NSMutableArray alloc]initWithCapacity:9];
         self.plusImage = [UIImage imageNamed:@"plus"];
         [self addView];
@@ -226,14 +227,14 @@ PHPickerViewControllerDelegate
     if (_publishCV == nil) {
         _publishCV = [[PublishCollectionView alloc] initWithFrame:CGRectMake(0, 220, SCREEN_WIDTH, SCREEN_HEIGHT)];
         _publishCV.publishCVDelegate = self;
+        _publishCV.backgroundColor = [UIColor colorNamed:@"#FEFEFE'00^#191919'00"];
     }
     return _publishCV;
 }
 - (UITextView *)textView {
     if (_textView == nil) {
         _textView = [[UITextView alloc] init];
-        _textView.backgroundColor = [UIColor yellowColor];
-//        _textView.frame = CGRectMake(20, 100, SCREEN_WIDTH - 40, 170);
+        _textView.backgroundColor = [UIColor colorNamed:@"#FEFEFE'00^#191919'00"];
         _textView.delegate = self;
     }
     return _textView;

@@ -32,7 +32,6 @@ PublishViewDelegate
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.view.backgroundColor = [UIColor grayColor];
     self.navigationController.navigationBar.hidden = YES;
     self.tabBarController.tabBar.hidden = YES;
     //获取缓存数据
@@ -58,8 +57,6 @@ PublishViewDelegate
 - (void)SaveCacheText:(NSString *)text Images:(NSMutableArray *)imageArray {
     MomentsModel *cacheData = [[MomentsModel alloc] init];
     cacheData.published = 0;
-//    cacheData.person = @"Vermouth";
-//    cacheData.avatar = @"avatar";
     cacheData.text = text;
     cacheData.images = imageArray;
     //1.把原来数据库里面的published == 0 的数据删除

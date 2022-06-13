@@ -163,17 +163,6 @@ popFuncViewDelegate
         momentsCell.cellDelegate = self;
         //设置cell无法点击
         [momentsCell setSelectionStyle:UITableViewCellSelectionStyleNone];
-//        //点赞
-//        NSMutableArray *likesMutArray = [NSMutableArray array];
-//        for (int i = 0; i < model.likes.count; i++) {
-//            [likesMutArray addObject:model.likes[i]];
-//        }
-//        //评论
-//        NSMutableArray *commentsMutArray = [NSMutableArray array];
-//        for (int i = 0; i < model.comments.count; i++) {
-//            [commentsMutArray addObject:model.comments[i]];
-//        }
-//        NSLog(@"likes : %@", likesMutArray);
         //设置数据
         [momentsCell setAvatarImgData:model.avatar NameText:model.person Text:model.text ImagesArray:model.images DateText:model.time LikesTextArray:model.likes CommentsTextArray:model.comments Index:index];
     }
@@ -311,7 +300,10 @@ popFuncViewDelegate
         //添加到数据库中
         [MomentModelManager insertData:newModel];
         self.dataArray = [MomentModelManager getAllPublishData];
+        //发布成功后回到顶部
+        [self.tableView  scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
         [self.tableView reloadData];
+        
         [self.navigationController popViewControllerAnimated:YES];
         self.navigationController.navigationBarHidden = NO;
         self.tabBarController.tabBar.hidden = NO;
