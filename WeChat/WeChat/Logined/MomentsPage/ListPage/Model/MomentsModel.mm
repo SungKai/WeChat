@@ -118,7 +118,7 @@ WCDB_SYNTHESIZE(MomentsModel, comments)
 }
 
 // MARK: 删除信息
-- (BOOL)deleteData:(MomentsModel *)publishData {
+- (BOOL)deleteData {
     //删除缓存的(published == 0)
     if (dataBase == nil) {
         [self creatWCDB];

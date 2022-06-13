@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)updataCommentsData:(MomentsModel *)publishData;
 
 ///删除信息
-- (BOOL)deleteData:(MomentsModel *)publishData;
+- (BOOL)deleteData;
 
 ///查找缓存信息
 - (BOOL)isCache;  //查看是否有缓存

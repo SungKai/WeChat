@@ -67,7 +67,7 @@ popFuncViewDelegate
     //设置数据
     self.dataArray = [NSMutableArray array];
     self.dataArray = [MomentModelManager getAllPublishData];
-   
+    
     [self.view addSubview:self.tableView];
     self.tableView.tableHeaderView = self.topView;
     [self getIntoPublishVC];
@@ -112,6 +112,26 @@ popFuncViewDelegate
     [self.navigationController.navigationBar addSubview:self.publishBtn];
 //    [self.navigationController.view addSubview:self.publishBtn];
 }
+
+///发布的数据中，images是NSData类型的，需要转化
+- (void)convertPublishImageData {
+    //属于自己发布的数据
+    NSMutableArray *selfPublishDataMa = [NSMutableArray array];
+    //自己发布的数据中NSData形式的图片组
+    NSMutableArray<NSMutableArray *> *imagesMa = [NSMutableArray array];
+    for (int i = 4; i < self.dataArray.count; i++) {
+        [selfPublishDataMa addObject:self.dataArray[i]];
+        [imagesMa addObject:self.dataArray[i].images];
+    }
+    //逐个转化
+    for (int i = 0; i < selfPublishDataMa.count; i++) {
+        for (int j = 0; j < imagesMa[i].count; j++) {
+            //把NSData转换为UIImage
+            
+        }
+    }
+//    NSMutableArray *imagesArray = self.dataArray
+}
 ///加上背景蒙版（使点击任意一处退出多功能按钮）
 - (void)showBackViewWithGesture {
     [self.view.window addSubview:self.backView];
@@ -134,7 +154,8 @@ popFuncViewDelegate
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     //要取倒转的
-    MomentsModel *model = self.dataArray[self.dataArray.count - 1 - indexPath.row];
+    unsigned long index = self.dataArray.count - 1 - indexPath.row;
+    MomentsModel *model = self.dataArray[index];
     static NSString *momentsCellID = @"momentsCellID";
     MomentsCell *momentsCell = [tableView dequeueReusableCellWithIdentifier:momentsCellID];
     if (momentsCell == nil) {
@@ -142,19 +163,19 @@ popFuncViewDelegate
         momentsCell.cellDelegate = self;
         //设置cell无法点击
         [momentsCell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        //点赞
-        NSMutableArray *likesMutArray = [NSMutableArray array];
-        for (int i = 0; i < model.likes.count; i++) {
-            [likesMutArray addObject:model.likes[i]];
-        }
-        //评论
-        NSMutableArray *commentsMutArray = [NSMutableArray array];
-        for (int i = 0; i < model.comments.count; i++) {
-            [commentsMutArray addObject:model.comments[i]];
-        }
+//        //点赞
+//        NSMutableArray *likesMutArray = [NSMutableArray array];
+//        for (int i = 0; i < model.likes.count; i++) {
+//            [likesMutArray addObject:model.likes[i]];
+//        }
+//        //评论
+//        NSMutableArray *commentsMutArray = [NSMutableArray array];
+//        for (int i = 0; i < model.comments.count; i++) {
+//            [commentsMutArray addObject:model.comments[i]];
+//        }
 //        NSLog(@"likes : %@", likesMutArray);
         //设置数据
-        [momentsCell setAvatarImgData:model.avatar NameText:model.person Text:model.text ImagesArray:model.images DateText:model.time LikesTextArray:likesMutArray CommentsTextArray:commentsMutArray];
+        [momentsCell setAvatarImgData:model.avatar NameText:model.person Text:model.text ImagesArray:model.images DateText:model.time LikesTextArray:model.likes CommentsTextArray:model.comments Index:index];
     }
     return momentsCell;
 }

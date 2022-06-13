@@ -34,7 +34,6 @@
 		B56E97802849F8A100FC5D5F /* momentData.plist in Resources */ = {isa = PBXBuildFile; fileRef = B56E977F2849F8A100FC5D5F /* momentData.plist */; };
 		B56E97852849FEBD00FC5D5F /* PublishVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B56E97842849FEBD00FC5D5F /* PublishVC.m */; };
 		B56E978D2849FF5400FC5D5F /* CommentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B56E978C2849FF5400FC5D5F /* CommentVC.m */; };
-		B56E9790284A597B00FC5D5F /* TopView.m in Sources */ = {isa = PBXBuildFile; fileRef = B56E978F284A597B00FC5D5F /* TopView.m */; };
 		B56E97A9284B01A000FC5D5F /* MineModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B56E97A8284B01A000FC5D5F /* MineModel.m */; };
 		B56E97AD284B01E700FC5D5F /* MineImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B56E97AC284B01E700FC5D5F /* MineImage.xcassets */; };
 		B56E97AF284B02F500FC5D5F /* minePageData.plist in Resources */ = {isa = PBXBuildFile; fileRef = B56E97AE284B02F500FC5D5F /* minePageData.plist */; };
@@ -100,8 +99,6 @@
 		B56E97842849FEBD00FC5D5F /* PublishVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PublishVC.m; sourceTree = "<group>"; };
 		B56E978B2849FF5400FC5D5F /* CommentVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommentVC.h; sourceTree = "<group>"; };
 		B56E978C2849FF5400FC5D5F /* CommentVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommentVC.m; sourceTree = "<group>"; };
-		B56E978E284A597B00FC5D5F /* TopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopView.h; sourceTree = "<group>"; };
-		B56E978F284A597B00FC5D5F /* TopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopView.m; sourceTree = "<group>"; };
 		B56E97A7284B01A000FC5D5F /* MineModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineModel.h; sourceTree = "<group>"; };
 		B56E97A8284B01A000FC5D5F /* MineModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineModel.m; sourceTree = "<group>"; };
 		B56E97AC284B01E700FC5D5F /* MineImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MineImage.xcassets; sourceTree = "<group>"; };
@@ -337,8 +334,6 @@
 		B56E976B2849DD2200FC5D5F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B56E978E284A597B00FC5D5F /* TopView.h */,
-				B56E978F284A597B00FC5D5F /* TopView.m */,
 				B56E97702849DDEE00FC5D5F /* MomentsCell.h */,
 				B56E976F2849DDEE00FC5D5F /* MomentsCell.m */,
 				B56E97752849DE1000FC5D5F /* popFuncView.h */,
@@ -582,7 +577,6 @@
 				B56E97772849DE1000FC5D5F /* popFuncView.m in Sources */,
 				B56E97852849FEBD00FC5D5F /* PublishVC.m in Sources */,
 				B54643B92842FD5A0027ECD4 /* AddressBookVC.m in Sources */,
-				B56E9790284A597B00FC5D5F /* TopView.m in Sources */,
 				B5FB337828435BA20024532F /* FirstPageCellTableViewCell.m in Sources */,
 				B54643AD284285320027ECD4 /* LoginView.m in Sources */,
 				B56E97A9284B01A000FC5D5F /* MineModel.m in Sources */,

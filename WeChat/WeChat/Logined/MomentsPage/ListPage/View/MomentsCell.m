@@ -25,7 +25,7 @@
 #pragma mark - Method
 
 //设置数据
-- (void)setAvatarImgData:(NSString *)avatarImgData NameText:(NSString *)name Text:(NSString *)text ImagesArray:(NSArray *)imagesArray DateText:(NSString *)dateText  LikesTextArray:(NSMutableArray <NSString *> *)likesTextArray CommentsTextArray:(NSMutableArray <NSString *> *)commentsTextArray {
+- (void)setAvatarImgData:(NSString *)avatarImgData NameText:(NSString *)name Text:(NSString *)text ImagesArray:(NSArray *)imagesArray DateText:(NSString *)dateText  LikesTextArray:(NSMutableArray <NSString *> *)likesTextArray CommentsTextArray:(NSMutableArray <NSString *> *)commentsTextArray  Index:(NSInteger)index{
     self.avatarImg.image = [UIImage imageNamed:avatarImgData];
     self.nameText = name;
     self.text = text;
@@ -33,6 +33,7 @@
     self.dateText = dateText;
     self.likesTextArray = likesTextArray;
     self.commentsTextArray = commentsTextArray;
+    self.index = index;
     [self AddView];
 }
 //判断数据
@@ -126,18 +127,18 @@
     
     //3.图片
     for (int i = 0; i < self.imagesArray.count; i++) {
-        UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:self.imagesArray[i]]];
+        UIImageView *imageView = [self getImageView:i];
         //点击放大保存手势
         UIGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickImageZoom:)];
-        [image addGestureRecognizer:tapGestureRecognizer];
-        [image setUserInteractionEnabled:YES];
+        [imageView addGestureRecognizer:tapGestureRecognizer];
+        [imageView setUserInteractionEnabled:YES];
         NSMutableAttributedString *imageAtt = [[NSMutableAttributedString alloc] init];
         //正常情况，一张图片的占位符应该是该图片本身的size
         imageAtt =
         [NSMutableAttributedString
-            yy_attachmentStringWithContent:image
+            yy_attachmentStringWithContent:imageView
                                contentMode:UIViewContentModeLeft
-                            attachmentSize:CGSizeMake(image.frame.size.width + 5, image.frame.size.height + 5) //图片占位符
+                            attachmentSize:CGSizeMake(imageView.frame.size.width + 5, imageView.frame.size.height + 5) //图片占位符
                                alignToFont:font
                                  alignment:YYTextVerticalAlignmentBottom];
         [text appendAttributedString:imageAtt];
@@ -166,6 +167,19 @@
     CGFloat introHeight = layout.textBoundingSize.height;
     self.yyTextLab.frame = CGRectMake(Right, TopAndBottomMargin, SCREEN_WIDTH - Right - LeftAndRightMargin, introHeight);
     self.singleHeight = introHeight + TopAndBottomMargin;
+}
+
+///加载图片，分两种模式，分别是plist文件里面的图片信息和自己发布的图片信息
+- (UIImageView *)getImageView:(int)i {
+    UIImageView *imgView;
+    //1.plist文件里面的图片信息
+    if ((long)self.index < 4) {
+        imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:self.imagesArray[i]]];
+    }else {
+       //2.自己发布的图片信息需要把NSData转换成UIImage
+        imgView = [[UIImageView alloc] initWithImage:[UIImage imageWithData:self.imagesArray[i]]];
+    }
+    return imgView;
 }
 // MARK: 有点赞的情况
 - (void)setLikesCell {

@@ -134,14 +134,12 @@ PHPickerViewControllerDelegate
 
 // MARK: <PHPickerViewControllerDelegate>
 - (void)picker:(PHPickerViewController *)picker didFinishPicking:(NSArray<PHPickerResult *> *)results{
-    //picker消失
     [picker dismissViewControllerAnimated:YES completion:nil];
 
     for (PHPickerResult *result in results) {
         [result.itemProvider loadObjectOfClass:[UIImage class] completionHandler:^(__kindof id <NSItemProviderReading>  _Nullable object, NSError * _Nullable error) {
-            //如果结果的类型是UIImage
             if ([object isKindOfClass:[UIImage class]]) {
-               //获取主线程（更新UI）
+               //主线程更新UI
                 dispatch_async(dispatch_get_main_queue(), ^{
                     //设置头像
                     self.avatarImageView.image = object;

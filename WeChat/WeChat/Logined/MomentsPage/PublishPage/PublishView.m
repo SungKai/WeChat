@@ -16,6 +16,7 @@
 
 @interface PublishView () <
 UITextViewDelegate,
+PublishCollectionViewDelegate,
 PHPickerViewControllerDelegate
 >
 
@@ -42,33 +43,9 @@ PHPickerViewControllerDelegate
     self = [super initWithFrame:frame];
     if (self) {
         self.photosArray = [[NSMutableArray alloc]initWithCapacity:9];
-//        self.plusImage = [[UIImage alloc] init];
         self.plusImage = [UIImage imageNamed:@"plus"];
-//        [self setData];
         [self addView];
-
-//        }
         [self setPosition];
-//        [self setData];
-//      //没有图片时
-        if (self.photosArray.count == 0) {
-    //        UIImage *plusImage = [[UIImage alloc] init];
-    //        plusImage = [UIImage imageNamed:@"plus"];
-            [self.photosArray addObject:self.plusImage];
-        }
-        //没有文本内容时
-        if (self.textView.text.length == 0) {
-            [self.textView addSubview:self.defaultLab];
-            self.publishBtn.backgroundColor = [UIColor lightGrayColor];
-            self.publishBtn.enabled = NO;
-        }else {
-            self.publishBtn.backgroundColor = [UIColor colorNamed:@"#00DF6C'00^#00DF6C'00"];
-            self.publishBtn.enabled = YES;
-        }
-        self.publishCV.photosArray = self.photosArray;
-        [self.publishCV reloadData];
-        //
-//        [self.collectionView reloadData];
     }
     return self;
 }
@@ -78,28 +55,22 @@ PHPickerViewControllerDelegate
     [self addSubview:self.cancelBtn];
     [self addSubview:self.publishBtn];
     [self addSubview:self.textView];
-//    [self addSubview:self.collectionView];
     [self addSubview:self.publishCV];
-    [self.textView addSubview:self.defaultLab];
-    
-//    [self.photosArray addObject:plusImage];
 }
 ///取消
 - (void)cancelEdit {
-    if (!(self.textView.text.length == 0 && self.photosArray.count == 0)){
+    if (!(self.textView.text.length == 0 && self.photosArray.count == 1)){
         //弹窗
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"退出编辑" message:@"您想保存已编辑的内容吗" preferredStyle:UIAlertControllerStyleAlert];
         //保存数据
         UIAlertAction *yes = [UIAlertAction actionWithTitle:@"是" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            NSMutableArray *ma = [NSMutableArray array];
             NSData *data = [[NSData alloc] init];
             for (int i = 0; i < self.photosArray.count; i++) {
                 data = UIImagePNGRepresentation(self.photosArray[i]);
+                [ma addObject:data];
             }
-            [self.publishViewDelegate SaveCacheText:self.textView.text Images:data];
-            //得到当前数据
-//            [self.navigationController popViewControllerAnimated:YES];
-//            self.navigationController.navigationBar.hidden = NO;
-//            self.tabBarController.tabBar.hidden = NO;
+            [self.publishViewDelegate SaveCacheText:self.textView.text Images:ma];
         }];
         //不保存数据
         UIAlertAction *no = [UIAlertAction actionWithTitle:@"否" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
@@ -110,44 +81,63 @@ PHPickerViewControllerDelegate
         [alert addAction:no];
         //展示弹窗
         [self.publishViewDelegate showPopView:alert];
-//        [self presentViewController:alert animated:YES completion:nil];
-        
+    }else {  //直接退出
+        [self.publishViewDelegate deleteCacheText];
     }
 }
  
 ///发布
 - (void)publishEdit {
-    
+    NSLog(@"点击发布");
+    [self.publishViewDelegate publishData:self.textView.text ImageArray:self.photosArray];
 }
 
 /// 拿到缓存数据
 /// @param cacheData 缓存数据
 - (void)getCacheData:(MomentsModel *)cacheData {
     self.text = cacheData.text;
-    self.photosArray = cacheData.images;
+    self.textView.text = self.text;
+    
+    if (cacheData.images != nil) {
+        //把NSData转换成UIImage
+        NSMutableArray *ma = [NSMutableArray array];
+        for (int i = 0; i < cacheData.images.count; i++) {
+            UIImage *image = [UIImage imageWithData:cacheData.images[i]];
+            [ma addObject:image];
+        }
+        self.photosArray = ma;
+    }
     self.publishCV.photosArray = self.photosArray;
-    [self.publishCV reloadData];
-//    [self setData];
+//    [self.publishCV reloadData];
+    [self setData];
 }
 ///设置初始数据
 - (void)setData {
     //没有图片时
-    if (self.photosArray.count == 0) {
-//        UIImage *plusImage = [[UIImage alloc] init];
-//        plusImage = [UIImage imageNamed:@"plus"];
-        [self.photosArray addObject:self.plusImage];
+    if (self.photosArray.count != 1) {
+        if (self.photosArray.count == 0) {
+            [self.photosArray addObject:self.plusImage];
+        }else {
+            self.publishBtn.backgroundColor = [UIColor colorNamed:@"#00DF6C'00^#00DF6C'00"];
+            self.publishBtn.enabled = YES;
+        }
     }
+    self.publishCV.photosArray = self.photosArray;
+    
     //没有文本内容时
     if (self.textView.text.length == 0) {
         [self.textView addSubview:self.defaultLab];
+        //self.defaultLab
+        [self.defaultLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.top.equalTo(self.textView);
+            make.size.mas_equalTo(CGSizeMake(200, 30));
+        }];
         self.publishBtn.backgroundColor = [UIColor lightGrayColor];
         self.publishBtn.enabled = NO;
     }else {
         self.publishBtn.backgroundColor = [UIColor colorNamed:@"#00DF6C'00^#00DF6C'00"];
         self.publishBtn.enabled = YES;
     }
-    self.publishCV.photosArray = self.photosArray;
-//    [self addSubview:self.collectionView];
     [self.publishCV reloadData];
    
 }
@@ -172,72 +162,44 @@ PHPickerViewControllerDelegate
         make.right.equalTo(self).offset(-30);
         make.height.mas_equalTo(100);
     }];
-    //self.defaultLab
-    [self.defaultLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.equalTo(self.textView);
-        make.size.mas_equalTo(CGSizeMake(200, 30));
-    }];
-    
-}
-
-#pragma mark - collectionView数据源
-//有多少组
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 1;
-}
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{  //个数
-//    NSLog(@"self.photosArray.count = %lu", self.photosArray.count);
-//    return self.photosArray.count;
-    return 1;
-}
-//- (UICollectionViewCell *)collectionView:(UICollectionView*)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath
-//{
-//    PublishCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"publishCell" forIndexPath:indexPath];
-//    cell.imgView.image = self.photosArray[indexPath.row];
-//    return cell;
-//}
-- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    PublishCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"publishCell" forIndexPath:indexPath];
-    if (cell == nil) {
-        cell = [[PublishCollectionViewCell alloc] initWithFrame:CGRectMake(30, 30, 200, 300)];
-        cell.imgView.image = self.photosArray[indexPath.row];
-    }
-    
-    return cell;
 }
 
 #pragma mark - Delegate
-// MARK: <UICollectionViewDelegate>
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(100, 100);
+// MARK: <UITextViewDelegate>
+- (void)textViewDidChange:(UITextView *)textView{
+    //文本为0
+    if (self.textView.text.length == 0) {
+        //发布按钮不可用，为灰色
+        self.publishBtn.backgroundColor = [UIColor grayColor];
+        self.publishBtn.enabled = NO;
+    }else{
+        //发布按钮可用，为绿色
+        self.publishBtn.enabled = YES;
+        self.publishBtn.backgroundColor = [UIColor colorNamed:@"#00DF6C'00^#00DF6C'00"];
+        self.defaultLab.hidden = YES;
+    }
 }
-//点击添加照片
-//点击事件
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.item == 0) {
+// MARK: <PublishCollectionViewDelegate>
+- (void)chosePhotos:(NSIndexPath *)indexPath {
+    if (indexPath.item == 0 && self.photosArray.count <= 9) {
         PHPickerConfiguration *picker = [[PHPickerConfiguration alloc] init];
         picker.selectionLimit = 9;
         picker.filter = [PHPickerFilter imagesFilter];
         //安装配置
         PHPickerViewController *pVC = [[PHPickerViewController alloc] initWithConfiguration:picker];
-        
         pVC.delegate = self;
-        //show
-//        [self presentViewController:pVC animated:YES completion:nil];
+//        show
+        [self.publishViewDelegate showPHPicker:pVC];
     }
 }
 
 // MARK: PHPickerViewControllerDelegate
 - (void)picker:(PHPickerViewController *)picker didFinishPicking:(NSArray<PHPickerResult *> *)results{
     [picker dismissViewControllerAnimated:YES completion:nil];
-
     for (PHPickerResult *result in results) {
         [result.itemProvider loadObjectOfClass:[UIImage class] completionHandler:^(__kindof id <NSItemProviderReading>  _Nullable object, NSError * _Nullable error) {
-            //如果结果的类型是UIImage
             if ([object isKindOfClass:[UIImage class]]) {
-               //获取主线程（更新UI）
+                //更新UI
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (object) {
                         self.publishBtn.backgroundColor = [UIColor colorNamed:@"#00DF6C'00^#00DF6C'00"];
@@ -245,17 +207,25 @@ PHPickerViewControllerDelegate
                     }
                     //把图片加载到数组中
                     [self.photosArray addObject:object];
+                    self.publishCV.photosArray = self.photosArray;
+                    if (self.photosArray.count > 9) {
+                        [self.photosArray removeObject:self.photosArray.firstObject];
+                    }
                     [self.publishCV reloadData];
                 });
             }
         }];
-        
     }
+    
+//    self.publishCV.photosArray = self.photosArray;
+//    [self.publishCV reloadData];
 }
+
 #pragma mark - Getter
 - (PublishCollectionView *)publishCV {
     if (_publishCV == nil) {
         _publishCV = [[PublishCollectionView alloc] initWithFrame:CGRectMake(0, 220, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        _publishCV.publishCVDelegate = self;
     }
     return _publishCV;
 }

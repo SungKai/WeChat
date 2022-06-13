@@ -62,11 +62,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGSize maxSize;
 //评论的高度 
 @property (nonatomic, assign) CGFloat singleCommentsHeight;
+//查看该cell的标号，用于判断是否为自己发布的朋友圈
+@property (nonatomic, assign) NSInteger index;
 
 @property (nonatomic, weak) id <MomentsCellDelegate> cellDelegate;
 
 //设置数据
-- (void)setAvatarImgData:(NSString *)avatarImgData NameText:(NSString *)name Text:(NSString *)text ImagesArray:(NSArray *)imagesArray DateText:(NSString *)dateText  LikesTextArray:(NSMutableArray <NSString *> *)likesTextArray CommentsTextArray:(NSMutableArray <NSString *> *)commentsTextArray;
+- (void)setAvatarImgData:(NSString *)avatarImgData NameText:(NSString *)name Text:(NSString *)text ImagesArray:(NSArray *)imagesArray DateText:(NSString *)dateText  LikesTextArray:(NSMutableArray <NSString *> *)likesTextArray CommentsTextArray:(NSMutableArray <NSString *> *)commentsTextArray Index:(NSInteger)index;
 
 @end
 
