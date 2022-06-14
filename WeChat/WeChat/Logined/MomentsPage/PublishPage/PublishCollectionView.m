@@ -53,9 +53,13 @@ static NSString * const cellID = @"cellID";
     NSLog(@"self.photosArray.count = %lu", self.photosArray.count);
     return self.photosArray.count;
 }
+
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     PublishCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellID forIndexPath:indexPath];
     cell.imgView.image = self.photosArray[indexPath.row];
+    //图片宽高适配
+    cell.imgView.clipsToBounds = YES;
+    [cell.imgView setContentMode:UIViewContentModeScaleAspectFill];
     return cell;
 }
 #pragma mark - Delegete
@@ -65,39 +69,7 @@ static NSString * const cellID = @"cellID";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"选中了%ld", indexPath.row);
     [self.publishCVDelegate chosePhotos:indexPath];
-//    if (indexPath.item == 0) {
-//        PHPickerConfiguration *picker = [[PHPickerConfiguration alloc] init];
-//        picker.selectionLimit = 9;
-//        picker.filter = [PHPickerFilter imagesFilter];
-//        //安装配置
-//        PHPickerViewController *pVC = [[PHPickerViewController alloc] initWithConfiguration:picker];
-//        
-//        pVC.delegate = self;
-//        //show
-////        [self presentViewController:pVC animated:YES completion:nil];
-//    }
 }
 
-//// MARK: PHPickerViewControllerDelegate
-//- (void)picker:(PHPickerViewController *)picker didFinishPicking:(NSArray<PHPickerResult *> *)results{
-//    [picker dismissViewControllerAnimated:YES completion:nil];
-//    for (PHPickerResult *result in results) {
-//        [result.itemProvider loadObjectOfClass:[UIImage class] completionHandler:^(__kindof id <NSItemProviderReading>  _Nullable object, NSError * _Nullable error) {
-//            if ([object isKindOfClass:[UIImage class]]) {
-//                //更新UI
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    if (object) {
-//                        
-////                        self.publishBtn.backgroundColor = [UIColor colorNamed:@"#00DF6C'00^#00DF6C'00"];
-////                        self.publishBtn.enabled = YES;
-//                    }
-//                    //把图片加载到数组中
-////                    [self.photosArray addObject:object];
-////                    [self.publishCV reloadData];
-//                });
-//            }
-//        }];
-//        
-//    }
-//}
+
 @end

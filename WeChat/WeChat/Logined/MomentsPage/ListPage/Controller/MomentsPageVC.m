@@ -24,10 +24,10 @@
 #import "YYText.h"
 #import "Masonry.h"
 #import "NSDate+Day.h"
+#import "AvatarDatabase.h"
 
-#define PublishManager [PublishManager shareInstance]
-#define CommentManager [CommentManager shareInstance]
 #define MomentModelManager [MomentsModelManager shareInstance]
+#define AvatarDatabaseManager [AvatarDatabaseManager shareInstance]
 
 @interface MomentsPageVC () <
 UITableViewDataSource,
@@ -48,6 +48,9 @@ popFuncViewDelegate
 
 //朋友圈顶部的封面
 @property (nonatomic, strong) UIView *topView;
+
+///头像
+@property (nonatomic, strong) UIImageView *avatarImgView;
 
 ///发布按钮
 @property (nonatomic, strong) UIButton *publishBtn;
@@ -70,10 +73,30 @@ popFuncViewDelegate
     
     [self.view addSubview:self.tableView];
     self.tableView.tableHeaderView = self.topView;
+    //根据数据库信息来设置头像
+    [self setAvatarImageView];
     [self getIntoPublishVC];
+    //下拉刷新
+    UIRefreshControl *control = [[UIRefreshControl alloc]init];
+    [control addTarget:self action:@selector(refreshTableView) forControlEvents:UIControlEventValueChanged];
+    self.tableView.refreshControl = control;
 }
 
 #pragma mark - Method
+///下拉刷新
+- (void)refreshTableView {
+    [self.tableView reloadData];
+    [self setAvatarImageView];
+    if ([self.tableView.refreshControl isRefreshing]){
+        [self.tableView.refreshControl endRefreshing];
+    }
+}
+///根据数据库信息来设置头像
+- (void)setAvatarImageView {
+    //从数据库取得数据
+    NSData *data = [AvatarDatabaseManager getAvatarInformation];
+    _avatarImgView.image = [UIImage imageWithData:data];
+}
 ///把plist文件里的数据写入数据存储
 - (void)saveData {
     //创建数据库
@@ -110,28 +133,8 @@ popFuncViewDelegate
     [self.publishBtn addTarget:self action:@selector(clickPublishBtn:) forControlEvents:UIControlEventTouchUpInside];
     //navigationBar
     [self.navigationController.navigationBar addSubview:self.publishBtn];
-//    [self.navigationController.view addSubview:self.publishBtn];
 }
 
-///发布的数据中，images是NSData类型的，需要转化
-- (void)convertPublishImageData {
-    //属于自己发布的数据
-    NSMutableArray *selfPublishDataMa = [NSMutableArray array];
-    //自己发布的数据中NSData形式的图片组
-    NSMutableArray<NSMutableArray *> *imagesMa = [NSMutableArray array];
-    for (int i = 4; i < self.dataArray.count; i++) {
-        [selfPublishDataMa addObject:self.dataArray[i]];
-        [imagesMa addObject:self.dataArray[i].images];
-    }
-    //逐个转化
-    for (int i = 0; i < selfPublishDataMa.count; i++) {
-        for (int j = 0; j < imagesMa[i].count; j++) {
-            //把NSData转换为UIImage
-            
-        }
-    }
-//    NSMutableArray *imagesArray = self.dataArray
-}
 ///加上背景蒙版（使点击任意一处退出多功能按钮）
 - (void)showBackViewWithGesture {
     [self.view.window addSubview:self.backView];
@@ -291,7 +294,6 @@ popFuncViewDelegate
         //设置数据
         newModel.published = 1;
         newModel.person = @"Vermouth";
-        newModel.avatar = @"avatar";
         newModel.text = text;
         newModel.images = imageArray;
         newModel.time = [self currentTime];
@@ -371,10 +373,10 @@ popFuncViewDelegate
         topImageView.image = [UIImage imageNamed:@"topImage"];
         topImageView.frame = CGRectMake(0, -45, SCREEN_WIDTH, 350);
         //avatarImgView
-        UIImageView *avatarImgView = [[UIImageView alloc] init];
-        avatarImgView.image = [UIImage imageNamed:@"avatar"];
-        avatarImgView.layer.masksToBounds = YES;
-        avatarImgView.layer.cornerRadius = 8;
+        _avatarImgView = [[UIImageView alloc] init];
+//        avatarImgView.image = [UIImage imageNamed:@"avatar"];
+        _avatarImgView.layer.masksToBounds = YES;
+        _avatarImgView.layer.cornerRadius = 8;
 //        //nameLab
         UILabel *nameLab = [[UILabel alloc] init];
         nameLab.text = @"Vermouth";
@@ -384,18 +386,18 @@ popFuncViewDelegate
         
         [_topView addSubview:topImageView];
         [_topView addSubview:nameLab];
-        [_topView addSubview:avatarImgView];
+        [_topView addSubview:_avatarImgView];
         
         //位置
-        [avatarImgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        [_avatarImgView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(_topView).offset(-15);
             make.bottom.equalTo(_topView).offset(-20);
             make.size.mas_equalTo(CGSizeMake(80, 80));
         }];
         
         [nameLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(avatarImgView.mas_left).offset(-10);
-            make.centerY.equalTo(avatarImgView).offset(-5);
+            make.right.equalTo(_avatarImgView.mas_left).offset(-10);
+            make.centerY.equalTo(_avatarImgView).offset(-5);
             make.size.mas_equalTo(CGSizeMake(100, 50));
         }];
     }

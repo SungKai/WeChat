@@ -43,6 +43,7 @@ PHPickerViewControllerDelegate
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor colorNamed:@"#FEFEFE'00^#191919'00"];
+        self.imageIsNine = NO;
         self.photosArray = [[NSMutableArray alloc]initWithCapacity:9];
         self.plusImage = [UIImage imageNamed:@"plus"];
         [self addView];
@@ -90,7 +91,7 @@ PHPickerViewControllerDelegate
 ///发布
 - (void)publishEdit {
     NSLog(@"点击发布");
-    [self.publishViewDelegate publishData:self.textView.text ImageArray:self.photosArray];
+    [self.publishViewDelegate publishData:self.textView.text ImageArray:self.photosArray ImageIsNine:self.imageIsNine];
 }
 
 /// 拿到缓存数据
@@ -209,7 +210,10 @@ PHPickerViewControllerDelegate
                     //把图片加载到数组中
                     [self.photosArray addObject:object];
                     self.publishCV.photosArray = self.photosArray;
+                    //用于判断是否为9张选择的照片
                     if (self.photosArray.count > 9) {
+                        //满九宫格
+                        self.imageIsNine = YES;
                         [self.photosArray removeObject:self.photosArray.firstObject];
                     }
                     [self.publishCV reloadData];
@@ -217,9 +221,7 @@ PHPickerViewControllerDelegate
             }
         }];
     }
-    
-//    self.publishCV.photosArray = self.photosArray;
-//    [self.publishCV reloadData];
+
 }
 
 #pragma mark - Getter

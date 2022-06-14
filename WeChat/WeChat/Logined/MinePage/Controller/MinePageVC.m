@@ -12,7 +12,10 @@
 
 //Tool
 #import "Masonry.h"
+#import "AvatarDatabase.h"
 #import <PhotosUI/PHPicker.h>
+
+#define AvatarDatabaseManager [AvatarDatabaseManager shareInstance]
 
 @interface MinePageVC () <
 UITableViewDataSource,
@@ -36,9 +39,15 @@ PHPickerViewControllerDelegate
     self.navigationController.navigationBar.hidden = YES;
     [self.view addSubview:self.tableView];
     self.tableView.tableHeaderView = self.topView;
+    [self setAvatarImageView];
 }
 
 #pragma mark - Method
+- (void)setAvatarImageView {
+    //从数据库取得数据
+    NSData *data = [AvatarDatabaseManager getAvatarInformation];
+    self.avatarImageView.image = [UIImage imageWithData:data];
+}
 - (void)clickToChangeavatar {
     NSLog(@"换头像");
     PHPickerConfiguration *picker = [[PHPickerConfiguration alloc] init];
@@ -143,9 +152,13 @@ PHPickerViewControllerDelegate
                 dispatch_async(dispatch_get_main_queue(), ^{
                     //设置头像
                     self.avatarImageView.image = object;
+                    //图片宽高适配
+                    self.avatarImageView.clipsToBounds = YES;
+                    [self.avatarImageView setContentMode:UIViewContentModeScaleAspectFill];
                     //数据存储
-//                    NSData *data = UIImagePNGRepresentation(object);
-                    
+                    AvatarDatabase *newAvatarData = [[AvatarDatabase alloc] init];
+                    newAvatarData.avatarData = UIImagePNGRepresentation(object);
+                    [AvatarDatabaseManager insertOrUpdateData:newAvatarData];
                 });
             }
         }];
@@ -208,7 +221,6 @@ PHPickerViewControllerDelegate
 - (UIImageView *)avatarImageView {
     if (_avatarImageView == nil) {
         _avatarImageView = [[UIImageView alloc] init];
-        _avatarImageView.image = [UIImage imageNamed:@"avatar"];
         _avatarImageView.layer.masksToBounds = YES;
         _avatarImageView.layer.cornerRadius = 7;
     }

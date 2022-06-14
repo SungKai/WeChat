@@ -92,13 +92,13 @@ PublishViewDelegate
 }
 
 ///发布
-- (void)publishData:(NSString *)text ImageArray:(NSMutableArray *)imageArray {
+- (void)publishData:(NSString *)text ImageArray:(NSMutableArray *)imageArray ImageIsNine:(BOOL)imageIsNine {
     //把imageArray的UIImage类型转化为NSData类型
     NSMutableArray *ma = [NSMutableArray array];
     NSData *data = [[NSData alloc] init];
     if (imageArray.count != 1) {
         //除九张照片外，其他应该去掉第0张照片
-        if (imageArray.count != 9) {
+        if (imageArray.count != 9 || imageIsNine == NO) {
             for (int i = 1; i < imageArray.count; i++) {
                 data = UIImagePNGRepresentation(imageArray[i]);
                 [ma addObject:data];
@@ -114,6 +114,7 @@ PublishViewDelegate
     //回调
     self.getPublishData(text, ma);
 }
+
 #pragma mark - Getter
 - (PublishView *)publishView {
     if (_publishView == nil) {

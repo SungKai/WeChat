@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 正式发表
 /// @param text 文字内容
 /// @param imageArray 图片组
-- (void)publishData:(NSString *)text ImageArray:(NSMutableArray *)imageArray;
+- (void)publishData:(NSString *)text ImageArray:(NSMutableArray *)imageArray ImageIsNine:(BOOL)imageIsNine;
 
 @end
 
@@ -45,6 +45,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *text;
 
 @property (nonatomic, weak) id<PublishViewDelegate> publishViewDelegate;
+
+///用于判断是否为满九宫格照片
+@property (nonatomic) BOOL imageIsNine;
 
 /// 拿到缓存数据
 /// @param cacheData 缓存数据

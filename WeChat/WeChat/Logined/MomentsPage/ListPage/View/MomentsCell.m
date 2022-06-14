@@ -6,6 +6,11 @@
 //
 
 #import "MomentsCell.h"
+
+//Tools
+#import "AvatarDatabase.h"
+
+#define AvatarDatabaseManager [AvatarDatabaseManager shareInstance]
 #define Right 80
 #define TopAndBottomMargin 20
 #define LeftAndRightMargin 14
@@ -25,8 +30,7 @@
 #pragma mark - Method
 
 //设置数据
-- (void)setAvatarImgData:(NSString *)avatarImgData NameText:(NSString *)name Text:(NSString *)text ImagesArray:(NSArray *)imagesArray DateText:(NSString *)dateText  LikesTextArray:(NSMutableArray <NSString *> *)likesTextArray CommentsTextArray:(NSMutableArray <NSString *> *)commentsTextArray  Index:(NSInteger)index{
-    self.avatarImg.image = [UIImage imageNamed:avatarImgData];
+- (void)setAvatarImgData:(NSString *)avatarImageViewData NameText:(NSString *)name Text:(NSString *)text ImagesArray:(NSArray *)imagesArray DateText:(NSString *)dateText  LikesTextArray:(NSMutableArray <NSString *> *)likesTextArray CommentsTextArray:(NSMutableArray <NSString *> *)commentsTextArray  Index:(NSInteger)index{
     self.nameText = name;
     self.text = text;
     self.imagesArray = imagesArray;
@@ -34,9 +38,25 @@
     self.likesTextArray = likesTextArray;
     self.commentsTextArray = commentsTextArray;
     self.index = index;
+    //头像设置
+    //plist文件里的头像设置
+    if (index < 4) {
+        self.avatarImageView.image = [UIImage imageNamed:avatarImageViewData];
+    }else {  //自己发布的朋友圈头像
+        [self setAvatarImageView];
+    }
+    
     [self AddView];
 }
-//判断数据
+
+///根据数据库信息来设置头像
+- (void)setAvatarImageView {
+    //从数据库取得数据
+    NSData *data = [AvatarDatabaseManager getAvatarInformation];
+    self.avatarImageView.image = [UIImage imageWithData:data];
+}
+
+///判断数据
 - (void)AddView {
     unsigned long likesNumbers = self.likesTextArray.count;
     unsigned long commentsNumbers = self.commentsTextArray.count;
@@ -128,10 +148,22 @@
     //3.图片
     for (int i = 0; i < self.imagesArray.count; i++) {
         UIImageView *imageView = [self getImageView:i];
+        if (self.imagesArray.count == 1) {
+            imageView.frame = [self oneImageFit:imageView];
+        }else {
+            //九宫格最大宽高 35:多功能按钮的宽，5:多功能按钮右间距 10:图片间隔总和
+            CGFloat maxSize = (SCREEN_WIDTH - Right - LeftAndRightMargin - 35 - 5 - 10) / 3;
+            imageView.frame = CGRectMake(0, 0, maxSize, maxSize);
+        }
+        //图片宽高适配
+        imageView.clipsToBounds = YES;
+        [imageView setContentMode:UIViewContentModeScaleAspectFill];
+        
         //点击放大保存手势
         UIGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickImageZoom:)];
         [imageView addGestureRecognizer:tapGestureRecognizer];
         [imageView setUserInteractionEnabled:YES];
+        
         NSMutableAttributedString *imageAtt = [[NSMutableAttributedString alloc] init];
         //正常情况，一张图片的占位符应该是该图片本身的size
         imageAtt =
@@ -180,6 +212,32 @@
         imgView = [[UIImageView alloc] initWithImage:[UIImage imageWithData:self.imagesArray[i]]];
     }
     return imgView;
+}
+
+///针对一张图片的算法
+- (CGRect)oneImageFit:(UIImageView *)imageView {
+    CGFloat width = imageView.frame.size.width;
+    CGFloat height = imageView.frame.size.height;
+    //1.长方形:长 > 宽 应该缩短长度，使宽度适配
+    if (width < height) {
+        //长度最高值
+        if (height > 300) {
+            CGFloat heightPercent = height / 300;
+            height = 300;
+            width = width / heightPercent;
+        }
+    }else {
+        //2.长方形:宽 > 长 应该缩短宽度，使长度适配
+        if (width >= height) {
+            //宽度最高值
+            if (width > SCREEN_WIDTH - Right - LeftAndRightMargin - 50) {
+                CGFloat widthPercent = width / (SCREEN_WIDTH - Right - LeftAndRightMargin - 50);
+                width = SCREEN_WIDTH - Right - LeftAndRightMargin - 50;
+                height = height / widthPercent;
+            }
+        }
+    }
+    return CGRectMake(0, 0, width, height);
 }
 // MARK: 有点赞的情况
 - (void)setLikesCell {
@@ -271,8 +329,8 @@
     [[SKKImageZoom shareInstance] imageZoomWithImageView:clickedImageView];
 }
 - (void)setPosition {
-    //avatarImg
-    [self.avatarImg mas_makeConstraints:^(MASConstraintMaker *make) {
+    //avatarImageView
+    [self.avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.contentView).offset(TopAndBottomMargin);
         make.left.equalTo(self.contentView).offset(LeftAndRightMargin);
         make.size.mas_equalTo(CGSizeMake(55, 55));
@@ -289,11 +347,11 @@
     self.likesHeight = 0;
     self.commentsHeight = 0;
     self.self.maxSize = CGSizeMake(SCREEN_WIDTH - Right - LeftAndRightMargin, MAXFLOAT);
-    //avatarImg
-    self.avatarImg = [[UIImageView alloc] init];
-    self.avatarImg.layer.masksToBounds = YES;
-    self.avatarImg.layer.cornerRadius = 6;
-    [self.contentView addSubview:self.avatarImg];
+    //avatarImageView
+    self.avatarImageView = [[UIImageView alloc] init];
+    self.avatarImageView.layer.masksToBounds = YES;
+    self.avatarImageView.layer.cornerRadius = 6;
+    [self.contentView addSubview:self.avatarImageView];
     
     //imagesArray
     self.imagesArray = [NSArray array];

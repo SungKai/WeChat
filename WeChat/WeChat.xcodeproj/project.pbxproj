@@ -40,6 +40,7 @@
 		B5E7E8EE2855BF6A007B52A0 /* NSDate+Day.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E7E8EC2855BF6A007B52A0 /* NSDate+Day.m */; };
 		B5E7E8F1285607D3007B52A0 /* PublishCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E7E8F0285607D3007B52A0 /* PublishCollectionViewCell.m */; };
 		B5E7E8F428561033007B52A0 /* PublishCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E7E8F328561033007B52A0 /* PublishCollectionView.m */; };
+		B5E7E8F728586238007B52A0 /* AvatarDatabase.mm in Sources */ = {isa = PBXBuildFile; fileRef = B5E7E8F628586238007B52A0 /* AvatarDatabase.mm */; };
 		B5FB337828435BA20024532F /* FirstPageCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B5FB337728435BA20024532F /* FirstPageCellTableViewCell.m */; };
 		B5FB33EA2844E2EF0024532F /* addressBookData.plist in Resources */ = {isa = PBXBuildFile; fileRef = B5FB33E92844E2EF0024532F /* addressBookData.plist */; };
 		B5FB33EC2844E3250024532F /* AddressBookImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5FB33EB2844E3250024532F /* AddressBookImage.xcassets */; };
@@ -109,6 +110,9 @@
 		B5E7E8F0285607D3007B52A0 /* PublishCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PublishCollectionViewCell.m; sourceTree = "<group>"; };
 		B5E7E8F228561033007B52A0 /* PublishCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PublishCollectionView.h; sourceTree = "<group>"; };
 		B5E7E8F328561033007B52A0 /* PublishCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PublishCollectionView.m; sourceTree = "<group>"; };
+		B5E7E8F528586238007B52A0 /* AvatarDatabase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AvatarDatabase.h; sourceTree = "<group>"; };
+		B5E7E8F628586238007B52A0 /* AvatarDatabase.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AvatarDatabase.mm; sourceTree = "<group>"; };
+		B5E7E8F82858625D007B52A0 /* AvatarDatabase+WCTTableCoding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AvatarDatabase+WCTTableCoding.h"; sourceTree = "<group>"; };
 		B5FB337628435BA20024532F /* FirstPageCellTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstPageCellTableViewCell.h; sourceTree = "<group>"; };
 		B5FB337728435BA20024532F /* FirstPageCellTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstPageCellTableViewCell.m; sourceTree = "<group>"; };
 		B5FB33E92844E2EF0024532F /* addressBookData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = addressBookData.plist; path = ../../AddressBookData/addressBookData.plist; sourceTree = "<group>"; };
@@ -224,6 +228,9 @@
 				B56E97792849DE1800FC5D5F /* SKKImageZoom.m */,
 				B5E7E8ED2855BF6A007B52A0 /* NSDate+Day.h */,
 				B5E7E8EC2855BF6A007B52A0 /* NSDate+Day.m */,
+				B5E7E8F528586238007B52A0 /* AvatarDatabase.h */,
+				B5E7E8F628586238007B52A0 /* AvatarDatabase.mm */,
+				B5E7E8F82858625D007B52A0 /* AvatarDatabase+WCTTableCoding.h */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -556,6 +563,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5E7E8F728586238007B52A0 /* AvatarDatabase.mm in Sources */,
 				B56E978D2849FF5400FC5D5F /* CommentVC.m in Sources */,
 				B56E977A2849DE1800FC5D5F /* SKKImageZoom.m in Sources */,
 				B54643C12842FDE90027ECD4 /* MinePageVC.m in Sources */,

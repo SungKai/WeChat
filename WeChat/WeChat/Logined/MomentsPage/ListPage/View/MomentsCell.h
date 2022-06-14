@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MomentsCell : UITableViewCell
 //头像
-@property (nonatomic, strong) UIImageView *avatarImg;
+@property (nonatomic, strong) UIImageView *avatarImageView;
 //人
 @property (nonatomic, copy) NSString *nameText;
 //正文文字
@@ -68,7 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) id <MomentsCellDelegate> cellDelegate;
 
 //设置数据
-- (void)setAvatarImgData:(NSString *)avatarImgData NameText:(NSString *)name Text:(NSString *)text ImagesArray:(NSArray *)imagesArray DateText:(NSString *)dateText  LikesTextArray:(NSMutableArray <NSString *> *)likesTextArray CommentsTextArray:(NSMutableArray <NSString *> *)commentsTextArray Index:(NSInteger)index;
+- (void)setAvatarImgData:(NSString *)avatarImageViewData NameText:(NSString *)name Text:(NSString *)text ImagesArray:(NSArray *)imagesArray DateText:(NSString *)dateText  LikesTextArray:(NSMutableArray <NSString *> *)likesTextArray CommentsTextArray:(NSMutableArray <NSString *> *)commentsTextArray Index:(NSInteger)index;
 
 @end
 

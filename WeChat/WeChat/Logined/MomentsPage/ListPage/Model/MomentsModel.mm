@@ -20,13 +20,20 @@ WCDB_SYNTHESIZE(MomentsModel, images)
 WCDB_SYNTHESIZE(MomentsModel, time)
 WCDB_SYNTHESIZE(MomentsModel, likes)
 WCDB_SYNTHESIZE(MomentsModel, comments)
-//WCDB_PRIMARY_AUTO_INCREMENT(MomentsModel, published)
 
 /// KVC字典转模型
 /// @param dic 字典
 - (instancetype)MomentsModelWithDic:(NSDictionary *)dic {
     [self setValuesForKeysWithDictionary:dic];
     return self;
+}
+
+///防崩溃
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key{
+ }
+
+- (id)valueForUndefinedKey:(NSString *)key{
+    return nil;
 }
 
 @end
@@ -126,14 +133,6 @@ WCDB_SYNTHESIZE(MomentsModel, comments)
     return [dataBase deleteObjectsFromTable:PublishTableName where:MomentsModel.published == 0];
 }
 
-///删除数据
-//- (void)deletePublishData {
-//    //删除缓存的(published == 0)
-//    if (dataBase == nil) {
-//        [self creatWCDB];
-//    }
-//    return [dataBase deleteObjectsFromTable:PublishTableName where:Publish.published == 0];
-//}
 // MARK: 查找缓存信息
 ///查看是否有缓存
 - (BOOL)isCache {
@@ -152,7 +151,6 @@ WCDB_SYNTHESIZE(MomentsModel, comments)
 }
 
 ///查找到某条数据
-///
 
 // MARK: 查找已发布信息
 - (NSArray<MomentsModel *> *)getAllPublishData {  //published == 1

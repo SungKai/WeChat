@@ -12,7 +12,6 @@
 
 @interface LoginView()
 
-@property (nonatomic, strong) UIImageView *avatarImageView;
 
 @property (nonatomic, strong) UILabel *nameLab;
 
@@ -63,7 +62,7 @@
 #pragma mark - Getter
 - (UIImageView *)avatarImageView {
     if (_avatarImageView == nil) {
-        _avatarImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"avatar"]];
+        _avatarImageView = [[UIImageView alloc] init];
         _avatarImageView.layer.masksToBounds = YES;
         _avatarImageView.layer.cornerRadius = 10;
     }

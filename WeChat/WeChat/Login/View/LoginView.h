@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LoginView : UIView
 
+@property (nonatomic, strong) UIImageView *avatarImageView;
+
 @property (nonatomic, weak) id<LoginViewDelegate> loginDelegate;
 
 /// 创建方法
