@@ -351,6 +351,10 @@
     self.avatarImageView = [[UIImageView alloc] init];
     self.avatarImageView.layer.masksToBounds = YES;
     self.avatarImageView.layer.cornerRadius = 6;
+    //图片宽高适配
+    self.avatarImageView.clipsToBounds = YES;
+    [self.avatarImageView setContentMode:UIViewContentModeScaleAspectFill];
+    
     [self.contentView addSubview:self.avatarImageView];
     
     //imagesArray

@@ -129,7 +129,7 @@ popFuncViewDelegate
     self.publishBtn = [[UIButton alloc] init];
     [self.publishBtn setBackgroundImage:[UIImage systemImageNamed:@"camera.fill"] forState:UIControlStateNormal];
     self.publishBtn.tintColor = [UIColor colorNamed:@"#1A1A1A'00^#D0D0D0'00"];
-    self.publishBtn.frame = CGRectMake(SCREEN_WIDTH - 40, StatusBarHeight - 8, 28, 20);
+    self.publishBtn.frame = CGRectMake(SCREEN_WIDTH - 40, 10, 28, 20);
     [self.publishBtn addTarget:self action:@selector(clickPublishBtn:) forControlEvents:UIControlEventTouchUpInside];
     //navigationBar
     [self.navigationController.navigationBar addSubview:self.publishBtn];
@@ -331,20 +331,6 @@ popFuncViewDelegate
     return _tableView;
 }
 
-//- (NSMutableArray<MomentsModel *> *)dataArray {
-//    if (_dataArray == nil) {
-//        _dataArray = [NSMutableArray array];
-//        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"momentData.plist" ofType:nil];
-//        NSArray *data = [NSArray arrayWithContentsOfFile:filePath];
-//        for (NSDictionary *dic in data) {
-//            MomentsModel *model = [[MomentsModel alloc] init];
-//            [model MomentsModelWithDic:dic];
-//            [_dataArray addObject:model];
-//        }
-//    }
-//    return _dataArray;
-//}
-
 - (popFuncView *)popFuncView {
     if (_popFuncView == nil) {
         _popFuncView = [[popFuncView alloc] init];
@@ -377,6 +363,9 @@ popFuncViewDelegate
 //        avatarImgView.image = [UIImage imageNamed:@"avatar"];
         _avatarImgView.layer.masksToBounds = YES;
         _avatarImgView.layer.cornerRadius = 8;
+        //图片宽高适配
+        _avatarImgView.clipsToBounds = YES;
+        [_avatarImgView setContentMode:UIViewContentModeScaleAspectFill];
 //        //nameLab
         UILabel *nameLab = [[UILabel alloc] init];
         nameLab.text = @"Vermouth";

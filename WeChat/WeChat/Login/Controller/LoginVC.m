@@ -16,12 +16,15 @@
 //Tools
 #import "Masonry.h"
 #import "AvatarDatabase.h"
+#import <PhotosUI/PHPicker.h>
 
 #define AvatarDatabaseManager [AvatarDatabaseManager shareInstance]
 
 @interface LoginVC () <LoginViewDelegate>
 
 @property (nonatomic, strong) LoginView *loginView;
+
+@property (nonatomic, strong) UIImage *beginImage;
 
 @end
 
@@ -52,15 +55,17 @@
     BOOL result = [AvatarDatabaseManager creatWCDB];
     if (result) {
         //创建成功，添加初始头像数据
-        UIImage *avatarImage = [UIImage imageNamed:@"avatar"];
+//        self.beginImage = [[UIImage alloc]init];
+        self.beginImage = [UIImage imageNamed:@"avatar"];
         NSData *data = [[NSData alloc] init];
-        data = UIImagePNGRepresentation(avatarImage);
+        data = UIImagePNGRepresentation(self.beginImage);
         AvatarDatabase *avatarData = [[AvatarDatabase alloc] init];
         avatarData.avatarData = data;
         //写入本地
         BOOL flag = [AvatarDatabaseManager insertOrUpdateData:avatarData];
         if (flag) {
             NSLog(@"初始头像数据写入成功");
+            [self saveSomePhotosLocal];
         }
     }else {
         NSLog(@"头像数据已存在");
@@ -72,6 +77,20 @@
     //从数据库取得数据
     NSData *data = [AvatarDatabaseManager getAvatarInformation];
     self.loginView.avatarImageView.image = [UIImage imageWithData:data];
+}
+
+///先在本地生成一些照片，供其他人测试使用
+- (void)saveSomePhotosLocal {
+    //一些测试图片
+    NSString *afterName = @"Vermouth";
+    for (int i = 0; i < 9; i++) {
+        UIImage *testImage = [UIImage imageNamed:[afterName stringByAppendingFormat:@"%d", i]];
+        UIImageWriteToSavedPhotosAlbum(testImage, self, nil ,nil);
+    }
+    //保存两张头像图片
+    UIImageWriteToSavedPhotosAlbum(self.beginImage, self, nil ,nil);
+    UIImage *image = [UIImage imageNamed:@"avater2"];
+    UIImageWriteToSavedPhotosAlbum(image, self, nil ,nil);
 }
 #pragma mark - Delegate
 // MARK: <LoginViewDelegate>

@@ -30,6 +30,7 @@ PHPickerViewControllerDelegate
 @property (nonatomic, strong) NSArray<MineModel *> *dataArray;
 
 @property (nonatomic, strong) UIImageView *avatarImageView;
+
 @end
 
 @implementation MinePageVC
@@ -223,6 +224,9 @@ PHPickerViewControllerDelegate
         _avatarImageView = [[UIImageView alloc] init];
         _avatarImageView.layer.masksToBounds = YES;
         _avatarImageView.layer.cornerRadius = 7;
+        //图片宽高适配
+        _avatarImageView.clipsToBounds = YES;
+        [_avatarImageView setContentMode:UIViewContentModeScaleAspectFill];
     }
     return _avatarImageView;
 }
