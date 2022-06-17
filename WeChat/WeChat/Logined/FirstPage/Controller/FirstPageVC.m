@@ -34,6 +34,7 @@
 #pragma mark - Getter
 - (NSArray<FirstPageModel *> *)dataArray {
     if (_dataArray == nil) {
+        //从plist文件中加载
         NSString *path = [[NSBundle mainBundle] pathForResource:@"firstPageData.plist" ofType:nil];
         NSArray *dataArray = [NSArray arrayWithContentsOfFile:path];
         NSMutableArray *ma = [NSMutableArray array];

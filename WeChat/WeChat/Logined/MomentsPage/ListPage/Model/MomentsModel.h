@@ -5,6 +5,7 @@
 //  Created by 宋开开 on 2022/6/1.
 //
 
+//此类为朋友圈信息的Model和数据库
 #import <Foundation/Foundation.h>
 @class MomentsModel;
 NS_ASSUME_NONNULL_BEGIN
@@ -34,7 +35,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)updataCommentsData:(MomentsModel *)publishData;
 
 ///删除信息
+//删除缓存信息
 - (BOOL)deleteData;
+
+//删除指定信息
+- (BOOL)deleteOrderData:(MomentsModel *)deleteModel;
 
 ///查找缓存信息
 - (BOOL)isCache;  //查看是否有缓存

@@ -20,7 +20,6 @@
         self.avatarImgView.image = [UIImage imageNamed:imageData];
         [self.contentView addSubview:self.avatarImgView];
         [self.contentView addSubview:self.nameLab];
-//        self.frame = CGRectMake(0, 0, SCREEN_WIDTH, 100);
         [self setPosition];
         
     }
@@ -29,10 +28,6 @@
 
 #pragma mark - Method
 - (void)setPosition {
-//    [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH, 100));
-//
-//    }];
     //avatarImgView
     [self.avatarImgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView).offset(15);

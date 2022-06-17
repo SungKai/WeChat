@@ -5,6 +5,7 @@
 //  Created by 宋开开 on 2022/5/29.
 //
 
+//此类为消息主页的TableView中的cell
 #import <UIKit/UIKit.h>
 
 //Tools
@@ -13,10 +14,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FirstPageCellTableViewCell : UITableViewCell
-/*
 
-
- */
 @property (nonatomic, strong) UILabel *personLab;
 
 @property (nonatomic, strong) UILabel *textLab;

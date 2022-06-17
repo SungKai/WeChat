@@ -125,6 +125,7 @@ WCDB_SYNTHESIZE(MomentsModel, comments)
 }
 
 // MARK: 删除信息
+///删除缓存信息
 - (BOOL)deleteData {
     //删除缓存的(published == 0)
     if (dataBase == nil) {
@@ -132,6 +133,15 @@ WCDB_SYNTHESIZE(MomentsModel, comments)
     }
     return [dataBase deleteObjectsFromTable:PublishTableName where:MomentsModel.published == 0];
 }
+
+///删除制定信息
+- (BOOL)deleteOrderData:(MomentsModel *)deleteModel {
+    if (dataBase == nil) {
+        [self creatWCDB];
+    }
+    return [dataBase deleteObjectsFromTable:PublishTableName where:MomentsModel.time == deleteModel.time && MomentsModel.text == deleteModel.text];
+}
+
 
 // MARK: 查找缓存信息
 ///查看是否有缓存

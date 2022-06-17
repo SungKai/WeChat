@@ -8,6 +8,7 @@
 #import "FirstPageView.h"
 
 @implementation FirstPageView
+
 - (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style{
     self = [super initWithFrame:frame style:style];
     if (self) {
@@ -21,7 +22,6 @@
 }
 
 #pragma mark - UITableViewDataSource
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }

@@ -372,14 +372,8 @@
 		B56E97822849FE5B00FC5D5F /* PublishPage */ = {
 			isa = PBXGroup;
 			children = (
-				B56E97832849FEBD00FC5D5F /* PublishVC.h */,
-				B56E97842849FEBD00FC5D5F /* PublishVC.m */,
-				B5007522284E1C400067AAAF /* PublishView.h */,
-				B5007523284E1C400067AAAF /* PublishView.m */,
-				B5E7E8F228561033007B52A0 /* PublishCollectionView.h */,
-				B5E7E8F328561033007B52A0 /* PublishCollectionView.m */,
-				B5E7E8EF285607D3007B52A0 /* PublishCollectionViewCell.h */,
-				B5E7E8F0285607D3007B52A0 /* PublishCollectionViewCell.m */,
+				B5E7E947285B0DA4007B52A0 /* Controller */,
+				B5E7E948285B0DB9007B52A0 /* View */,
 			);
 			path = PublishPage;
 			sourceTree = "<group>";
@@ -409,6 +403,36 @@
 				B56E97A8284B01A000FC5D5F /* MineModel.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		B5E7E947285B0DA4007B52A0 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B56E97832849FEBD00FC5D5F /* PublishVC.h */,
+				B56E97842849FEBD00FC5D5F /* PublishVC.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		B5E7E948285B0DB9007B52A0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B5007522284E1C400067AAAF /* PublishView.h */,
+				B5007523284E1C400067AAAF /* PublishView.m */,
+				B5E7E8F228561033007B52A0 /* PublishCollectionView.h */,
+				B5E7E8F328561033007B52A0 /* PublishCollectionView.m */,
+				B5E7E949285B0DCE007B52A0 /* cell */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B5E7E949285B0DCE007B52A0 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				B5E7E8EF285607D3007B52A0 /* PublishCollectionViewCell.h */,
+				B5E7E8F0285607D3007B52A0 /* PublishCollectionViewCell.m */,
+			);
+			path = cell;
 			sourceTree = "<group>";
 		};
 		B5FB33ED2844E3410024532F /* Controller */ = {

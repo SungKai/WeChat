@@ -56,10 +56,7 @@ UITextViewDelegate
         NSString *nameString = @"Vermouth : ";
         NSString *commentText = [nameString stringByAppendingString:self.textView.text];
         NSLog(@"commentText = %@", commentText);
-        
-        //block回调
-//        self.getCommentsData(commentText);
-//        [self.navigationController popViewControllerAnimated:YES];
+        //回调
         self.getCommentsData(commentText);
     }
 }
@@ -79,7 +76,6 @@ UITextViewDelegate
         make.size.mas_equalTo(CGSizeMake(60, 40));
     }];
     //self.publishBtn
-//    self.publishBtn.frame = CGRectMake(SCREEN_WIDTH - 25 -60, 0, 60, 40);
     [self.publishBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.cancelBtn);
         make.size.equalTo(self.cancelBtn);
@@ -97,26 +93,17 @@ UITextViewDelegate
         make.left.top.equalTo(self.textView);
         make.size.mas_equalTo(CGSizeMake(200, 30));
     }];
-    
 }
 
 #pragma mark - Delegate
 // MARK: <UITextViewDelegate>
 - (void)textViewDidChange:(UITextView *)textView{
-    //文本为0
     if (self.textView.text.length == 0) {
-//        //有placeholder
-//        self.placeholder.frame = CGRectMake(20, 0, 200, 30);
-//        self.placeholder.hidden = NO;
-        //发布按钮不可用，为灰色
         self.publishBtn.backgroundColor = [UIColor grayColor];
         self.publishBtn.enabled = NO;
     }else{
-        //发布按钮可用，为绿色
         self.publishBtn.enabled = YES;
         self.publishBtn.backgroundColor = [UIColor colorNamed:@"#00DF6C'00^#00DF6C'00"];
-        //无placeholder
-//        self.placeholder.frame = CGRectZero;
         self.defaultLab.hidden = YES;
     }
 }
@@ -126,7 +113,6 @@ UITextViewDelegate
         _cancelBtn = [[UIButton alloc] init];
         _cancelBtn.backgroundColor = [UIColor clearColor];
         [_cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
-//        _cancelBtn.titleLabel.textColor = [UIColor blackColor];
         [_cancelBtn setTitleColor:[UIColor colorNamed:@"#181818'00^#CFCFCF'00"] forState:UIControlStateNormal];
         _cancelBtn.titleLabel.font = [UIFont systemFontOfSize:20];
         [_cancelBtn addTarget:self action:@selector(clickCancelBtn) forControlEvents:UIControlEventTouchUpInside];

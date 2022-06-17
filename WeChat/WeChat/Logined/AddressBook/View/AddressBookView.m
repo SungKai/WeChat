@@ -40,13 +40,8 @@
     return cell;
 }
 
+///每行高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *nowCell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
-//    if (nowCell == nil) {
-//        return 0;
-//    }else {
-//        return nowCell.frame.size.height;
-//    }
     return 70;
 }
 

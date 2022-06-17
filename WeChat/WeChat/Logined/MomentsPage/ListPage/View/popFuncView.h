@@ -5,6 +5,7 @@
 //  Created by 宋开开 on 2022/6/2.
 //
 
+//此类为朋友圈主界面每个cell中点击多功能按钮（评论或点赞）弹出的弹窗View
 #import <UIKit/UIKit.h>
 
 //Tools

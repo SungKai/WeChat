@@ -5,6 +5,7 @@
 //  Created by 宋开开 on 2022/6/14.
 //
 
+//此工具类为储存头像的数据库
 #import <Foundation/Foundation.h>
 @class AvatarDatabase;
 NS_ASSUME_NONNULL_BEGIN

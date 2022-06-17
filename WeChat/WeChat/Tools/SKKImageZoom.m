@@ -45,7 +45,7 @@ UIButton *downloadBtn;
     //当前视图
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     UIScrollView *backgroundView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT)];
-    backgroundView.backgroundColor = [UIColor colorWithRed:41/255.0 green:42/255.0 blue:47/255.0 alpha:1.0];
+    backgroundView.backgroundColor = [UIColor colorWithRed:41/255.0 green:42/255.0 blue:47/255.0 alpha:0.95];
     backgroundView.delegate = self;
     backgroundView.showsVerticalScrollIndicator = NO;
     backgroundView.showsHorizontalScrollIndicator = NO;

@@ -4,20 +4,20 @@
 //
 //  Created by 宋开开 on 2022/6/1.
 //
-
+//We are both of God and Devil, since we are trying to make the death against the stream of time.
 #import "MomentsCell.h"
 
 //Tools
 #import "AvatarDatabase.h"
 
 #define AvatarDatabaseManager [AvatarDatabaseManager shareInstance]
-#define Right 80
-#define TopAndBottomMargin 20
-#define LeftAndRightMargin 14
+#define Right 80  //YYText的左边距离屏幕左边的距离
+#define TopAndBottomMargin 20  //上下间距
+#define LeftAndRightMargin 14  //左右间距
+
 @implementation MomentsCell
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
         self.contentView.backgroundColor = [UIColor colorNamed:@"#FEFEFE'00^#191919'00"];
@@ -28,7 +28,6 @@
 }
 
 #pragma mark - Method
-
 //设置数据
 - (void)setAvatarImgData:(NSString *)avatarImageViewData NameText:(NSString *)name Text:(NSString *)text ImagesArray:(NSArray *)imagesArray DateText:(NSString *)dateText  LikesTextArray:(NSMutableArray <NSString *> *)likesTextArray CommentsTextArray:(NSMutableArray <NSString *> *)commentsTextArray  Index:(NSInteger)index{
     self.nameText = name;
@@ -45,8 +44,18 @@
     }else {  //自己发布的朋友圈头像
         [self setAvatarImageView];
     }
-    
-    [self AddView];
+    //设置布局
+    [self AddViews];
+    //自己发的pyq要加删除按钮
+    if ([self.nameText isEqual:@"Vermouth"]) {
+        [self.yyTextLab addSubview:self.deleteBtn];
+        //设置位置
+        [self.deleteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.yyTextLab).offset(2);
+            make.left.equalTo(self.yyTextLab).offset(62);
+            make.size.mas_offset(CGSizeMake(46, 28));
+        }];
+    }
 }
 
 ///根据数据库信息来设置头像
@@ -56,8 +65,8 @@
     self.avatarImageView.image = [UIImage imageWithData:data];
 }
 
-///判断数据
-- (void)AddView {
+///设置布局
+- (void)AddViews {
     unsigned long likesNumbers = self.likesTextArray.count;
     unsigned long commentsNumbers = self.commentsTextArray.count;
     //1.没有点赞也没有评论
@@ -118,7 +127,9 @@
 }
 // MARK: YYText 富文本
 
-// MARK: 无点赞评论的情况
+
+
+// MARK: 只有图文内容的情况
 - (void)setTextWithImage {
     NSMutableAttributedString *text = [NSMutableAttributedString new];
     UIFont *font = [UIFont systemFontOfSize:20];
@@ -214,7 +225,7 @@
     return imgView;
 }
 
-///针对一张图片的算法
+///针对只有一张图片的算法
 - (CGRect)oneImageFit:(UIImageView *)imageView {
     CGFloat width = imageView.frame.size.width;
     CGFloat height = imageView.frame.size.height;
@@ -227,7 +238,7 @@
             width = width / heightPercent;
         }
     }else {
-        //2.长方形:宽 > 长 应该缩短宽度，使长度适配
+        //2.长方形或正方形:宽 > 长 应该缩短宽度，使长度适配
         if (width >= height) {
             //宽度最高值
             if (width > SCREEN_WIDTH - Right - LeftAndRightMargin - 50) {
@@ -239,11 +250,11 @@
     }
     return CGRectMake(0, 0, width, height);
 }
+
 // MARK: 有点赞的情况
 - (void)setLikesCell {
     NSMutableAttributedString *text = [NSMutableAttributedString new];
     UIFont *font = [UIFont fontWithName:@"PingFangSC-Medium" size: 18];
-    
     //1.点赞的爱心图案
     UIImage *img = [[UIImage alloc] init];
     img = [UIImage imageNamed:@"like"];
@@ -295,7 +306,6 @@
         NSMutableAttributedString *commentsAtt = [[NSMutableAttributedString alloc] initWithString:[self.commentsTextArray[i] stringByAppendingString:@"\n"]];
         //找到评论人
         NSString *person = [self.commentsTextArray[i] componentsSeparatedByString: @" :"][0];
-//        NSLog(@"person = %@", person);
         commentsAtt.yy_font = font;
         commentsAtt.yy_color = [UIColor colorNamed:@"#191919'00^#A5A5A5'00"];
         //设置不同颜色
@@ -304,7 +314,7 @@
         [commentsAtt yy_setFont:font range:range];
         commentsAtt.yy_headIndent = 10;
         commentsAtt.yy_firstLineHeadIndent = 10;
-        [text appendAttributedString:commentsAtt];  //换行？
+        [text appendAttributedString:commentsAtt];
     }
     self.yyCommentsLab.attributedText = text;
     self.yyCommentsLab.numberOfLines = 0;  //设置多行
@@ -383,9 +393,21 @@
     self.separator = [[UIView alloc] init];
     self.separator.backgroundColor = [UIColor colorNamed:@"#E5E5E5'00^#252524'00"];
     
+    //删除按钮
+    self.deleteBtn = [[UIButton alloc] init];
+    [self.deleteBtn setTitle:@"删除" forState:UIControlStateNormal];
+    [self.deleteBtn setTitleColor:[UIColor colorNamed:@"#576B94'00^#7C90A8'00"] forState:UIControlStateNormal];
+    self.deleteBtn.titleLabel.font = [UIFont systemFontOfSize:17];
+    [self.deleteBtn addTarget:self action:@selector(clickDeleteBtn) forControlEvents:UIControlEventTouchUpInside];
 }
-//点击多功能按钮
+
+///点击多功能按钮
 - (void)ClickFuncBtn {
     [self.cellDelegate clickFuncBtn:self];
+}
+
+///点击删除按钮
+- (void)clickDeleteBtn {
+    [self.cellDelegate clickDeleteBtn:self];
 }
 @end

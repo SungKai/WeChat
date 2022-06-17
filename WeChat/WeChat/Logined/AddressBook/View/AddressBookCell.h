@@ -5,6 +5,7 @@
 //  Created by 宋开开 on 2022/5/30.
 //
 
+//此类为通讯录的TableView的cell
 #import <UIKit/UIKit.h>
 
 //Tools

@@ -106,7 +106,6 @@
     if (_dateLab == nil) {
         _dateLab = [[UILabel alloc] init];
         _dateLab.font = [UIFont systemFontOfSize:15];
-//        _dateLab.textColor = [UIColor colorNamed:@"#CCCCCC'00^#2F2F2F"];
         _dateLab.textColor = [UIColor colorNamed:@"#B3B3B3'00^#5D5D5D'00"];
         _dateLab.textAlignment = NSTextAlignmentCenter;
     }
@@ -117,7 +116,6 @@
     if (_bellImageView == nil) {
         _bellImageView = [[UIImageView alloc] init];
         _bellImageView.image = [UIImage systemImageNamed:@"bell.slash"];
-//        _bellImageView.tintColor = [UIColor colorNamed:@"#CCCCCC'00^#2F2F2F"];
         _bellImageView.tintColor = [UIColor colorNamed:@"#B3B3B3'00^#5D5D5D'00"];
     }
     return _bellImageView;

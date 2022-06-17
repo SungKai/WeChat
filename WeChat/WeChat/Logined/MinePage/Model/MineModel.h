@@ -5,6 +5,7 @@
 //  Created by 宋开开 on 2022/6/4.
 //
 
+//此类为我界面的Model
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN

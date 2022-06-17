@@ -5,6 +5,7 @@
 //  Created by 宋开开 on 2022/5/29.
 //
 
+//此类为消息主页的Model
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -18,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *image;
 
 @property (nonatomic, copy) NSString *date;
-
+///是否屏蔽此人消息
 @property (nonatomic) NSNumber *bell;
 
 /// KVC字典转模型

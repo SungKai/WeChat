@@ -5,6 +5,7 @@
 //  Created by 宋开开 on 2022/5/29.
 //
 
+//此类为消息主页的TableView
 #import <UIKit/UIKit.h>
 
 //View

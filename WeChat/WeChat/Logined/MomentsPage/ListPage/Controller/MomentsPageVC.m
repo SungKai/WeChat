@@ -24,7 +24,7 @@
 #import "YYText.h"
 #import "Masonry.h"
 #import "NSDate+Day.h"
-#import "AvatarDatabase.h"
+#import "AvatarDatabase.h"  //头像数据库
 
 #define MomentModelManager [MomentsModelManager shareInstance]
 #define AvatarDatabaseManager [AvatarDatabaseManager shareInstance]
@@ -40,13 +40,13 @@ popFuncViewDelegate
 
 @property (nonatomic, strong) UITableView *tableView;
 
-//多功能按钮
+///多功能按钮
 @property (nonatomic, strong) popFuncView *popFuncView;
 
-//背景蒙版（使点击任意一处退出多功能按钮）
+///背景蒙版（使点击任意一处退出多功能按钮）
 @property (nonatomic, strong) UIView *backView;
 
-//朋友圈顶部的封面
+///朋友圈顶部的封面
 @property (nonatomic, strong) UIView *topView;
 
 ///头像
@@ -70,8 +70,9 @@ popFuncViewDelegate
     //设置数据
     self.dataArray = [NSMutableArray array];
     self.dataArray = [MomentModelManager getAllPublishData];
-    
+    //设置tableView
     [self.view addSubview:self.tableView];
+    //设置tableView的顶部视图
     self.tableView.tableHeaderView = self.topView;
     //根据数据库信息来设置头像
     [self setAvatarImageView];
@@ -86,8 +87,10 @@ popFuncViewDelegate
 ///下拉刷新
 - (void)refreshTableView {
     [self.tableView reloadData];
+    //根据数据库信息来设置头像
     [self setAvatarImageView];
-    if ([self.tableView.refreshControl isRefreshing]){
+    
+    if ([self.tableView.refreshControl isRefreshing]) {
         [self.tableView.refreshControl endRefreshing];
     }
 }
@@ -95,7 +98,7 @@ popFuncViewDelegate
 - (void)setAvatarImageView {
     //从数据库取得数据
     NSData *data = [AvatarDatabaseManager getAvatarInformation];
-    _avatarImgView.image = [UIImage imageWithData:data];
+    self.avatarImgView.image = [UIImage imageWithData:data];
 }
 ///把plist文件里的数据写入数据存储
 - (void)saveData {
@@ -124,6 +127,7 @@ popFuncViewDelegate
         NSLog(@"VC表格已存在");
     }
 }
+
 ///进入发布界面
 - (void)getIntoPublishVC {
     self.publishBtn = [[UIButton alloc] init];
@@ -145,13 +149,13 @@ popFuncViewDelegate
     [self.popFuncView removeFromSuperview];
     [self.backView removeFromSuperview];
 }
+
 #pragma mark - <UITableDataSource>
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    NSLog(@"self.dataArray.coun = %lu", self.dataArray.count);
     return self.dataArray.count;
 }
 
@@ -183,13 +187,13 @@ popFuncViewDelegate
 
 #pragma mark - Delegate
 // MARK: <MomentsCellDelegate>
+//点击多功能按钮
 - (void)clickFuncBtn:(MomentsCell *)cell {
     UIWindow *window = self.view.window;
     CGRect frame = [cell.likeOrCommentBtn convertRect:cell.likeOrCommentBtn.bounds toView:window];
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     //取反
     long tag = [MomentModelManager getAllPublishData].count - indexPath.row - 1;
-//    NSLog(@"indexPath = %@", indexPath);
     //加入背景蒙版
     [self showBackViewWithGesture];
     //做标记
@@ -205,12 +209,27 @@ popFuncViewDelegate
         self.liked = NO;
     }
     //根据数据存储来设定是 "赞" 还是 "取消"
-//    self.popFuncView.likeLab.text = @"赞";
     self.popFuncView.frame = CGRectMake(frame.origin.x - SCREEN_WIDTH * 0.47, frame.origin.y, 172, 35);
     [self.view.window addSubview:self.popFuncView];
-    
 }
 
+//点击删除按钮
+- (void)clickDeleteBtn:(MomentsCell *)cell {
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    //取反
+    long tag = [MomentModelManager getAllPublishData].count - indexPath.row - 1;
+    //删除此信息
+    MomentsModel *momentModel = self.dataArray[tag];
+    NSLog(@"momentModel.person = %@", momentModel.person);
+    BOOL res = [MomentModelManager deleteOrderData:momentModel];
+    if (res) {
+        NSLog(@"删除成功");
+    }else {
+        NSLog(@"删除失败");
+    }
+    self.dataArray = [MomentModelManager getAllPublishData];
+    [self.tableView reloadData];
+}
 // MARK: <popFuncViewDelegate>
 /// 点击点赞按钮
 /// @param sender 该按钮
@@ -218,26 +237,24 @@ popFuncViewDelegate
     //找到该cell(要倒转）
     long tag = sender.tag;
     NSMutableArray *tempArray = [NSMutableArray arrayWithArray:self.dataArray[tag].likes];
-
     //需要查看是否在上一次已点赞
     if (self.liked) {  //上次已经点了赞
         [tempArray removeObject:LikeName];
         self.popFuncView.likeLab.text = @"赞";
         self.liked = NO;
-    }else {
-            [tempArray addObject:LikeName];
-            self.popFuncView.likeLab.text = @"取消";
+    }else {  //上次没点赞
+        [tempArray addObject:LikeName];
+        self.popFuncView.likeLab.text = @"取消";
     }
 
     self.dataArray[tag].likes = tempArray;
     //同时数据存储
     //1.拿到该条数据
     MomentsModel *model = [MomentModelManager getAllPublishData][tag];
-    NSLog(@"model.person = %@", model.person);
     //2.修改点赞数据
     model.likes = tempArray;
     [MomentModelManager updataLikesData:model];
-//    [self.popFuncView removeFromSuperview];
+    //刷新
     [self.tableView reloadData];
 }
 
@@ -284,8 +301,6 @@ popFuncViewDelegate
 - (void)clickPublishBtn:(UIButton *)sender {
     [self.popFuncView removeFromSuperview];
     self.navigationController.navigationBarHidden = YES;
-    //取反
-//    long tag = sender.tag;
     PublishVC *publishVC = [[PublishVC alloc] init];
     [self.navigationController pushViewController:publishVC animated:NO];
     //成功发布后的信息回调
@@ -297,21 +312,23 @@ popFuncViewDelegate
         newModel.text = text;
         newModel.images = imageArray;
         newModel.time = [self currentTime];
-//        newModel.likes = @[ ];
-//        newModel.comments =
         //添加到数据库中
         [MomentModelManager insertData:newModel];
         self.dataArray = [MomentModelManager getAllPublishData];
+        //同时把缓存数据删除
+        [MomentModelManager deleteData];
         //发布成功后回到顶部
         [self.tableView  scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
         [self.tableView reloadData];
-        
+        //返回
         [self.navigationController popViewControllerAnimated:YES];
+        //恢复头尾的bar
         self.navigationController.navigationBarHidden = NO;
         self.tabBarController.tabBar.hidden = NO;
     };
 }
-//获取时间
+
+///获取当前时间
 - (NSString *)currentTime {
     NSString *hour = [[NSDate today] hour];
     NSString *separator = @" : ";
@@ -319,6 +336,7 @@ popFuncViewDelegate
     NSString *currentTime = [hour stringByAppendingString:min];
     return currentTime;
 }
+
 #pragma mark - Getter
 - (UITableView *)tableView {
     if (_tableView == nil) {
@@ -360,7 +378,6 @@ popFuncViewDelegate
         topImageView.frame = CGRectMake(0, -45, SCREEN_WIDTH, 350);
         //avatarImgView
         _avatarImgView = [[UIImageView alloc] init];
-//        avatarImgView.image = [UIImage imageNamed:@"avatar"];
         _avatarImgView.layer.masksToBounds = YES;
         _avatarImgView.layer.cornerRadius = 8;
         //图片宽高适配
@@ -383,7 +400,7 @@ popFuncViewDelegate
             make.bottom.equalTo(_topView).offset(-20);
             make.size.mas_equalTo(CGSizeMake(80, 80));
         }];
-        
+        //nameLab
         [nameLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(_avatarImgView.mas_left).offset(-10);
             make.centerY.equalTo(_avatarImgView).offset(-5);

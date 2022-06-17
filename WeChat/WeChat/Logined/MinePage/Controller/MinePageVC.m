@@ -10,7 +10,7 @@
 //Model
 #import "MineModel.h"
 
-//Tool
+//Tools
 #import "Masonry.h"
 #import "AvatarDatabase.h"
 #import <PhotosUI/PHPicker.h>
@@ -116,8 +116,6 @@ PHPickerViewControllerDelegate
             make.size.mas_equalTo(CGSizeMake(200, 40));
         }];
     }
-    
-    
     return cell;
 }
 
@@ -149,7 +147,7 @@ PHPickerViewControllerDelegate
     for (PHPickerResult *result in results) {
         [result.itemProvider loadObjectOfClass:[UIImage class] completionHandler:^(__kindof id <NSItemProviderReading>  _Nullable object, NSError * _Nullable error) {
             if ([object isKindOfClass:[UIImage class]]) {
-               //主线程更新UI
+               //更新
                 dispatch_async(dispatch_get_main_queue(), ^{
                     //设置头像
                     self.avatarImageView.image = object;
@@ -163,10 +161,8 @@ PHPickerViewControllerDelegate
                 });
             }
         }];
-        
     }
 }
-
 
 #pragma mark - Getter
 - (UITableView *)tableView {
@@ -203,11 +199,13 @@ PHPickerViewControllerDelegate
             make.left.equalTo(_topView).offset(30);
             make.size.mas_equalTo(CGSizeMake(70, 70));
         }];
+        //nameLab
         [nameLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.avatarImageView);
             make.left.equalTo(self.avatarImageView.mas_right).offset(30);
             make.size.mas_equalTo(CGSizeMake(200, 50));
         }];
+        //chevronImageView
         [chevronImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.avatarImageView);
             make.right.equalTo(_topView).offset(-20);
