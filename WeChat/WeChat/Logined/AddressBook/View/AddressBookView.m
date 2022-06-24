@@ -15,6 +15,7 @@
         self.dataSource = self;
         self.delegate = self;
         self.data = [NSArray array];
+//        [self addSubview:self.searchBar];
     }
     return self;
 }
@@ -44,6 +45,5 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 70;
 }
-
 
 @end
