@@ -32,7 +32,7 @@
 
 有搜索框功能。
 
-![](assets/wechatAddressBook.gif) ![](assets/wechatAddressBook.gif)
+![](assets/wechatAddressBook.gif) ![](assets/wechatSearch.gif)
 
 ### 2.4 朋友圈界面
 
