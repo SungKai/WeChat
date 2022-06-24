@@ -30,7 +30,9 @@
 
 和主界面一样是简单的UITableView，数据从plist文件中加载。
 
-![](assets/wechatAddressBook.gif) 
+有搜索框功能。
+
+![](assets/wechatAddressBook.gif) ![](assets/wechatAddressBook.gif)
 
 ### 2.4 朋友圈界面
 
