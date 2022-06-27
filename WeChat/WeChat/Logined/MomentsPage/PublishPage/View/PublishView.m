@@ -134,8 +134,10 @@ PHPickerViewControllerDelegate
             make.left.top.equalTo(self.textView);
             make.size.mas_equalTo(CGSizeMake(200, 30));
         }];
-        self.publishBtn.backgroundColor = [UIColor lightGrayColor];
-        self.publishBtn.enabled = NO;
+        if (self.photosArray.count == 0) {
+            self.publishBtn.backgroundColor = [UIColor lightGrayColor];
+            self.publishBtn.enabled = NO;
+        }
     }else {
         self.publishBtn.backgroundColor = [UIColor colorNamed:@"#00DF6C'00^#00DF6C'00"];
         self.publishBtn.enabled = YES;
@@ -182,8 +184,8 @@ PHPickerViewControllerDelegate
     }
 }
 // MARK: <PublishCollectionViewDelegate>
-- (void)chosePhotos:(NSIndexPath *)indexPath {
-    if (indexPath.item == 0 && self.photosArray.count <= 9) {
+- (void)chosePhotos:(NSIndexPath *)indexPath Image:(UIImage *)image{
+    if (indexPath.item == 0 && self.photosArray.count <= 9 && image == self.plusImage) {
         PHPickerConfiguration *picker = [[PHPickerConfiguration alloc] init];
         picker.selectionLimit = 9;
         picker.filter = [PHPickerFilter imagesFilter];

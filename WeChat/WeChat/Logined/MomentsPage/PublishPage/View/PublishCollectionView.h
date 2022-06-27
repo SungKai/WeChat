@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 点击item选择照片
 /// @param indexPath item的序号
-- (void)chosePhotos:(NSIndexPath *)indexPath;
+- (void)chosePhotos:(NSIndexPath *)indexPath Image:(UIImage *)image;
 
 @end
 
