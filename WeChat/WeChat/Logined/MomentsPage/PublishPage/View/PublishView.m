@@ -43,7 +43,7 @@ PHPickerViewControllerDelegate
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor colorNamed:@"#FEFEFE'00^#191919'00"];
-        self.imageIsNine = NO;
+        self.imageIsNine = NO; 
         self.photosArray = [[NSMutableArray alloc]initWithCapacity:9];
         self.plusImage = [UIImage imageNamed:@"plus"];
         [self addView];
