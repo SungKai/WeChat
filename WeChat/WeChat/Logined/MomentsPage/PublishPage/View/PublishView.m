@@ -43,7 +43,7 @@ PHPickerViewControllerDelegate
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor colorNamed:@"#FEFEFE'00^#191919'00"];
-        self.imageIsNine = NO; 
+        self.imageIsNine = NO;
         self.photosArray = [[NSMutableArray alloc]initWithCapacity:9];
         self.plusImage = [UIImage imageNamed:@"plus"];
         [self addView];
@@ -103,14 +103,15 @@ PHPickerViewControllerDelegate
     if (cacheData.images != nil) {
         //把NSData转换成UIImage
         NSMutableArray *ma = [NSMutableArray array];
-        for (int i = 0; i < cacheData.images.count; i++) {
+        //使第一张图片永远是self.plusImage
+        [ma addObject:self.plusImage];
+        for (int i = 1; i < cacheData.images.count; i++) {
             UIImage *image = [UIImage imageWithData:cacheData.images[i]];
             [ma addObject:image];
         }
         self.photosArray = ma;
     }
     self.publishCV.photosArray = self.photosArray;
-//    [self.publishCV reloadData];
     [self setData];
 }
 ///设置初始数据
@@ -134,7 +135,7 @@ PHPickerViewControllerDelegate
             make.left.top.equalTo(self.textView);
             make.size.mas_equalTo(CGSizeMake(200, 30));
         }];
-        if (self.photosArray.count == 0) {
+        if (self.photosArray.count == 1) {
             self.publishBtn.backgroundColor = [UIColor lightGrayColor];
             self.publishBtn.enabled = NO;
         }
@@ -174,7 +175,7 @@ PHPickerViewControllerDelegate
     //文本为0
     if (self.textView.text.length == 0) {
         //发布按钮不可用，为灰色
-        self.publishBtn.backgroundColor = [UIColor grayColor];
+        self.publishBtn.backgroundColor = [UIColor lightGrayColor];
         self.publishBtn.enabled = NO;
     }else{
         //发布按钮可用，为绿色

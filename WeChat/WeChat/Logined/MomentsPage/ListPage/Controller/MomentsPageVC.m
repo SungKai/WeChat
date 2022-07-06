@@ -76,6 +76,7 @@ popFuncViewDelegate
     self.tableView.tableHeaderView = self.topView;
     //根据数据库信息来设置头像
     [self setAvatarImageView];
+    //设置发布按钮
     [self getIntoPublishVC];
     //下拉刷新
     UIRefreshControl *control = [[UIRefreshControl alloc]init];
@@ -139,6 +140,47 @@ popFuncViewDelegate
     [self.navigationController.navigationBar addSubview:self.publishBtn];
 }
 
+/// 点击发布按钮
+/// @param sender 该按钮
+- (void)clickPublishBtn:(UIButton *)sender {
+    [self.popFuncView removeFromSuperview];
+    self.navigationController.navigationBarHidden = YES;
+    PublishVC *publishVC = [[PublishVC alloc] init];
+    [self.navigationController pushViewController:publishVC animated:NO];
+    //成功发布后的信息回调
+    publishVC.getPublishData = ^(NSString * _Nullable text, NSMutableArray * _Nullable imageArray) {
+        MomentsModel *newModel = [[MomentsModel alloc] init];
+        //设置数据
+        newModel.published = 1;
+        newModel.person = @"Vermouth";
+        newModel.text = text;
+        newModel.images = imageArray;
+        newModel.time = [self currentTime];
+        //添加到数据库中
+        [MomentModelManager insertData:newModel];
+        self.dataArray = [MomentModelManager getAllPublishData];
+        //同时把缓存数据删除
+        [MomentModelManager deleteData];
+        //发布成功后回到顶部
+        [self.tableView  scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
+        [self.tableView reloadData];
+        //返回
+        [self.navigationController popViewControllerAnimated:YES];
+        //恢复头尾的bar
+        self.navigationController.navigationBarHidden = NO;
+        self.tabBarController.tabBar.hidden = NO;
+    };
+}
+
+///获取当前时间
+- (NSString *)currentTime {
+    NSString *hour = [[NSDate today] hour];
+    NSString *separator = @" : ";
+    NSString *min = [separator stringByAppendingString:[[NSDate today] min]];
+    NSString *currentTime = [hour stringByAppendingString:min];
+    return currentTime;
+}
+
 ///加上背景蒙版（使点击任意一处退出多功能按钮）
 - (void)showBackViewWithGesture {
     [self.view.window addSubview:self.backView];
@@ -171,7 +213,13 @@ popFuncViewDelegate
         //设置cell无法点击
         [momentsCell setSelectionStyle:UITableViewCellSelectionStyleNone];
         //设置数据
-        [momentsCell setAvatarImgData:model.avatar NameText:model.person Text:model.text ImagesArray:model.images DateText:model.time LikesTextArray:model.likes CommentsTextArray:model.comments Index:index];
+        [momentsCell setAvatarImgData:model.avatar
+                             NameText:model.person Text:model.text
+                          ImagesArray:model.images
+                             DateText:model.time
+                       LikesTextArray:model.likes
+                    CommentsTextArray:model.comments
+                                Index:index];
     }
     return momentsCell;
 }
@@ -208,7 +256,6 @@ popFuncViewDelegate
         self.popFuncView.likeLab.text = @"赞";
         self.liked = NO;
     }
-    //根据数据存储来设定是 "赞" 还是 "取消"
     self.popFuncView.frame = CGRectMake(frame.origin.x - SCREEN_WIDTH * 0.47, frame.origin.y, 172, 35);
     [self.view.window addSubview:self.popFuncView];
 }
@@ -277,6 +324,7 @@ popFuncViewDelegate
     //取反
     long tag = sender.tag;
     __block CommentVC *commentVC = [[CommentVC alloc] init];
+    //跳转到评论界面
     [self.navigationController pushViewController:commentVC animated:NO];
     //信息回调
     commentVC.getCommentsData = ^(NSString * _Nonnull commentsText) {
@@ -294,47 +342,6 @@ popFuncViewDelegate
         self.navigationController.navigationBarHidden = NO;
         self.tabBarController.tabBar.hidden = NO;
     };
-}
-
-/// 点击发布按钮
-/// @param sender 该按钮
-- (void)clickPublishBtn:(UIButton *)sender {
-    [self.popFuncView removeFromSuperview];
-    self.navigationController.navigationBarHidden = YES;
-    PublishVC *publishVC = [[PublishVC alloc] init];
-    [self.navigationController pushViewController:publishVC animated:NO];
-    //成功发布后的信息回调
-    publishVC.getPublishData = ^(NSString * _Nullable text, NSMutableArray * _Nullable imageArray) {
-        MomentsModel *newModel = [[MomentsModel alloc] init];
-        //设置数据
-        newModel.published = 1;
-        newModel.person = @"Vermouth";
-        newModel.text = text;
-        newModel.images = imageArray;
-        newModel.time = [self currentTime];
-        //添加到数据库中
-        [MomentModelManager insertData:newModel];
-        self.dataArray = [MomentModelManager getAllPublishData];
-        //同时把缓存数据删除
-        [MomentModelManager deleteData];
-        //发布成功后回到顶部
-        [self.tableView  scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
-        [self.tableView reloadData];
-        //返回
-        [self.navigationController popViewControllerAnimated:YES];
-        //恢复头尾的bar
-        self.navigationController.navigationBarHidden = NO;
-        self.tabBarController.tabBar.hidden = NO;
-    };
-}
-
-///获取当前时间
-- (NSString *)currentTime {
-    NSString *hour = [[NSDate today] hour];
-    NSString *separator = @" : ";
-    NSString *min = [separator stringByAppendingString:[[NSDate today] min]];
-    NSString *currentTime = [hour stringByAppendingString:min];
-    return currentTime;
 }
 
 #pragma mark - Getter
@@ -362,8 +369,17 @@ popFuncViewDelegate
         _backView = [[UIView alloc] init];
         _backView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         _backView.backgroundColor = [UIColor clearColor];
+        //手势1:点击任意一处使多功能按钮消失
         UITapGestureRecognizer *dismiss = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissBackViewWithGesture)];
         [_backView addGestureRecognizer:dismiss];
+        //手势2:使上下滑动时也使多功能按钮消失
+        UISwipeGestureRecognizer *swipeUP = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(dismissBackViewWithGesture)];
+        swipeUP.direction = UISwipeGestureRecognizerDirectionUp;
+        UISwipeGestureRecognizer *swipeDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(dismissBackViewWithGesture)];
+        swipeDown.direction = UISwipeGestureRecognizerDirectionDown;
+        [_backView addGestureRecognizer:swipeUP];
+        [_backView addGestureRecognizer:swipeDown];
+        
     }
     return _backView;
 }

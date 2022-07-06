@@ -104,7 +104,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param likesTextArray 点赞人数组
 /// @param commentsTextArray 评论数组
 /// @param index cell标号
-- (void)setAvatarImgData:(NSString *)avatarImageViewData NameText:(NSString *)name Text:(NSString *)text ImagesArray:(NSArray *)imagesArray DateText:(NSString *)dateText  LikesTextArray:(NSMutableArray <NSString *> *)likesTextArray CommentsTextArray:(NSMutableArray <NSString *> *)commentsTextArray Index:(NSInteger)index;
+- (void)setAvatarImgData:(NSString *)avatarImageViewData
+                NameText:(NSString *)name
+                    Text:(NSString *)text
+             ImagesArray:(NSArray *)imagesArray
+                DateText:(NSString *)dateText
+          LikesTextArray:(NSMutableArray <NSString *> *)likesTextArray
+       CommentsTextArray:(NSMutableArray <NSString *> *)commentsTextArray
+                   Index:(NSInteger)index;
 
 @end
 

@@ -33,7 +33,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param imgViewData 图片信息
 /// @param date 日期
 /// @param bell 是否免打扰   
-- (instancetype)initWithPerson:(NSString *)person Text:(NSString *)text ImgView:(NSString *)imgViewData Date:(NSString *)date BellImage:(NSNumber *)bell;
+- (instancetype)initWithPerson:(NSString *)person
+                          Text:(NSString *)text
+                       ImgView:(NSString *)imgViewData
+                          Date:(NSString *)date
+                     BellImage:(NSNumber *)bell;
 @end
 
 NS_ASSUME_NONNULL_END

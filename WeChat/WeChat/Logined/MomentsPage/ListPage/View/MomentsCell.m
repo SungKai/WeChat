@@ -101,7 +101,7 @@
         self.frame = CGRectMake(0, 0, SCREEN_WIDTH, self.commentsHeight + TopAndBottomMargin);
     }
     
-    //3.有点赞有评论(有分割线）
+    //4.有点赞有评论(有分割线）
     if (likesNumbers != 0 && commentsNumbers != 0) {
         //设置UI
         [self setTextWithImage];
@@ -338,6 +338,7 @@
     UIImageView *clickedImageView = (UIImageView *)tap.view;
     [[SKKImageZoom shareInstance] imageZoomWithImageView:clickedImageView];
 }
+
 - (void)setPosition {
     //avatarImageView
     [self.avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {

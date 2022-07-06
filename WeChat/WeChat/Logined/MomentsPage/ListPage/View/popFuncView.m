@@ -22,7 +22,6 @@
         [self addSubview:self.commentLab];
         [self addSubview:self.likeImageView];
         [self addSubview:self.commentImageView];
-        
         [self setPosition];
     }
     return self;

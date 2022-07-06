@@ -60,7 +60,6 @@ static NSString * const cellID = @"cellID";
 //点击添加照片
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"选中了%ld", indexPath.row);
-//    long tag = [collectionView cellForItemAtIndexPath:indexPath].tag;
     [self.publishCVDelegate chosePhotos:indexPath Image:self.photosArray[indexPath.row]];
 }
 
