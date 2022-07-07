@@ -65,6 +65,9 @@
         _avatarImageView = [[UIImageView alloc] init];
         _avatarImageView.layer.masksToBounds = YES;
         _avatarImageView.layer.cornerRadius = 10;
+        //图片宽高适配
+        _avatarImageView.clipsToBounds = YES;
+        [_avatarImageView setContentMode:UIViewContentModeScaleAspectFill];
     }
     return _avatarImageView;
 }

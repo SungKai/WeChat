@@ -92,6 +92,7 @@
     UIImage *image = [UIImage imageNamed:@"avater2"];
     UIImageWriteToSavedPhotosAlbum(image, self, nil ,nil);
 }
+
 #pragma mark - Delegate
 // MARK: <LoginViewDelegate>
 //点击跳转

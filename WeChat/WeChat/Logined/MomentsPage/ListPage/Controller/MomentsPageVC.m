@@ -323,7 +323,7 @@ popFuncViewDelegate
     self.navigationController.navigationBarHidden = YES;
     //取反
     long tag = sender.tag;
-    __block CommentVC *commentVC = [[CommentVC alloc] init];
+    CommentVC *commentVC = [[CommentVC alloc] init];
     //跳转到评论界面
     [self.navigationController pushViewController:commentVC animated:NO];
     //信息回调

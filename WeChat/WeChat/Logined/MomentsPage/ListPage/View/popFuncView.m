@@ -35,7 +35,7 @@
     anima.byValue = @(0.7);
     [self.likeImageView.layer addAnimation:anima forKey:@"scaleAnimation"];
     //popView自动消失
-    dispatch_time_t delayTime =dispatch_time(DISPATCH_TIME_NOW, (int64_t)(500/*延迟执行时间*/*NSEC_PER_MSEC));
+    dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(500/*延迟执行时间*/*NSEC_PER_MSEC));
     dispatch_after(delayTime,dispatch_get_main_queue(), ^{
         [self removeFromSuperview];
         [self.popFuncViewDelegate clickLikeBtn:sender];

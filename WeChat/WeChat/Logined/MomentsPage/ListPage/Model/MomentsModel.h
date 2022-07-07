@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 //删除缓存信息
 - (BOOL)deleteData;
 
-//删除指定信息
+///删除指定信息
 - (BOOL)deleteOrderData:(MomentsModel *)deleteModel;
 
 ///查找缓存信息
