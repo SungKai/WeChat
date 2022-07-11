@@ -104,7 +104,7 @@
 		B56E97A8284B01A000FC5D5F /* MineModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineModel.m; sourceTree = "<group>"; };
 		B56E97AC284B01E700FC5D5F /* MineImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MineImage.xcassets; sourceTree = "<group>"; };
 		B56E97AE284B02F500FC5D5F /* minePageData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = minePageData.plist; sourceTree = "<group>"; };
-		B589B724286EEF6600181FE7 /* addressBookData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = addressBookData.plist; path = ../../../AddressBookData/addressBookData.plist; sourceTree = "<group>"; };
+		B589B724286EEF6600181FE7 /* addressBookData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = addressBookData.plist; sourceTree = "<group>"; };
 		B5E7E8EC2855BF6A007B52A0 /* NSDate+Day.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Day.m"; sourceTree = "<group>"; };
 		B5E7E8ED2855BF6A007B52A0 /* NSDate+Day.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Day.h"; sourceTree = "<group>"; };
 		B5E7E8EF285607D3007B52A0 /* PublishCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PublishCollectionViewCell.h; sourceTree = "<group>"; };
@@ -180,6 +180,10 @@
 				B54643B02842FC2D0027ECD4 /* Logined */,
 				B54643A32842496E0027ECD4 /* Tools */,
 				B54643AA284253650027ECD4 /* PrefixHeader.pch */,
+				B54643CB284313470027ECD4 /* firstPageData.plist */,
+				B589B724286EEF6600181FE7 /* addressBookData.plist */,
+				B56E977F2849F8A100FC5D5F /* momentData.plist */,
+				B56E97AE284B02F500FC5D5F /* minePageData.plist */,
 				B52A262328420D2500607363 /* Info.plist */,
 			);
 			path = WeChat;
@@ -239,10 +243,6 @@
 				B52A261B28420D2400607363 /* Main.storyboard */,
 				B52A262028420D2500607363 /* LaunchScreen.storyboard */,
 				B52A262428420D2500607363 /* main.m */,
-				B54643CB284313470027ECD4 /* firstPageData.plist */,
-				B589B724286EEF6600181FE7 /* addressBookData.plist */,
-				B56E977F2849F8A100FC5D5F /* momentData.plist */,
-				B56E97AE284B02F500FC5D5F /* minePageData.plist */,
 				B52A261E28420D2500607363 /* Color.xcassets */,
 			);
 			path = "Supporting Files";
