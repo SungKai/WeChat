@@ -60,6 +60,12 @@ UITextViewDelegate
         self.getCommentsData(commentText);
     }
 }
+
+/// 点击任意一处退出键盘
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self.textView resignFirstResponder];
+}
+
 ///添加控件
 - (void)addView {
     [self.view addSubview:self.cancelBtn];

@@ -41,6 +41,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PublishView : UIView
 
+///文本编辑框
+@property (nonatomic, strong) UITextView *textView;
+
 @property (nonatomic, strong, nullable) NSMutableArray *photosArray;
 
 @property (nonatomic, copy) NSString *text;

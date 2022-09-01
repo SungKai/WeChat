@@ -50,6 +50,11 @@ PublishViewDelegate
     }
 }
 
+/// 点击任意一处退出键盘
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self.publishView.textView resignFirstResponder];
+}
+
 #pragma mark - Delegate
 // MARK: <PublishViewDelegate>
 - (void)SaveCacheText:(NSString *)text Images:(NSMutableArray *)imageArray {

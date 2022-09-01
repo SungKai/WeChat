@@ -7,7 +7,10 @@
 
 #import "AddressBookVC.h"
 
-@interface AddressBookVC () <UISearchBarDelegate>
+@interface AddressBookVC () <
+    UISearchBarDelegate,
+    UITableViewDelegate
+>
 
 ///搜索框
 @property (nonatomic, strong) UISearchBar *searchBar;
@@ -81,10 +84,29 @@
     [self.tableView reloadData];
 }
 
+#pragma mark - UITableViewDelegate
+
+///每行高度
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 70;
+}
+
+/// 点击任意一处退出键盘
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.searchBar resignFirstResponder];
+}
+
+/// 滑动时退出键盘
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self.searchBar resignFirstResponder];
+}
+
 #pragma mark - Getter
+
 - (AddressBookView *)tableView {
     if (_tableView == nil) {
         _tableView = [[AddressBookView alloc] initWithFrame:CGRectMake(0, StatusBarHeight + 50, SCREEN_WIDTH, SCREEN_HEIGHT - StatusBarHeight - 50) style:UITableViewStylePlain];
+        _tableView.delegate = self;
     }
     return _tableView;
 }

@@ -21,8 +21,6 @@ PHPickerViewControllerDelegate
 >
 
 @property (nonatomic, strong) PublishCollectionView *publishCV;
-///文本编辑框
-@property (nonatomic, strong) UITextView *textView;
 
 ///当文本编辑框内的默认内容
 @property (nonatomic, strong) UILabel *defaultLab;

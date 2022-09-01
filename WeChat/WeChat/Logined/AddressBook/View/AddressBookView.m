@@ -13,7 +13,7 @@
     self = [super initWithFrame:frame style:style];
     if (self) {
         self.dataSource = self;
-        self.delegate = self;
+//        self.delegate = self;
         self.data = [NSArray array];
 //        [self addSubview:self.searchBar];
     }
@@ -41,9 +41,5 @@
     return cell;
 }
 
-///每行高度
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 70;
-}
 
 @end
