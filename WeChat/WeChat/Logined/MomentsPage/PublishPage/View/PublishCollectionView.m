@@ -16,12 +16,12 @@ static NSString * const cellID = @"cellID";
     self.photosArray = [[NSMutableArray alloc]initWithCapacity:9];
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.itemSize = CGSizeMake(100, 100);
-    layout.minimumLineSpacing = 10; //上下间隔
-    layout.minimumInteritemSpacing = 10;  //左右间隔 //可能会被强制调整,取决于UIEdgeInsetsMake
+    layout.minimumLineSpacing = 10; // 上下间隔
+    layout.minimumInteritemSpacing = 10;  // 左右间隔 可能会被强制调整,取决于UIEdgeInsetsMake
     layout.sectionInset = UIEdgeInsetsMake(10, 25, 10, 25);
-    //垂直滚动
+    // 垂直滚动
     layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-    //设置头部视图
+    // 设置头部视图
     return [self initWithFrame:frame collectionViewLayout:layout];
 }
 
@@ -35,12 +35,15 @@ static NSString * const cellID = @"cellID";
     }
     return self;
 }
+
 // MARK: UICollectionViewDataSource
-//有多少组
+
+// 有多少组
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
-//每组有多少个item
+
+// 每组有多少个item
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     NSLog(@"self.photosArray.count = %lu", self.photosArray.count);
     return self.photosArray.count;
@@ -49,15 +52,18 @@ static NSString * const cellID = @"cellID";
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     PublishCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellID forIndexPath:indexPath];
     cell.imgView.image = self.photosArray[indexPath.row];
-    //图片宽高适配
+    // 图片宽高适配
     cell.imgView.clipsToBounds = YES;
     [cell.imgView setContentMode:UIViewContentModeScaleAspectFill];
     return cell;
 }
+
 #pragma mark - Delegete
 
+
+
 // MARK: <UICollectionViewDelegateFlowLayout>
-//点击添加照片
+// 点击添加照片
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"选中了%ld", indexPath.row);
     [self.publishCVDelegate chosePhotos:indexPath Image:self.photosArray[indexPath.row]];

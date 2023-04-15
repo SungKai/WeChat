@@ -3,7 +3,7 @@
 //  WeChat
 //
 //  Created by 宋开开 on 2022/5/29.
-//
+// 
 
 #import "AddressBookVC.h"
 
@@ -12,17 +12,17 @@
     UITableViewDelegate
 >
 
-///搜索框
+/// 搜索框
 @property (nonatomic, strong) UISearchBar *searchBar;
 
-///搜索框内的文字内容
+/// 搜索框内的文字内容
 @property (nonatomic, strong) NSString *filterString;
 
 @property (nonatomic, strong) AddressBookView *tableView;
 
 @property (nonatomic, strong) NSArray <AddressBookModel *> *dataArray;
 
-///复制的原始数据，用于结束搜素时使通讯录恢复默认情况
+/// 复制的原始数据，用于结束搜素时使通讯录恢复默认情况
 @property (nonatomic, strong) NSArray <AddressBookModel *> *duplicateDataArray;
 
 @property (nonatomic, strong) UIView *topView;
@@ -51,12 +51,16 @@
         [ma addObject:model];
     }
     self.dataArray = ma;
-    //复制原始数据
+    // 复制原始数据
     self.duplicateDataArray = [self.dataArray copy];
-//    self.duplicateDataArray = self.dataArray;
+//     self.duplicateDataArray = self.dataArray;
 }
+
 #pragma mark - Delegate
-// MARK: UISearchBarDelegate
+
+
+
+// MARK: <UISearchBarDelegate>
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     self.dataArray = self.duplicateDataArray;
     NSMutableArray *temp = [NSMutableArray array];
@@ -68,7 +72,6 @@
                 model.title = str;
                 model.image = self.dataArray[i].image;
                 [temp addObject:model];
-                
             }
         }
         self.dataArray = temp;
@@ -86,7 +89,7 @@
 
 #pragma mark - UITableViewDelegate
 
-///每行高度
+/// 每行高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 70;
 }
@@ -111,19 +114,19 @@
     return _tableView;
 }
 
-//- (NSArray<AddressBookModel *> *)dataArray {
-//    if (_dataArray == nil) {
-//        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"addressBookData.plist" ofType:nil];
-//        NSArray *dataArray = [NSArray arrayWithContentsOfFile:filePath];
-//        NSMutableArray *ma = [NSMutableArray array];
-//        for (NSDictionary *dic in dataArray) {
-//            AddressBookModel *model = [[AddressBookModel alloc] AddressBoolModelWithDic:dic];
-//            [ma addObject:model];
-//        }
-//        _dataArray = ma;
-//    }
-//    return _dataArray;
-//}
+// - (NSArray<AddressBookModel *> *)dataArray {
+//     if (_dataArray == nil) {
+//         NSString *filePath = [[NSBundle mainBundle] pathForResource:@"addressBookData.plist" ofType:nil];
+//         NSArray *dataArray = [NSArray arrayWithContentsOfFile:filePath];
+//         NSMutableArray *ma = [NSMutableArray array];
+//         for (NSDictionary *dic in dataArray) {
+//             AddressBookModel *model = [[AddressBookModel alloc] AddressBoolModelWithDic:dic];
+//             [ma addObject:model];
+//         }
+//         _dataArray = ma;
+//     }
+//     return _dataArray;
+// }
 
 - (UIView *)topView {
     if (_topView == nil) {
@@ -152,14 +155,6 @@
     }
     return _searchBar;
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

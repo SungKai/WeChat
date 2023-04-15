@@ -7,7 +7,7 @@
 
 #import "LoginView.h"
 
-//Tools
+// Tools
 #import "Masonry.h"
 
 @interface LoginView()
@@ -31,8 +31,10 @@
     }
     return self;
 }
+
 #pragma mark - Method
-///点击登录
+
+/// 点击登录
 - (void)clickLogin {
     [self.loginDelegate clickLogin];
     //保存登录状态
@@ -40,13 +42,11 @@
 }
 
 - (void)setPosition {
-    //avatarImageView
     [self.avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(110, 110));
         make.centerX.equalTo(self);
         make.top.equalTo(self).offset(100);
     }];
-    //nameLab
     [self.nameLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(200, 35));
         make.centerX.equalTo(self);
@@ -60,12 +60,13 @@
 }
 
 #pragma mark - Getter
+
 - (UIImageView *)avatarImageView {
     if (_avatarImageView == nil) {
         _avatarImageView = [[UIImageView alloc] init];
         _avatarImageView.layer.masksToBounds = YES;
         _avatarImageView.layer.cornerRadius = 10;
-        //图片宽高适配
+        // 图片宽高适配
         _avatarImageView.clipsToBounds = YES;
         [_avatarImageView setContentMode:UIViewContentModeScaleAspectFill];
     }
@@ -90,7 +91,7 @@
         _loginBtn.titleLabel.textColor = [UIColor colorNamed:@"#FEFEFE'00^#191919'00"];
         _loginBtn.titleLabel.font = [UIFont boldSystemFontOfSize:22];
         _loginBtn.layer.cornerRadius = 7;
-        //点击登录
+        // 点击登录
         [_loginBtn addTarget:self action:@selector(clickLogin) forControlEvents:UIControlEventTouchUpInside];
     }
     return _loginBtn;

@@ -1,13 +1,13 @@
 //
-//  FirstPageCellTableViewCell.m
+//  FirstPageTableViewCell.m
 //  WeChat
 //
 //  Created by 宋开开 on 2022/5/29.
 //
 
-#import "FirstPageCellTableViewCell.h"
+#import "FirstPageTableViewCell.h"
 
-@implementation FirstPageCellTableViewCell
+@implementation FirstPageTableViewCell
 
 - (instancetype)initWithPerson:(NSString *)person Text:(NSString *)text ImgView:(NSString *)imgViewData Date:(NSString *)date BellImage:(NSNumber *)bell {
     self = [super init];
@@ -22,7 +22,7 @@
         [self.contentView addSubview:self.imgView];
         [self.contentView addSubview:self.dateLab];
         [self.contentView addSubview:self.separator];
-        //把NSNumber转换为NSInteger
+        // 把NSNumber转换为NSInteger
         NSInteger isBell = [bell integerValue];
         if (isBell) {
             [self.contentView addSubview:self.bellImageView];
@@ -35,34 +35,28 @@
 
 #pragma mark - Method
 - (void)setPosition {
-    //imgView
     [self.imgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(58, 58));
         make.centerY.equalTo(self.contentView);
         make.left.equalTo(self.contentView).offset(20);
     }];
-    //personLab
     [self.personLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.imgView.mas_right).offset(15);
         make.right.equalTo(self.contentView).offset(-40);
         make.top.equalTo(self.imgView).offset(1);
         make.height.mas_equalTo(30);
     }];
-//    //textLab
     [self.textLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.personLab.mas_bottom).offset(5);
         make.left.equalTo(self.personLab);
         make.right.equalTo(self.personLab);
         make.bottom.equalTo(self.imgView).offset(-3);
-//        make.height.mas_equalTo(20);
     }];
-    //dateLab
     [self.dateLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.contentView).offset(-10);
         make.centerY.equalTo(self.personLab);
         make.size.mas_equalTo(CGSizeMake(50, 20));
     }];
-    //separator
     [self.separator mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.contentView);
         make.height.mas_equalTo(1);

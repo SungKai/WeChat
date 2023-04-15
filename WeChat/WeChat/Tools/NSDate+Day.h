@@ -11,17 +11,17 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSDate (Day)
-//得到今天日期
+// 得到今天日期
 + (NSDate *)today;
-//得到今天的day
+// 得到今天的day
 - (NSString *)day;
-//得到今天的hour
+// 得到今天的hour
 - (NSString *)hour;
-//得到今天的min
+// 得到今天的min
 - (NSString *)min;
-//得到今天的month
+// 得到今天的month
 - (NSString *)month;
-//翻译为中文
+// 翻译为中文
 - (NSString *)transformChinese;
 @end
 

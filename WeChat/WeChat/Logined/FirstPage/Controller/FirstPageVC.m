@@ -7,7 +7,7 @@
 
 #import "FirstPageVC.h"
 
-//Tools
+// Tools
 #import "Masonry.h"
 
 @interface FirstPageVC ()
@@ -26,15 +26,15 @@
     [super viewDidLoad];
     [self.view addSubview:self.topView];
     [self.view addSubview:self.firstTableView];
-    //传递数据给TableView
+    // 传递数据给TableView
     self.firstTableView.data = self.dataArray;
-//    [self.firstTableView reloadData];
 }
 
 #pragma mark - Getter
+
 - (NSArray<FirstPageModel *> *)dataArray {
     if (_dataArray == nil) {
-        //从plist文件中加载
+        // 从plist文件中加载
         NSString *path = [[NSBundle mainBundle] pathForResource:@"firstPageData.plist" ofType:nil];
         NSArray *dataArray = [NSArray arrayWithContentsOfFile:path];
         NSMutableArray *ma = [NSMutableArray array];

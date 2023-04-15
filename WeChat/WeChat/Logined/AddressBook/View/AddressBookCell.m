@@ -28,13 +28,11 @@
 
 #pragma mark - Method
 - (void)setPosition {
-    //avatarImgView
     [self.avatarImgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView).offset(15);
         make.size.mas_equalTo(CGSizeMake(50, 50));
         make.centerY.equalTo(self.contentView);
     }];
-    //nameLab
     [self.nameLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contentView);
         make.left.equalTo(self.avatarImgView.mas_right).offset(15);
@@ -42,6 +40,7 @@
         make.height.mas_equalTo(25);
     }];
 }
+
 #pragma mark - Getter
 - (UILabel *)nameLab {
     if (_nameLab == nil) {

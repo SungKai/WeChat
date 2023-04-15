@@ -1,19 +1,19 @@
 //
-//  FirstPageCellTableViewCell.h
+//  FirstPageTableViewCell.h
 //  WeChat
 //
 //  Created by 宋开开 on 2022/5/29.
 //
 
-//此类为消息主页的TableView中的cell
+// 此类为消息主页的TableView中的cell
 #import <UIKit/UIKit.h>
 
-//Tools
+// Tools
 #import "Masonry.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FirstPageCellTableViewCell : UITableViewCell
+@interface FirstPageTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) UILabel *personLab;
 

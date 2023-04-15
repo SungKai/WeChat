@@ -56,7 +56,7 @@ int main(int argc, const char * argv[]) {
               @"image" : @"firstPageData8",
               @"date" : @"前天",
               @"bell" : @0},
-            @{@"person" : @"/",
+            @{@"person" : @"Calvados",
               @"text" : @"为什么叫我滚呀，怕我走路太累吗？555更加爱你了贝尔摩德我的宝❤️❤️❤️",
               @"image" : @"firstPageData9",
               @"date" : @"前天",

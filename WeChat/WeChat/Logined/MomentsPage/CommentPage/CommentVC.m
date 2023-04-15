@@ -7,11 +7,11 @@
 
 #import "CommentVC.h"
 
-//Tools
+// Tools
 #import "Masonry.h"
 
 @interface CommentVC () <
-UITextViewDelegate
+    UITextViewDelegate
 >
 
 @property (nonatomic, strong) UIButton *cancelBtn;
@@ -34,29 +34,30 @@ UITextViewDelegate
     [self setPosition];
     self.view.backgroundColor = [UIColor colorNamed:@"#FEFEFE'00^#191919'00"];
     self.publishBtn.backgroundColor = [UIColor lightGrayColor];
-    //隐藏顶部和底部导航
+    // 隐藏顶部和底部导航
     self.navigationController.navigationBarHidden = YES;
-    self.tabBarController.tabBar.hidden = YES;  //返回时也隐藏了
+    self.tabBarController.tabBar.hidden = YES;  // 返回时也隐藏了
 }
 
 #pragma mark - Method
-///点击取消按钮，返回
+
+/// 点击取消按钮，返回
 - (void)clickCancelBtn {
     [self.navigationController popViewControllerAnimated:YES];
     self.navigationController.navigationBarHidden = NO;
     self.tabBarController.tabBar.hidden = NO;
 }
 
-///点击发布按钮
+/// 点击发布按钮
 - (void)clickPublishBtn {
     if (self.textView.text.length == 0) {
         self.publishBtn.enabled = NO;
-    }else {
-        //拿到输入的内容
+    } else {
+        // 拿到输入的内容
         NSString *nameString = @"Vermouth : ";
         NSString *commentText = [nameString stringByAppendingString:self.textView.text];
         NSLog(@"commentText = %@", commentText);
-        //回调
+        // 回调
         self.getCommentsData(commentText);
     }
 }
@@ -66,35 +67,32 @@ UITextViewDelegate
     [self.textView resignFirstResponder];
 }
 
-///添加控件
+/// 添加控件
 - (void)addView {
     [self.view addSubview:self.cancelBtn];
     [self.view addSubview:self.publishBtn];
     [self.view addSubview:self.textView];
     [self.view addSubview:self.defaultLab];
 }
-///设置位置
+
+/// 设置位置
 - (void)setPosition {
-    //self.cancelBtn
     [self.cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(40);
         make.left.equalTo(self.view).offset(25);
         make.size.mas_equalTo(CGSizeMake(60, 40));
     }];
-    //self.publishBtn
     [self.publishBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.cancelBtn);
         make.size.equalTo(self.cancelBtn);
         make.right.equalTo(self.view).offset(-25);
     }];
-    //self.textView
     [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.cancelBtn.mas_bottom).offset(15);
         make.bottom.equalTo(self.view);
         make.left.equalTo(self.view).offset(30);
         make.right.equalTo(self.view).offset(-30);
     }];
-    //self.defaultLab
     [self.defaultLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.equalTo(self.textView);
         make.size.mas_equalTo(CGSizeMake(200, 30));
@@ -102,7 +100,11 @@ UITextViewDelegate
 }
 
 #pragma mark - Delegate
+
+
+
 // MARK: <UITextViewDelegate>
+
 - (void)textViewDidChange:(UITextView *)textView{
     if (self.textView.text.length == 0) {
         self.publishBtn.backgroundColor = [UIColor grayColor];
@@ -113,7 +115,9 @@ UITextViewDelegate
         self.defaultLab.hidden = YES;
     }
 }
+
 #pragma mark - Getter
+
 - (UIButton *)cancelBtn {
     if (_cancelBtn == nil) {
         _cancelBtn = [[UIButton alloc] init];
@@ -158,14 +162,5 @@ UITextViewDelegate
     }
     return _defaultLab;
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

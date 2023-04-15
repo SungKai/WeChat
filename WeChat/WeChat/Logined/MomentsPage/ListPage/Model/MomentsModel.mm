@@ -46,7 +46,7 @@ WCDB_SYNTHESIZE(MomentsModel, comments)
 
 @implementation MomentsModelManager
 
-///单例
+/// 单例
 + (instancetype)shareInstance {
     static MomentsModelManager * instance = nil;
     static dispatch_once_t onceToken;
@@ -56,7 +56,7 @@ WCDB_SYNTHESIZE(MomentsModel, comments)
     return instance;
 }
 
-///获取数据库路径
+/// 获取数据库路径
 + (NSString *)wcdbFilePath {
     NSString *rootFilePath = [NSSearchPathForDirectoriesInDomains (NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
     NSString *dbFilePath = [rootFilePath stringByAppendingPathComponent:@"Moments.db"];
@@ -100,7 +100,7 @@ WCDB_SYNTHESIZE(MomentsModel, comments)
 }
 
 // MARK: 修改信息
-///text
+/// text
 - (BOOL)updataTextData:(MomentsModel *)publishData {
     if (dataBase == nil) {
         [self creatWCDB];
@@ -109,32 +109,32 @@ WCDB_SYNTHESIZE(MomentsModel, comments)
     return [dataBase updateRowsInTable:PublishTableName onProperty:MomentsModel.text withObject:publishData where:MomentsModel.person == publishData.person && MomentsModel.time == publishData.time];
 }
 
-///images
+/// images
 - (BOOL)updataImgaesData:(MomentsModel *)publishData {
     return [dataBase updateRowsInTable:PublishTableName onProperty:MomentsModel.images withObject:publishData where:MomentsModel.person == publishData.person && MomentsModel.time == publishData.time];
 }
 
-///likes
+/// likes
 - (BOOL)updataLikesData:(MomentsModel *)publishData {
     return [dataBase updateRowsInTable:PublishTableName onProperty:MomentsModel.likes withObject:publishData where:MomentsModel.person == publishData.person && MomentsModel.time == publishData.time];
 }
 
-///comments
+/// comments
 - (BOOL)updataCommentsData:(MomentsModel *)publishData {
     return [dataBase updateRowsInTable:PublishTableName onProperty:MomentsModel.comments withObject:publishData where:MomentsModel.person == publishData.person && MomentsModel.time == publishData.time];
 }
 
 // MARK: 删除信息
-///删除缓存信息
+
+/// 删除缓存信息
 - (BOOL)deleteData {
-    //删除缓存的(published == 0)
     if (dataBase == nil) {
         [self creatWCDB];
     }
     return [dataBase deleteObjectsFromTable:PublishTableName where:MomentsModel.published == 0];
 }
 
-///删除制定信息
+/// 删除制定信息
 - (BOOL)deleteOrderData:(MomentsModel *)deleteModel {
     if (dataBase == nil) {
         [self creatWCDB];
@@ -144,7 +144,7 @@ WCDB_SYNTHESIZE(MomentsModel, comments)
 
 
 // MARK: 查找缓存信息
-///查看是否有缓存
+/// 查看是否有缓存
 - (BOOL)isCache {
     if ([dataBase getObjectsOfClass:MomentsModel.class fromTable:PublishTableName where:MomentsModel.published == 0].count != 0) {
         return YES;
@@ -153,17 +153,15 @@ WCDB_SYNTHESIZE(MomentsModel, comments)
     }
 }
 
-- (MomentsModel *)getData {  //published == 0
+- (MomentsModel *)getData {
     if (dataBase == nil) {
         [self creatWCDB];
     }
     return [dataBase getObjectsOfClass:MomentsModel.class fromTable:PublishTableName where:MomentsModel.published == 0].firstObject;
 }
 
-///查找到某条数据
-
 // MARK: 查找已发布信息
-- (NSArray<MomentsModel *> *)getAllPublishData {  //published == 1
+- (NSArray<MomentsModel *> *)getAllPublishData {
     if (dataBase == nil) {
         [self creatWCDB];
     }

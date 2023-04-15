@@ -9,8 +9,7 @@
 
 @implementation popFuncView
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
         self.backgroundColor = [UIColor colorNamed:@"#4C5153'00^#606060'00"];
@@ -28,13 +27,13 @@
 }
 
 #pragma mark - Method
-//点击点赞按钮
+// 点击点赞按钮
 - (void)clickLikesBtn:(UIButton *)sender {
-    //点赞爱心放大
+    // 点赞爱心放大
     CABasicAnimation *anima = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
     anima.byValue = @(0.7);
     [self.likeImageView.layer addAnimation:anima forKey:@"scaleAnimation"];
-    //popView自动消失
+    // popView自动消失
     dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(500/*延迟执行时间*/*NSEC_PER_MSEC));
     dispatch_after(delayTime,dispatch_get_main_queue(), ^{
         [self removeFromSuperview];
@@ -43,50 +42,43 @@
     NSLog(@"点击点赞按钮");
 }
 
-//点击评论按钮
+// 点击评论按钮
 - (void)clickCommentsBtn:(UIButton *)sender {
     [self.popFuncViewDelegate clickCommentBtn:sender];
     NSLog(@"点击评论按钮");
 }
 
 - (void)setPosition {
-    //likesBtn
     [self.likesBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self);
         make.right.equalTo(self.mas_centerX).offset(-0.3);
         make.height.equalTo(self);
     }];
-    //likeLab
     [self.likeLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.likesBtn).offset(8);
         make.centerY.equalTo(self.likesBtn);
         make.size.mas_equalTo(CGSizeMake(40, 30));
     }];
-    //likeImageView
     [self.likeImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.likesBtn);
         make.right.equalTo(self.likeLab.mas_left).offset(-2);
         make.size.mas_equalTo(CGSizeMake(18, 18));
     }];
-    //commentsBtn
     [self.commentsBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self);
         make.left.equalTo(self.mas_centerX).offset(0.3);
         make.height.equalTo(self);
     }];
-    //commentLab
     [self.commentLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.commentsBtn).offset(8);
         make.centerY.equalTo(self.commentsBtn);
         make.size.mas_equalTo(CGSizeMake(35, 30));
     }];
-    //commentImageView
     [self.commentImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.commentsBtn);
         make.right.equalTo(self.commentLab.mas_left);
         make.size.mas_equalTo(CGSizeMake(18, 16));
     }];
-    //separator
     [self.separator mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).offset(5);
         make.bottom.equalTo(self).offset(-5);
@@ -97,6 +89,7 @@
 }
 
 #pragma mark - Getter
+
 - (UIButton *)likesBtn {
     if (_likesBtn == nil) {
         _likesBtn = [[UIButton alloc] init];
@@ -159,12 +152,5 @@
     }
     return _commentImageView;
 }
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 @end

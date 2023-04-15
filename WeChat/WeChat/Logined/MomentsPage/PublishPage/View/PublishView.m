@@ -7,22 +7,23 @@
 
 #import "PublishView.h"
 
-//View
+// View
 #import "PublishCollectionViewCell.h"
 #import "PublishCollectionView.h"
-//Tool
+
+// Tool
 #import "Masonry.h"
 #import <PhotosUI/PHPicker.h>
 
 @interface PublishView () <
-UITextViewDelegate,
-PublishCollectionViewDelegate,
-PHPickerViewControllerDelegate
+    UITextViewDelegate,
+    PublishCollectionViewDelegate,
+    PHPickerViewControllerDelegate
 >
 
 @property (nonatomic, strong) PublishCollectionView *publishCV;
 
-///当文本编辑框内的默认内容
+/// 当文本编辑框内的默认内容
 @property (nonatomic, strong) UILabel *defaultLab;
 
 @property (nonatomic, strong) UIButton *cancelBtn;
@@ -51,18 +52,20 @@ PHPickerViewControllerDelegate
 }
 
 #pragma mark - Method
+
 - (void)addView {
     [self addSubview:self.cancelBtn];
     [self addSubview:self.publishBtn];
     [self addSubview:self.textView];
     [self addSubview:self.publishCV];
 }
-///取消
+
+/// 取消
 - (void)cancelEdit {
     if (!(self.textView.text.length == 0 && self.photosArray.count == 1)){
-        //弹窗
+        // 弹窗
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"退出编辑" message:@"您想保存已编辑的内容吗" preferredStyle:UIAlertControllerStyleAlert];
-        //保存数据
+        // 保存数据
         UIAlertAction *yes = [UIAlertAction actionWithTitle:@"是" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             NSMutableArray *ma = [NSMutableArray array];
             NSData *data = [[NSData alloc] init];
@@ -72,21 +75,21 @@ PHPickerViewControllerDelegate
             }
             [self.publishViewDelegate SaveCacheText:self.textView.text Images:ma];
         }];
-        //不保存数据
+        // 不保存数据
         UIAlertAction *no = [UIAlertAction actionWithTitle:@"否" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             [self.publishViewDelegate deleteCacheText];
         }];
-        //添加弹窗操作
+        // 添加弹窗操作
         [alert addAction:yes];
         [alert addAction:no];
-        //展示弹窗
+        // 展示弹窗
         [self.publishViewDelegate showPopView:alert];
-    }else {  //直接退出
+    } else {  // 直接退出
         [self.publishViewDelegate deleteCacheText];
     }
 }
  
-///发布
+/// 发布
 - (void)publishEdit {
     NSLog(@"点击发布");
     [self.publishViewDelegate publishData:self.textView.text ImageArray:self.photosArray ImageIsNine:self.imageIsNine];
@@ -99,9 +102,9 @@ PHPickerViewControllerDelegate
     self.textView.text = self.text;
     
     if (cacheData.images != nil) {
-        //把NSData转换成UIImage
+        // 把NSData转换成UIImage
         NSMutableArray *ma = [NSMutableArray array];
-        //使第一张图片永远是self.plusImage
+        // 使第一张图片永远是self.plusImage
         [ma addObject:self.plusImage];
         for (int i = 1; i < cacheData.images.count; i++) {
             UIImage *image = [UIImage imageWithData:cacheData.images[i]];
@@ -112,9 +115,10 @@ PHPickerViewControllerDelegate
     self.publishCV.photosArray = self.photosArray;
     [self setData];
 }
-///设置初始数据
+
+/// 设置初始数据
 - (void)setData {
-    //没有图片时
+    // 没有图片时
     if (self.photosArray.count != 1) {
         if (self.photosArray.count == 0) {
             [self.photosArray addObject:self.plusImage];
@@ -125,10 +129,9 @@ PHPickerViewControllerDelegate
     }
     self.publishCV.photosArray = self.photosArray;
     
-    //没有文本内容时
+    // 没有文本内容时
     if (self.textView.text.length == 0) {
         [self.textView addSubview:self.defaultLab];
-        //self.defaultLab
         [self.defaultLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.top.equalTo(self.textView);
             make.size.mas_equalTo(CGSizeMake(200, 30));
@@ -142,23 +145,20 @@ PHPickerViewControllerDelegate
         self.publishBtn.enabled = YES;
     }
     [self.publishCV reloadData];
-   
 }
-///设置位置
+
+/// 设置位置
 - (void)setPosition {
-    //self.cancelBtn
     [self.cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).offset(40);
         make.left.equalTo(self).offset(25);
         make.size.mas_equalTo(CGSizeMake(60, 40));
     }];
-    //self.publishBtn
     [self.publishBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.cancelBtn);
         make.right.equalTo(self).offset(-25);
         make.size.equalTo(self.cancelBtn);
     }];
-    //self.textView
     [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.cancelBtn.mas_bottom).offset(30);
         make.left.equalTo(self).offset(30);
@@ -168,6 +168,9 @@ PHPickerViewControllerDelegate
 }
 
 #pragma mark - Delegate
+
+
+
 // MARK: <UITextViewDelegate>
 - (void)textViewDidChange:(UITextView *)textView{
     //文本为0
@@ -182,16 +185,17 @@ PHPickerViewControllerDelegate
         self.defaultLab.hidden = YES;
     }
 }
+
 // MARK: <PublishCollectionViewDelegate>
+
 - (void)chosePhotos:(NSIndexPath *)indexPath Image:(UIImage *)image{
     if (indexPath.item == 0 && self.photosArray.count <= 9 && image == self.plusImage) {
         PHPickerConfiguration *picker = [[PHPickerConfiguration alloc] init];
         picker.selectionLimit = 9;
         picker.filter = [PHPickerFilter imagesFilter];
-        //安装配置
+        // 安装配置
         PHPickerViewController *pVC = [[PHPickerViewController alloc] initWithConfiguration:picker];
         pVC.delegate = self;
-//        show
         [self.publishViewDelegate showPHPicker:pVC];
     }
 }
@@ -202,18 +206,18 @@ PHPickerViewControllerDelegate
     for (PHPickerResult *result in results) {
         [result.itemProvider loadObjectOfClass:[UIImage class] completionHandler:^(__kindof id <NSItemProviderReading>  _Nullable object, NSError * _Nullable error) {
             if ([object isKindOfClass:[UIImage class]]) {
-                //更新
+                // 更新
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (object) {
                         self.publishBtn.backgroundColor = [UIColor colorNamed:@"#00DF6C'00^#00DF6C'00"];
                         self.publishBtn.enabled = YES;
                     }
-                    //把图片加载到数组中
+                    // 把图片加载到数组中
                     [self.photosArray addObject:object];
                     self.publishCV.photosArray = self.photosArray;
-                    //用于判断是否为9张选择的照片
+                    // 用于判断是否为9张选择的照片
                     if (self.photosArray.count > 9) {
-                        //满九宫格
+                        // 满九宫格
                         self.imageIsNine = YES;
                         [self.photosArray removeObject:self.photosArray.firstObject];
                     }

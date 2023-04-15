@@ -13,15 +13,15 @@
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 
 // some difine about StatusBarHeight
-#define StatusBarHeight [UIApplication sharedApplication].statusBarFrame.size.height
+#define StatusBarHeight [UIApplication sharedApplication].windows.firstObject.windowScene.statusBarManager.statusBarFrame.size.height
 
-//NSUserDefaults
+// NSUserDefaults
 #define UserDefaults [NSUserDefaults standardUserDefaults]
 
-//点赞时自己的名字
+// 点赞时自己的名字
 #define LikeName @"Vermouth"
 
-//MomentsCell里面的位置
+// MomentsCell里面的位置
 #define Right 80
 #define TopAndBottomMargin 20
 #define LeftAndRightMargin 14

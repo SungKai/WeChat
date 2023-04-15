@@ -13,9 +13,7 @@
     self = [super initWithFrame:frame style:style];
     if (self) {
         self.dataSource = self;
-//        self.delegate = self;
         self.data = [NSArray array];
-//        [self addSubview:self.searchBar];
     }
     return self;
 }
@@ -35,7 +33,7 @@
     AddressBookCell *cell = [tableView dequeueReusableCellWithIdentifier:addressBookID];
     if (cell == nil) {
         cell = [[AddressBookCell alloc] initWithTitle:model.title ImageData:model.image];
-        //设置cell无法点击
+        // 设置cell无法点击
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }
     return cell;

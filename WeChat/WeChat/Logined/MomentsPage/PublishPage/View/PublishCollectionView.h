@@ -5,11 +5,11 @@
 //  Created by 宋开开 on 2022/6/12.
 //
 
-//此类为朋友圈发布界面中发布图片的CollectionView
+// 此类为朋友圈发布界面中发布图片的CollectionView
 #import <UIKit/UIKit.h>
 #import "PublishCollectionViewCell.h"
 
-//Tools
+// Tools
 #import <PhotosUI/PHPicker.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -23,10 +23,10 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface PublishCollectionView : UICollectionView <
-UICollectionViewDataSource,
-UICollectionViewDelegate,
-UICollectionViewDelegateFlowLayout,
-PHPickerViewControllerDelegate
+    UICollectionViewDataSource,
+    UICollectionViewDelegate,
+    UICollectionViewDelegateFlowLayout,
+    PHPickerViewControllerDelegate
 >
 
 @property (nonatomic, strong, nullable) NSMutableArray *photosArray;

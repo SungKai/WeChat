@@ -19,7 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *image;
 
 @property (nonatomic, copy) NSString *date;
-///是否屏蔽此人消息
+
+/// 是否屏蔽此人消息
 @property (nonatomic) NSNumber *bell;
 
 /// KVC字典转模型

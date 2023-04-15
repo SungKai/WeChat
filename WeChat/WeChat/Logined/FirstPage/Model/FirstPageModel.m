@@ -8,6 +8,7 @@
 #import "FirstPageModel.h"
 
 @implementation FirstPageModel
+
 /// KVC字典转模型
 /// @param dic 字典
 - (instancetype)FirstPageModelWithDic:(NSDictionary *)dic {
@@ -15,7 +16,7 @@
     return self;
 }
 
-///防崩溃
+/// 防崩溃
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key{
  }
 

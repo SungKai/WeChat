@@ -5,10 +5,10 @@
 //  Created by 宋开开 on 2022/5/30.
 //
 
-//此类为通讯录的TableView的cell
+// 此类为通讯录的TableView的cell
 #import <UIKit/UIKit.h>
 
-//Tools
+// Tools
 #import "Masonry.h"
 
 NS_ASSUME_NONNULL_BEGIN

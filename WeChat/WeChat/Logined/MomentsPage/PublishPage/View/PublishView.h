@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param imageArray 图片
 - (void)SaveCacheText:(NSString *)text Images:(NSMutableArray *)imageArray;
 
-///删除缓存数据
+/// 删除缓存数据
 - (void)deleteCacheText;
 
 /// 展示退出弹窗
@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PublishView : UIView
 
-///文本编辑框
+/// 文本编辑框
 @property (nonatomic, strong) UITextView *textView;
 
 @property (nonatomic, strong, nullable) NSMutableArray *photosArray;
@@ -50,14 +50,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<PublishViewDelegate> publishViewDelegate;
 
-///用于判断是否为满九宫格照片
+/// 用于判断是否为满九宫格照片
 @property (nonatomic) BOOL imageIsNine;
 
 /// 拿到缓存数据
 /// @param cacheData 缓存数据
 - (void)getCacheData:(MomentsModel *)cacheData;
 
-///设置初始数据
+/// 设置初始数据
 - (void)setData;
 
 @end

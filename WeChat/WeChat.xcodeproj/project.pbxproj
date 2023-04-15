@@ -42,7 +42,7 @@
 		B5E7E8F1285607D3007B52A0 /* PublishCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E7E8F0285607D3007B52A0 /* PublishCollectionViewCell.m */; };
 		B5E7E8F428561033007B52A0 /* PublishCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E7E8F328561033007B52A0 /* PublishCollectionView.m */; };
 		B5E7E8F728586238007B52A0 /* AvatarDatabase.mm in Sources */ = {isa = PBXBuildFile; fileRef = B5E7E8F628586238007B52A0 /* AvatarDatabase.mm */; };
-		B5FB337828435BA20024532F /* FirstPageCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B5FB337728435BA20024532F /* FirstPageCellTableViewCell.m */; };
+		B5FB337828435BA20024532F /* FirstPageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B5FB337728435BA20024532F /* FirstPageTableViewCell.m */; };
 		B5FB33EC2844E3250024532F /* AddressBookImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5FB33EB2844E3250024532F /* AddressBookImage.xcassets */; };
 		B5FB33F12844E38E0024532F /* AddressBookView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5FB33F02844E38E0024532F /* AddressBookView.m */; };
 		B5FB33F42844E3A70024532F /* AddressBookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B5FB33F32844E3A70024532F /* AddressBookModel.m */; };
@@ -114,8 +114,8 @@
 		B5E7E8F528586238007B52A0 /* AvatarDatabase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AvatarDatabase.h; sourceTree = "<group>"; };
 		B5E7E8F628586238007B52A0 /* AvatarDatabase.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AvatarDatabase.mm; sourceTree = "<group>"; };
 		B5E7E8F82858625D007B52A0 /* AvatarDatabase+WCTTableCoding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AvatarDatabase+WCTTableCoding.h"; sourceTree = "<group>"; };
-		B5FB337628435BA20024532F /* FirstPageCellTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstPageCellTableViewCell.h; sourceTree = "<group>"; };
-		B5FB337728435BA20024532F /* FirstPageCellTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstPageCellTableViewCell.m; sourceTree = "<group>"; };
+		B5FB337628435BA20024532F /* FirstPageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstPageTableViewCell.h; sourceTree = "<group>"; };
+		B5FB337728435BA20024532F /* FirstPageTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstPageTableViewCell.m; sourceTree = "<group>"; };
 		B5FB33EB2844E3250024532F /* AddressBookImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AddressBookImage.xcassets; sourceTree = "<group>"; };
 		B5FB33EF2844E38E0024532F /* AddressBookView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressBookView.h; sourceTree = "<group>"; };
 		B5FB33F02844E38E0024532F /* AddressBookView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressBookView.m; sourceTree = "<group>"; };
@@ -323,8 +323,8 @@
 			children = (
 				B54643C82843125D0027ECD4 /* FirstPageView.h */,
 				B54643C92843125D0027ECD4 /* FirstPageView.m */,
-				B5FB337628435BA20024532F /* FirstPageCellTableViewCell.h */,
-				B5FB337728435BA20024532F /* FirstPageCellTableViewCell.m */,
+				B5FB337628435BA20024532F /* FirstPageTableViewCell.h */,
+				B5FB337728435BA20024532F /* FirstPageTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -609,7 +609,7 @@
 				B56E97772849DE1000FC5D5F /* popFuncView.m in Sources */,
 				B56E97852849FEBD00FC5D5F /* PublishVC.m in Sources */,
 				B54643B92842FD5A0027ECD4 /* AddressBookVC.m in Sources */,
-				B5FB337828435BA20024532F /* FirstPageCellTableViewCell.m in Sources */,
+				B5FB337828435BA20024532F /* FirstPageTableViewCell.m in Sources */,
 				B54643AD284285320027ECD4 /* LoginView.m in Sources */,
 				B56E97A9284B01A000FC5D5F /* MineModel.m in Sources */,
 				B54643B32842FCB20027ECD4 /* TabBarVC.m in Sources */,
