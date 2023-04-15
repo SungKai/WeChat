@@ -12,10 +12,7 @@
 
 @interface LoginView()
 
-
 @property (nonatomic, strong) UILabel *nameLab;
-
-@property (nonatomic, strong) UIButton *loginBtn;
 
 @end
 
@@ -33,13 +30,6 @@
 }
 
 #pragma mark - Method
-
-/// 点击登录
-- (void)clickLogin {
-    [self.loginDelegate clickLogin];
-    //保存登录状态
-    [UserDefaults setBool:YES forKey:@"login"];
-}
 
 - (void)setPosition {
     [self.avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -91,8 +81,6 @@
         _loginBtn.titleLabel.textColor = [UIColor colorNamed:@"#FEFEFE'00^#191919'00"];
         _loginBtn.titleLabel.font = [UIFont boldSystemFontOfSize:22];
         _loginBtn.layer.cornerRadius = 7;
-        // 点击登录
-        [_loginBtn addTarget:self action:@selector(clickLogin) forControlEvents:UIControlEventTouchUpInside];
     }
     return _loginBtn;
 }

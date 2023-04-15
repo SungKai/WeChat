@@ -7,20 +7,20 @@
 
 #import "LoginVC.h"
 
-//VC
+// VC
 #import "TabBarVC.h"
 
-//View
+// View
 #import "LoginView.h"
 
-//Tools
+// Tools
 #import "Masonry.h"
 #import "AvatarDatabase.h"
 #import <PhotosUI/PHPicker.h>
 
 #define AvatarDatabaseManager [AvatarDatabaseManager shareInstance]
 
-@interface LoginVC () <LoginViewDelegate>
+@interface LoginVC ()
 
 @property (nonatomic, strong) LoginView *loginView;
 
@@ -29,7 +29,9 @@
 @end
 
 @implementation LoginVC
+
 #pragma mark - Life Cycle
+
 - (void)viewWillAppear:(BOOL)animated {
     // 写入初始数据
     [self initAvatarData];
@@ -45,9 +47,11 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorNamed:@"#FEFEFE'00^#191919'00"];
     [self.view addSubview:self.loginView];
+    [self setSEL];
 }
 
 #pragma mark - Method
+
 /// 初始化头像数据
 - (void)initAvatarData {
     // 创建数据库
@@ -77,7 +81,7 @@
     self.loginView.avatarImageView.image = [UIImage imageWithData:data];
 }
 
-/// 先在本地生成一些照片，供其他人测试使用
+/// 先在本地生成一些照片，供测试使用
 - (void)saveSomePhotosLocal {
     // 一些测试图片
     NSString *afterName = @"Vermouth";
@@ -91,16 +95,18 @@
     UIImageWriteToSavedPhotosAlbum(image, self, nil ,nil);
 }
 
-#pragma mark - Delegate
-
-
-
-// MARK: <LoginViewDelegate>
-
-// 点击跳转
+/// 点击登录
 - (void)clickLogin {
     TabBarVC *tabBarVC = [[TabBarVC alloc] init];
     [self.navigationController pushViewController:tabBarVC animated:NO];
+    //保存登录状态
+    [UserDefaults setBool:YES forKey:@"login"];
+}
+
+// MARK: SEL
+
+- (void)setSEL {
+    [self.loginView.loginBtn addTarget:self action:@selector(clickLogin) forControlEvents:UIControlEventTouchUpInside];
 }
 
 #pragma mark - Getter
@@ -108,7 +114,6 @@
 - (LoginView *)loginView {
     if (_loginView == nil) {
         _loginView = [[LoginView alloc] initWithFrame:CGRectMake(0, StatusBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT - StatusBarHeight)];
-        _loginView.loginDelegate = self;
     }
     return _loginView;
  }
