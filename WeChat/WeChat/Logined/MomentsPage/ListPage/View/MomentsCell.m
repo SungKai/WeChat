@@ -9,6 +9,8 @@
 
 // Tools
 #import "AvatarDatabase.h"
+#import "Masonry.h"
+#import "SKKImageZoom.h"  //点击图片放大保存
 
 #define AvatarDatabaseManager [AvatarDatabaseManager shareInstance]
 #define Right 80  // YYText的左边距离屏幕左边的距离
@@ -29,34 +31,15 @@
 
 #pragma mark - Method
 
-// 设置数据
-- (void)setAvatarImgData:(NSString *)avatarImageViewData NameText:(NSString *)name Text:(NSString *)text ImagesArray:(NSArray *)imagesArray DateText:(NSString *)dateText  LikesTextArray:(NSMutableArray <NSString *> *)likesTextArray CommentsTextArray:(NSMutableArray <NSString *> *)commentsTextArray  Index:(NSInteger)index{
-    self.nameText = name;
-    self.text = text;
-    self.imagesArray = imagesArray;
-    self.dateText = dateText;
-    self.likesTextArray = likesTextArray;
-    self.commentsTextArray = commentsTextArray;
-    self.index = index;
-    // 头像设置
-    // plist文件里的头像设置
-    if (index < 4) {
-        self.avatarImageView.image = [UIImage imageNamed:avatarImageViewData];
-    }else {  //自己发布的朋友圈头像
-        [self setAvatarImageView];
-    }
-    // 设置布局
-    [self AddViews];
-    // 自己发的pyq要加删除按钮
-    if ([self.nameText isEqual:@"Vermouth"]) {
-        [self.yyTextLab addSubview:self.deleteBtn];
-        // 设置位置
-        [self.deleteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.yyTextLab).offset(2);
-            make.left.equalTo(self.yyTextLab).offset(62);
-            make.size.mas_offset(CGSizeMake(46, 28));
-        }];
-    }
+/// 自己发的pyq要加删除按钮
+- (void)addDeleteBtn {
+    [self.yyTextLab addSubview:self.deleteBtn];
+    // 设置位置
+    [self.deleteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.yyTextLab).offset(2);
+        make.left.equalTo(self.yyTextLab).offset(62);
+        make.size.mas_offset(CGSizeMake(46, 28));
+    }];
 }
 
 ///根据数据库信息来设置头像
@@ -71,7 +54,7 @@
     unsigned long likesNumbers = self.likesTextArray.count;
     unsigned long commentsNumbers = self.commentsTextArray.count;
     // 1.没有点赞也没有评论
-    if (likesNumbers == 0 && commentsNumbers == 0) {  //1.没有点赞也没有评论
+    if (likesNumbers == 0 && commentsNumbers == 0) {
         // 设置UI
         [self setTextWithImage];
         [self.contentView addSubview:self.yyTextLab];
@@ -126,6 +109,7 @@
         self.frame = CGRectMake(0, 0, SCREEN_WIDTH, self.commentsHeight + self.likesHeight - self.singleHeight - 20 + TopAndBottomMargin);
     }
 }
+
 // MARK: YYText 富文本
 
 
@@ -162,7 +146,7 @@
         UIImageView *imageView = [self getImageView:i];
         if (self.imagesArray.count == 1) {
             imageView.frame = [self oneImageFit:imageView];
-        }else {
+        } else {
             // 九宫格最大宽高 35:多功能按钮的宽，5:多功能按钮右间距 10:图片间隔总和
             CGFloat maxSize = (SCREEN_WIDTH - Right - LeftAndRightMargin - 35 - 5 - 10) / 3;
             imageView.frame = CGRectMake(0, 0, maxSize, maxSize);
@@ -202,7 +186,7 @@
     
     // 5.设置YYText属性
     self.yyTextLab.attributedText = text;
-    self.yyTextLab.numberOfLines = 0;  //设置多行
+    self.yyTextLab.numberOfLines = 0;  // 设置多行
     self.yyTextLab.textAlignment = NSTextAlignmentLeft;
    
     // 计算尺寸
@@ -219,7 +203,7 @@
     // 1.plist文件里面的图片信息
     if ((long)self.index < 4) {
         imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:self.imagesArray[i]]];
-    }else {
+    } else {
        // 2.自己发布的图片信息需要把NSData转换成UIImage
         imgView = [[UIImageView alloc] initWithImage:[UIImage imageWithData:self.imagesArray[i]]];
     }
@@ -253,6 +237,7 @@
 }
 
 // MARK: 有点赞的情况
+
 - (void)setLikesCell {
     NSMutableAttributedString *text = [NSMutableAttributedString new];
     UIFont *font = [UIFont fontWithName:@"PingFangSC-Medium" size: 18];
@@ -274,7 +259,7 @@
         NSMutableAttributedString *nameAtt;
         if (i != self.likesTextArray.count - 1) {
             nameAtt = [[NSMutableAttributedString alloc] initWithString:[self.likesTextArray[i] stringByAppendingString:@", "]];
-        }else {
+        } else {
             nameAtt = [[NSMutableAttributedString alloc] initWithString:self.likesTextArray[i]];
         }
         nameAtt.yy_font = font;
@@ -380,7 +365,6 @@
     [self.likeOrCommentBtn setBackgroundImage:[UIImage imageNamed:@"likeComment.white"] forState:UIControlStateNormal];
     self.likeOrCommentBtn.layer.masksToBounds = YES;
     self.likeOrCommentBtn.layer.cornerRadius = 5;
-    [self.likeOrCommentBtn addTarget:self action:@selector(ClickFuncBtn) forControlEvents:UIControlEventTouchUpInside];
     [self.yyTextLab addSubview:self.likeOrCommentBtn];
     
     self.separator = [[UIView alloc] init];
@@ -391,16 +375,6 @@
     [self.deleteBtn setTitle:@"删除" forState:UIControlStateNormal];
     [self.deleteBtn setTitleColor:[UIColor colorNamed:@"#576B94'00^#7C90A8'00"] forState:UIControlStateNormal];
     self.deleteBtn.titleLabel.font = [UIFont systemFontOfSize:17];
-    [self.deleteBtn addTarget:self action:@selector(clickDeleteBtn) forControlEvents:UIControlEventTouchUpInside];
 }
 
-/// 点击多功能按钮
-- (void)ClickFuncBtn {
-    [self.cellDelegate clickFuncBtn:self];
-}
-
-/// 点击删除按钮
-- (void)clickDeleteBtn {
-    [self.cellDelegate clickDeleteBtn:self];
-}
 @end

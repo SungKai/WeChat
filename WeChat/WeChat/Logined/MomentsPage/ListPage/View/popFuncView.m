@@ -7,6 +7,9 @@
 
 #import "popFuncView.h"
 
+// Tools
+#import "Masonry.h"
+
 @implementation popFuncView
 
 - (instancetype)init {
@@ -27,26 +30,6 @@
 }
 
 #pragma mark - Method
-// 点击点赞按钮
-- (void)clickLikesBtn:(UIButton *)sender {
-    // 点赞爱心放大
-    CABasicAnimation *anima = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-    anima.byValue = @(0.7);
-    [self.likeImageView.layer addAnimation:anima forKey:@"scaleAnimation"];
-    // popView自动消失
-    dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(500/*延迟执行时间*/*NSEC_PER_MSEC));
-    dispatch_after(delayTime,dispatch_get_main_queue(), ^{
-        [self removeFromSuperview];
-        [self.popFuncViewDelegate clickLikeBtn:sender];
-    });
-    NSLog(@"点击点赞按钮");
-}
-
-// 点击评论按钮
-- (void)clickCommentsBtn:(UIButton *)sender {
-    [self.popFuncViewDelegate clickCommentBtn:sender];
-    NSLog(@"点击评论按钮");
-}
 
 - (void)setPosition {
     [self.likesBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -93,7 +76,6 @@
 - (UIButton *)likesBtn {
     if (_likesBtn == nil) {
         _likesBtn = [[UIButton alloc] init];
-        [_likesBtn addTarget:self action:@selector(clickLikesBtn:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _likesBtn;
 }
@@ -101,7 +83,6 @@
 - (UIButton *)commentsBtn {
     if (_commentsBtn == nil) {
         _commentsBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-        [_commentsBtn addTarget:self action:@selector(clickCommentsBtn:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _commentsBtn;
 }

@@ -31,9 +31,7 @@
 
 @interface MomentsPageVC () <
     UITableViewDataSource,
-    UITableViewDelegate,
-    MomentsCellDelegate,
-    popFuncViewDelegate
+    UITableViewDelegate
 >
 
 @property (nonatomic, strong) NSArray <MomentsModel *> *dataArray;
@@ -63,6 +61,7 @@
 @implementation MomentsPageVC
 
 #pragma mark - Life Cycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -83,6 +82,8 @@
     UIRefreshControl *control = [[UIRefreshControl alloc]init];
     [control addTarget:self action:@selector(refreshTableView) forControlEvents:UIControlEventValueChanged];
     self.tableView.refreshControl = control;
+    // 加入SEL
+    [self addSELAndGesture];
 }
 
 #pragma mark - Method
@@ -92,7 +93,6 @@
     [self.tableView reloadData];
     //根据数据库信息来设置头像
     [self setAvatarImageView];
-    
     if ([self.tableView.refreshControl isRefreshing]) {
         [self.tableView.refreshControl endRefreshing];
     }
@@ -190,78 +190,35 @@
     [self.view.window addSubview:self.backView];
 }
 
-/// 退出多功能按钮
-- (void)dismissBackViewWithGesture {
-    [self.popFuncView removeFromSuperview];
-    [self.backView removeFromSuperview];
+- (void)addSELAndGesture {
+    // popFuncView
+    [self.popFuncView.likesBtn addTarget:self action:@selector(clickLikeBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [self.popFuncView.commentsBtn addTarget:self action:@selector(clickCommentBtn:) forControlEvents:UIControlEventTouchUpInside];
 }
 
-#pragma mark - <UITableDataSource>
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.dataArray.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    // 要取倒转的
-    unsigned long index = self.dataArray.count - 1 - indexPath.row;
-    MomentsModel *model = self.dataArray[index];
-    static NSString *momentsCellID = @"momentsCellID";
-    MomentsCell *momentsCell = [tableView dequeueReusableCellWithIdentifier:momentsCellID];
-    if (momentsCell == nil) {
-        momentsCell = [[MomentsCell alloc] init];
-        momentsCell.cellDelegate = self;
-        // 设置cell无法点击
-        [momentsCell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        // 设置数据
-        [momentsCell setAvatarImgData:model.avatar
-                             NameText:model.person Text:model.text
-                          ImagesArray:model.images
-                             DateText:model.time
-                       LikesTextArray:model.likes
-                    CommentsTextArray:model.comments
-                                Index:index];
-    }
-    return momentsCell;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *nowCell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
-    if (nowCell == nil) {
-        return 0;
-    }else {
-        return nowCell.frame.size.height;
-    }
-}
-
-#pragma mark - Delegate
-
-
-
-
-// MARK: <MomentsCellDelegate>
+// MARK: SEL
 
 // 点击多功能按钮
-- (void)clickFuncBtn:(MomentsCell *)cell {
+- (void)clickFuncBtn:(UIButton *)sender withEvent:(UIEvent *)event {
+    UITouch *touch = [[event allTouches] anyObject];
+    CGPoint touchPoint = [touch locationInView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:touchPoint];
+    MomentsCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     UIWindow *window = self.view.window;
     CGRect frame = [cell.likeOrCommentBtn convertRect:cell.likeOrCommentBtn.bounds toView:window];
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    //取反
+    // 取反
     long tag = [MomentModelManager getAllPublishData].count - indexPath.row - 1;
-    //加入背景蒙版
+    // 加入背景蒙版
     [self showBackViewWithGesture];
-    //做标记
+    // 做标记
     self.popFuncView.likesBtn.tag = tag;
     self.popFuncView.commentsBtn.tag = tag;
-    //给点赞设置标题
+    // 给点赞设置标题
     if ([self isLiked:tag]) {
         //之前已经点过赞
         self.popFuncView.likeLab.text = @"取消";
         self.liked = YES;
-    }else {
+    } else {
         self.popFuncView.likeLab.text = @"赞";
         self.liked = NO;
     }
@@ -269,12 +226,14 @@
     [self.view.window addSubview:self.popFuncView];
 }
 
-//点击删除按钮
-- (void)clickDeleteBtn:(MomentsCell *)cell {
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    //取反
+// 点击删除按钮
+- (void)clickDeleteBtn:(UIButton *)sender withEvent:(UIEvent *)event {
+    UITouch *touch = [[event allTouches] anyObject];
+    CGPoint touchPoint = [touch locationInView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:touchPoint];
+    // 取反
     long tag = [MomentModelManager getAllPublishData].count - indexPath.row - 1;
-    //删除此信息
+    // 删除此信息
     MomentsModel *momentModel = self.dataArray[tag];
     NSLog(@"momentModel.person = %@", momentModel.person);
     BOOL res = [MomentModelManager deleteOrderData:momentModel];
@@ -287,33 +246,40 @@
     [self.tableView reloadData];
 }
 
-// MARK: <popFuncViewDelegate>
-
 /// 点击点赞按钮
 /// @param sender 该按钮
 - (void)clickLikeBtn:(UIButton *)sender {
-    //找到该cell(要倒转）
-    long tag = sender.tag;
-    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:self.dataArray[tag].likes];
-    //需要查看是否在上一次已点赞
-    if (self.liked) {  //上次已经点了赞
-        [tempArray removeObject:LikeName];
-        self.popFuncView.likeLab.text = @"赞";
-        self.liked = NO;
-    }else {  //上次没点赞
-        [tempArray addObject:LikeName];
-        self.popFuncView.likeLab.text = @"取消";
-    }
+    // 点赞爱心放大
+    CABasicAnimation *anima = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    anima.byValue = @(0.7);
+    [self.popFuncView.likeImageView.layer addAnimation:anima forKey:@"scaleAnimation"];
+    // popView自动消失
+    dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(500/*延迟执行时间*/*NSEC_PER_MSEC));
+    dispatch_after(delayTime,dispatch_get_main_queue(), ^{
+        [self.popFuncView removeFromSuperview];
+        // 找到该cell(要倒转）
+        long tag = sender.tag;
+        NSMutableArray *tempArray = [NSMutableArray arrayWithArray:self.dataArray[tag].likes];
+        // 需要查看是否在上一次已点赞
+        if (self.liked) {  // 上次已经点了赞
+            [tempArray removeObject:LikeName];
+            self.popFuncView.likeLab.text = @"赞";
+            self.liked = NO;
+        } else {  // 上次没点赞
+            [tempArray addObject:LikeName];
+            self.popFuncView.likeLab.text = @"取消";
+        }
 
-    self.dataArray[tag].likes = tempArray;
-    // 同时数据存储
-    // 1.拿到该条数据
-    MomentsModel *model = [MomentModelManager getAllPublishData][tag];
-    // 2.修改点赞数据
-    model.likes = tempArray;
-    [MomentModelManager updataLikesData:model];
-    //刷新
-    [self.tableView reloadData];
+        self.dataArray[tag].likes = tempArray;
+        // 同时数据存储
+        // 1.拿到该条数据
+        MomentsModel *model = [MomentModelManager getAllPublishData][tag];
+        // 2.修改点赞数据
+        model.likes = tempArray;
+        [MomentModelManager updataLikesData:model];
+        // 刷新
+        [self.tableView reloadData];
+    });
 }
 
 /// 查看是否在上一次已点赞
@@ -327,6 +293,7 @@
     }
     return NO;
 }
+
 /// 点击评论按钮
 /// @param sender 该按钮
 - (void)clickCommentBtn:(UIButton *)sender {
@@ -355,6 +322,66 @@
     };
 }
 
+/// 退出多功能按钮
+- (void)dismissBackViewWithGesture {
+    [self.popFuncView removeFromSuperview];
+    [self.backView removeFromSuperview];
+}
+
+#pragma mark - <UITableDataSource>
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.dataArray.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    // 要取倒转的
+    unsigned long index = self.dataArray.count - 1 - indexPath.row;
+    MomentsModel *model = self.dataArray[index];
+    static NSString *momentsCellID = @"momentsCellID";
+    MomentsCell *momentsCell = [tableView dequeueReusableCellWithIdentifier:momentsCellID];
+    if (momentsCell == nil) {
+        momentsCell = [[MomentsCell alloc] init];
+        momentsCell.nameText = model.person;
+        momentsCell.text = model.text;
+        momentsCell.imagesArray = model.images;
+        momentsCell.dateText = model.time;
+        momentsCell.likesTextArray = model.likes;
+        momentsCell.commentsTextArray = model.comments;
+        momentsCell.index = index;
+        // 设置cell无法点击
+        [momentsCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        // 头像设置
+        // plist文件里的头像设置
+        if (index < 4) {
+            momentsCell.avatarImageView.image = [UIImage imageNamed:model.avatar];
+        } else {  // 自己发布的朋友圈头像
+            [momentsCell setAvatarImageView];
+        }
+        // 设置布局
+        [momentsCell AddViews];
+        if ([momentsCell.nameText isEqual:@"Vermouth"]) {
+            [momentsCell addDeleteBtn];
+        }
+        [momentsCell.likeOrCommentBtn addTarget:self action:@selector(clickFuncBtn:withEvent:) forControlEvents:UIControlEventTouchUpInside];
+        [momentsCell.deleteBtn addTarget:self action:@selector(clickDeleteBtn:withEvent:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return momentsCell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *nowCell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
+    if (nowCell == nil) {
+        return 0;
+    } else {
+        return nowCell.frame.size.height;
+    }
+}
+
 #pragma mark - Getter
 
 - (UITableView *)tableView {
@@ -371,7 +398,6 @@
 - (popFuncView *)popFuncView {
     if (_popFuncView == nil) {
         _popFuncView = [[popFuncView alloc] init];
-        _popFuncView.popFuncViewDelegate = self;
     }
     return _popFuncView;
 }

@@ -10,6 +10,7 @@
 @class MomentsModel;
 NS_ASSUME_NONNULL_BEGIN
 @interface MomentsModelManager : NSObject
+
 /// 单例
 + (instancetype)shareInstance;
 

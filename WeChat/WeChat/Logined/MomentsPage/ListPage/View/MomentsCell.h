@@ -10,26 +10,9 @@
 #import <UIKit/UIKit.h>
 
 // Tools
-#import "YYText.h"  //富文本布局工具
-#import "Masonry.h"
-#import "SKKImageZoom.h"  //点击图片放大保存
+#import "YYText.h"  // 富文本布局工具
 
 NS_ASSUME_NONNULL_BEGIN
-@class MomentsCell;
-
-@protocol MomentsCellDelegate <NSObject>
-
-@required
-
-/// 点击了多功能按钮
-/// @param cell 点到的cell
-- (void)clickFuncBtn:(MomentsCell *)cell;
-
-/// 点击了删除按钮
-/// @param cell 点到的cell
-- (void)clickDeleteBtn:(MomentsCell *)cell;
-
-@end
 
 @interface MomentsCell : UITableViewCell
 
@@ -93,25 +76,15 @@ NS_ASSUME_NONNULL_BEGIN
 /// 查看该cell的标号，用于判断是否为自己发布的朋友圈
 @property (nonatomic, assign) NSInteger index;
 
-@property (nonatomic, weak) id <MomentsCellDelegate> cellDelegate;
 
-/// 设置数据
-/// @param avatarImageViewData 头像数据
-/// @param name 名字
-/// @param text 正文内容
-/// @param imagesArray 图片
-/// @param dateText 发布时间
-/// @param likesTextArray 点赞人数组
-/// @param commentsTextArray 评论数组
-/// @param index cell标号
-- (void)setAvatarImgData:(NSString *)avatarImageViewData
-                NameText:(NSString *)name
-                    Text:(NSString *)text
-             ImagesArray:(NSArray *)imagesArray
-                DateText:(NSString *)dateText
-          LikesTextArray:(NSMutableArray <NSString *> *)likesTextArray
-       CommentsTextArray:(NSMutableArray <NSString *> *)commentsTextArray
-                   Index:(NSInteger)index;
+///根据数据库信息来设置头像
+- (void)setAvatarImageView;
+
+///设置布局
+- (void)AddViews;
+
+/// 自己发的pyq要加删除按钮
+- (void)addDeleteBtn;
 
 @end
 
