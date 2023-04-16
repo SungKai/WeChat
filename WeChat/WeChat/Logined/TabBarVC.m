@@ -43,12 +43,14 @@
 }
 
 #pragma mark - Method
-//退出登录
+
+// 退出登录
 - (void)logout {
     [self.navigationController popToRootViewControllerAnimated:NO];
 }
 
 #pragma mark - Getter
+
 - (UINavigationController *)momentsNav {
     UINavigationController *momentsNav = [[UINavigationController alloc] initWithRootViewController:self.momentsPageVC];
     momentsNav.navigationBarHidden = NO;

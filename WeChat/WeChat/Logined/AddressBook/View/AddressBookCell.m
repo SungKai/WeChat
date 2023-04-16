@@ -9,19 +9,13 @@
 
 @implementation AddressBookCell
 
-/// 初始化方法
-/// @param title 朋友名字
-/// @param imageData 图片信息
-- (instancetype)initWithTitle:(NSString *)title ImageData:(NSString *)imageData {
+- (instancetype)init {
     self = [super init];
     if (self) {
         self.backgroundColor = [UIColor colorNamed:@"#FEFEFE'00^#191919'00"];
-        self.nameLab.text = title;
-        self.avatarImgView.image = [UIImage imageNamed:imageData];
         [self.contentView addSubview:self.avatarImgView];
         [self.contentView addSubview:self.nameLab];
         [self setPosition];
-        
     }
     return self;
 }

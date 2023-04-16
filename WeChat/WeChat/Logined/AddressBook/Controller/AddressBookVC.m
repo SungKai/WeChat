@@ -7,8 +7,15 @@
 
 #import "AddressBookVC.h"
 
+// View
+#import "AddressBookCell.h"
+
+// Model
+#import "AddressBookModel.h"
+
 @interface AddressBookVC () <
     UISearchBarDelegate,
+    UITableViewDataSource,
     UITableViewDelegate
 >
 
@@ -18,7 +25,7 @@
 /// 搜索框内的文字内容
 @property (nonatomic, strong) NSString *filterString;
 
-@property (nonatomic, strong) AddressBookView *tableView;
+@property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic, strong) NSArray <AddressBookModel *> *dataArray;
 
@@ -36,11 +43,13 @@
     [self.view addSubview:self.topView];
     [self.view addSubview:self.tableView];
     [self setData];
-    self.tableView.data = self.dataArray;
     self.tableView.tableHeaderView = self.searchBar;
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
 }
 
 #pragma mark - Method
+
 - (void)setData {
     self.dataArray = [NSArray array];
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"addressBookData.plist" ofType:nil];
@@ -53,7 +62,6 @@
     self.dataArray = ma;
     // 复制原始数据
     self.duplicateDataArray = [self.dataArray copy];
-//     self.duplicateDataArray = self.dataArray;
 }
 
 #pragma mark - Delegate
@@ -76,15 +84,37 @@
         }
         self.dataArray = temp;
     }
-    self.tableView.data = self.dataArray;
     [self.tableView reloadData];
 }
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
     searchBar.text = @"";
     self.dataArray = self.duplicateDataArray;
-    self.tableView.data = self.dataArray;
     [self.tableView reloadData];
+}
+
+#pragma mark - UITabelViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.dataArray.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    AddressBookModel *model = self.dataArray[indexPath.row];
+    static NSString *addressBookID = @"addressBookID";
+    AddressBookCell *cell = [tableView dequeueReusableCellWithIdentifier:addressBookID];
+    if (cell == nil) {
+        cell = [[AddressBookCell alloc] init];
+        cell.avatarImgView.image = [UIImage imageNamed:model.image];
+        cell.nameLab.text = model.title;
+        // 设置cell无法点击
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    }
+    return cell;
 }
 
 #pragma mark - UITableViewDelegate
@@ -106,27 +136,12 @@
 
 #pragma mark - Getter
 
-- (AddressBookView *)tableView {
+- (UITableView *)tableView {
     if (_tableView == nil) {
-        _tableView = [[AddressBookView alloc] initWithFrame:CGRectMake(0, StatusBarHeight + 50, SCREEN_WIDTH, SCREEN_HEIGHT - StatusBarHeight - 50) style:UITableViewStylePlain];
-        _tableView.delegate = self;
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, StatusBarHeight + 50, SCREEN_WIDTH, SCREEN_HEIGHT - StatusBarHeight - 50) style:UITableViewStylePlain];
     }
     return _tableView;
 }
-
-// - (NSArray<AddressBookModel *> *)dataArray {
-//     if (_dataArray == nil) {
-//         NSString *filePath = [[NSBundle mainBundle] pathForResource:@"addressBookData.plist" ofType:nil];
-//         NSArray *dataArray = [NSArray arrayWithContentsOfFile:filePath];
-//         NSMutableArray *ma = [NSMutableArray array];
-//         for (NSDictionary *dic in dataArray) {
-//             AddressBookModel *model = [[AddressBookModel alloc] AddressBoolModelWithDic:dic];
-//             [ma addObject:model];
-//         }
-//         _dataArray = ma;
-//     }
-//     return _dataArray;
-// }
 
 - (UIView *)topView {
     if (_topView == nil) {

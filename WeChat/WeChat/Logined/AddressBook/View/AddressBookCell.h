@@ -19,12 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UIImageView *avatarImgView;
 
-
-/// 初始化方法
-/// @param title 朋友名字
-/// @param imageData 图片信息   
-- (instancetype)initWithTitle:(NSString *)title ImageData:(NSString *)imageData;
-
 @end
 
 NS_ASSUME_NONNULL_END

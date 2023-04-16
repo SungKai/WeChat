@@ -7,33 +7,27 @@
 
 #import "FirstPageTableViewCell.h"
 
+// Tools
+#import "Masonry.h"
+
 @implementation FirstPageTableViewCell
 
-- (instancetype)initWithPerson:(NSString *)person Text:(NSString *)text ImgView:(NSString *)imgViewData Date:(NSString *)date BellImage:(NSNumber *)bell {
+- (instancetype)init {
     self = [super init];
     if (self) {
         self.backgroundColor = [UIColor colorNamed:@"#FEFEFE'00^#191919'00"];
-        self.personLab.text = person;
-        self.textLab.text = text;
-        self.imgView.image = [UIImage imageNamed:imgViewData];
-        self.dateLab.text = date;
         [self.contentView addSubview:self.personLab];
         [self.contentView addSubview:self.textLab];
         [self.contentView addSubview:self.imgView];
         [self.contentView addSubview:self.dateLab];
         [self.contentView addSubview:self.separator];
-        // 把NSNumber转换为NSInteger
-        NSInteger isBell = [bell integerValue];
-        if (isBell) {
-            [self.contentView addSubview:self.bellImageView];
-        }
         [self setPosition];
-        self.bellImageView.frame = CGRectMake(SCREEN_WIDTH - 40, self.contentView.frame.size.height + 7, 20, 20);
     }
     return self;
 }
 
 #pragma mark - Method
+
 - (void)setPosition {
     [self.imgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(58, 58));

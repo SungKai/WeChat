@@ -23,7 +23,6 @@
 		B54643BD2842FDB70027ECD4 /* MomentsPageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B54643BC2842FDB70027ECD4 /* MomentsPageVC.m */; };
 		B54643C12842FDE90027ECD4 /* MinePageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B54643C02842FDE90027ECD4 /* MinePageVC.m */; };
 		B54643C6284312350027ECD4 /* FirstPageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B54643C5284312350027ECD4 /* FirstPageModel.m */; };
-		B54643CA2843125D0027ECD4 /* FirstPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B54643C92843125D0027ECD4 /* FirstPageView.m */; };
 		B54643CC284313470027ECD4 /* firstPageData.plist in Resources */ = {isa = PBXBuildFile; fileRef = B54643CB284313470027ECD4 /* firstPageData.plist */; };
 		B54643CE2843172C0027ECD4 /* FirstPageImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B54643CD2843172C0027ECD4 /* FirstPageImage.xcassets */; };
 		B56E97692849DCDB00FC5D5F /* MomentsImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B56E97682849DCDB00FC5D5F /* MomentsImage.xcassets */; };
@@ -44,7 +43,6 @@
 		B5E7E8F728586238007B52A0 /* AvatarDatabase.mm in Sources */ = {isa = PBXBuildFile; fileRef = B5E7E8F628586238007B52A0 /* AvatarDatabase.mm */; };
 		B5FB337828435BA20024532F /* FirstPageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B5FB337728435BA20024532F /* FirstPageTableViewCell.m */; };
 		B5FB33EC2844E3250024532F /* AddressBookImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5FB33EB2844E3250024532F /* AddressBookImage.xcassets */; };
-		B5FB33F12844E38E0024532F /* AddressBookView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5FB33F02844E38E0024532F /* AddressBookView.m */; };
 		B5FB33F42844E3A70024532F /* AddressBookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B5FB33F32844E3A70024532F /* AddressBookModel.m */; };
 		B5FB33F82844E5510024532F /* AddressBookCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B5FB33F72844E5510024532F /* AddressBookCell.m */; };
 /* End PBXBuildFile section */
@@ -82,8 +80,6 @@
 		B54643C02842FDE90027ECD4 /* MinePageVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MinePageVC.m; sourceTree = "<group>"; };
 		B54643C4284312350027ECD4 /* FirstPageModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstPageModel.h; sourceTree = "<group>"; };
 		B54643C5284312350027ECD4 /* FirstPageModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstPageModel.m; sourceTree = "<group>"; };
-		B54643C82843125D0027ECD4 /* FirstPageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstPageView.h; sourceTree = "<group>"; };
-		B54643C92843125D0027ECD4 /* FirstPageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstPageView.m; sourceTree = "<group>"; };
 		B54643CB284313470027ECD4 /* firstPageData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = firstPageData.plist; sourceTree = "<group>"; };
 		B54643CD2843172C0027ECD4 /* FirstPageImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = FirstPageImage.xcassets; sourceTree = "<group>"; };
 		B56E97682849DCDB00FC5D5F /* MomentsImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MomentsImage.xcassets; sourceTree = "<group>"; };
@@ -117,8 +113,6 @@
 		B5FB337628435BA20024532F /* FirstPageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstPageTableViewCell.h; sourceTree = "<group>"; };
 		B5FB337728435BA20024532F /* FirstPageTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstPageTableViewCell.m; sourceTree = "<group>"; };
 		B5FB33EB2844E3250024532F /* AddressBookImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AddressBookImage.xcassets; sourceTree = "<group>"; };
-		B5FB33EF2844E38E0024532F /* AddressBookView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressBookView.h; sourceTree = "<group>"; };
-		B5FB33F02844E38E0024532F /* AddressBookView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressBookView.m; sourceTree = "<group>"; };
 		B5FB33F22844E3A70024532F /* AddressBookModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressBookModel.h; sourceTree = "<group>"; };
 		B5FB33F32844E3A70024532F /* AddressBookModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressBookModel.m; sourceTree = "<group>"; };
 		B5FB33F62844E5510024532F /* AddressBookCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressBookCell.h; sourceTree = "<group>"; };
@@ -321,8 +315,6 @@
 		B54643C72843123E0027ECD4 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B54643C82843125D0027ECD4 /* FirstPageView.h */,
-				B54643C92843125D0027ECD4 /* FirstPageView.m */,
 				B5FB337628435BA20024532F /* FirstPageTableViewCell.h */,
 				B5FB337728435BA20024532F /* FirstPageTableViewCell.m */,
 			);
@@ -447,8 +439,6 @@
 		B5FB33EE2844E3650024532F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B5FB33EF2844E38E0024532F /* AddressBookView.h */,
-				B5FB33F02844E38E0024532F /* AddressBookView.m */,
 				B5FB33F62844E5510024532F /* AddressBookCell.h */,
 				B5FB33F72844E5510024532F /* AddressBookCell.m */,
 			);
@@ -596,7 +586,6 @@
 				B5E7E8EE2855BF6A007B52A0 /* NSDate+Day.m in Sources */,
 				B54643C6284312350027ECD4 /* FirstPageModel.m in Sources */,
 				B56E97742849DE0600FC5D5F /* MomentsModel.mm in Sources */,
-				B54643CA2843125D0027ECD4 /* FirstPageView.m in Sources */,
 				B54643B62842FD3F0027ECD4 /* FirstPageVC.m in Sources */,
 				B52A261428420D2400607363 /* AppDelegate.m in Sources */,
 				B54643BD2842FDB70027ECD4 /* MomentsPageVC.m in Sources */,
@@ -605,7 +594,6 @@
 				B5007524284E1C400067AAAF /* PublishView.m in Sources */,
 				B5E7E8F428561033007B52A0 /* PublishCollectionView.m in Sources */,
 				B5FB33F42844E3A70024532F /* AddressBookModel.m in Sources */,
-				B5FB33F12844E38E0024532F /* AddressBookView.m in Sources */,
 				B56E97772849DE1000FC5D5F /* popFuncView.m in Sources */,
 				B56E97852849FEBD00FC5D5F /* PublishVC.m in Sources */,
 				B54643B92842FD5A0027ECD4 /* AddressBookVC.m in Sources */,
