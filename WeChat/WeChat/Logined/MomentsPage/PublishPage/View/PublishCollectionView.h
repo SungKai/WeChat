@@ -13,8 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PublishCollectionView : UICollectionView
 
-//@property (nonatomic, weak) id <PublishCollectionViewDelegate> publishCVDelegate;
-
 @end
 
 NS_ASSUME_NONNULL_END

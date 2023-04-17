@@ -14,7 +14,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.itemSize = CGSizeMake(100, 100);
-    layout.minimumLineSpacing = 10; // 上下间隔
+    layout.minimumLineSpacing = 10;  // 上下间隔
     layout.minimumInteritemSpacing = 10;  // 左右间隔 可能会被强制调整,取决于UIEdgeInsetsMake
     layout.sectionInset = UIEdgeInsetsMake(10, 25, 10, 25);
     // 垂直滚动

@@ -207,7 +207,6 @@
     [self publishData:self.publishView.textView.text ImageArray:self.publishView.photosArray ImageIsNine:self.publishView.imageIsNine];
 }
 
-
 #pragma mark - Delegate
 
 
@@ -241,7 +240,6 @@
                     }
                     // 把图片加载到数组中
                     [self.photosArray addObject:object];
-//                    self.publishCV.photosArray = self.photosArray;
                     // 用于判断是否为9张选择的照片
                     if (self.photosArray.count > 9) {
                         // 满九宫格
@@ -279,6 +277,7 @@
 }
 
 // MARK: <UICollectionViewDelegateFlowLayout>
+
 // 点击添加照片
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"选中了%ld", indexPath.row);

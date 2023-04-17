@@ -194,6 +194,17 @@
     // popFuncView
     [self.popFuncView.likesBtn addTarget:self action:@selector(clickLikeBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.popFuncView.commentsBtn addTarget:self action:@selector(clickCommentBtn:) forControlEvents:UIControlEventTouchUpInside];
+    // backView
+    // 手势1:点击任意一处使多功能按钮消失
+    UITapGestureRecognizer *dismiss = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissBackViewWithGesture)];
+    [self.backView addGestureRecognizer:dismiss];
+    // 手势2:使上下滑动时也使多功能按钮消失
+    UISwipeGestureRecognizer *swipeUP = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(dismissBackViewWithGesture)];
+    swipeUP.direction = UISwipeGestureRecognizerDirectionUp;
+    UISwipeGestureRecognizer *swipeDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(dismissBackViewWithGesture)];
+    swipeDown.direction = UISwipeGestureRecognizerDirectionDown;
+    [self.backView addGestureRecognizer:swipeUP];
+    [self.backView addGestureRecognizer:swipeDown];
 }
 
 // MARK: SEL
@@ -407,17 +418,6 @@
         _backView = [[UIView alloc] init];
         _backView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         _backView.backgroundColor = [UIColor clearColor];
-        // 手势1:点击任意一处使多功能按钮消失
-        UITapGestureRecognizer *dismiss = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissBackViewWithGesture)];
-        [_backView addGestureRecognizer:dismiss];
-        // 手势2:使上下滑动时也使多功能按钮消失
-        UISwipeGestureRecognizer *swipeUP = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(dismissBackViewWithGesture)];
-        swipeUP.direction = UISwipeGestureRecognizerDirectionUp;
-        UISwipeGestureRecognizer *swipeDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(dismissBackViewWithGesture)];
-        swipeDown.direction = UISwipeGestureRecognizerDirectionDown;
-        [_backView addGestureRecognizer:swipeUP];
-        [_backView addGestureRecognizer:swipeDown];
-        
     }
     return _backView;
 }

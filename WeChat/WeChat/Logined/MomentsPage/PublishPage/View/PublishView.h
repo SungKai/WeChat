@@ -14,39 +14,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol PublishViewDelegate <NSObject>
-
-/// 要保存的数据
-/// @param text 文字
-/// @param imageArray 图片
-- (void)SaveCacheText:(NSString *)text Images:(NSMutableArray *)imageArray;
-
-/// 删除缓存数据
-- (void)deleteCacheText;
-
-/// 展示退出弹窗
-/// @param popView 弹窗
-- (void)showPopView:(UIAlertController *)popView;
-
-/// 展示图片弹窗
-/// @param pvc 弹窗
-- (void)showPHPicker:(PHPickerViewController *)pvc;
-
-/// 正式发表
-/// @param text 文字内容
-/// @param imageArray 图片组
-- (void)publishData:(NSString *)text ImageArray:(NSMutableArray *)imageArray ImageIsNine:(BOOL)imageIsNine;
-
-@end
-
 @interface PublishView : UIView
 
 /// 文本编辑框
 @property (nonatomic, strong) UITextView *textView;
 
 @property (nonatomic, strong, nullable) NSMutableArray *photosArray;
-
-@property (nonatomic, weak) id<PublishViewDelegate> publishViewDelegate;
 
 /// 用于判断是否为满九宫格照片
 @property (nonatomic) BOOL imageIsNine;
@@ -59,10 +32,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UILabel *defaultLab;
 
 @property (nonatomic, strong) UIImage *plusImage;
-
-/// 拿到缓存数据
-/// @param cacheData 缓存数据
-- (void)getCacheData:(MomentsModel *)cacheData;
 
 /// 设置初始数据
 - (void)setData;
