@@ -46,12 +46,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, nullable) NSMutableArray *photosArray;
 
-@property (nonatomic, copy) NSString *text;
-
 @property (nonatomic, weak) id<PublishViewDelegate> publishViewDelegate;
 
 /// 用于判断是否为满九宫格照片
 @property (nonatomic) BOOL imageIsNine;
+
+@property (nonatomic, strong) UIButton *cancelBtn;
+
+@property (nonatomic, strong) UIButton *publishBtn;
+
+/// 当文本编辑框内的默认内容
+@property (nonatomic, strong) UILabel *defaultLab;
+
+@property (nonatomic, strong) UIImage *plusImage;
 
 /// 拿到缓存数据
 /// @param cacheData 缓存数据

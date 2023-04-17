@@ -9,29 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "PublishCollectionViewCell.h"
 
-// Tools
-#import <PhotosUI/PHPicker.h>
-
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol PublishCollectionViewDelegate <NSObject>
+@interface PublishCollectionView : UICollectionView
 
-/// 点击item选择照片
-/// @param indexPath item的序号
-- (void)chosePhotos:(NSIndexPath *)indexPath Image:(UIImage *)image;
-
-@end
-
-@interface PublishCollectionView : UICollectionView <
-    UICollectionViewDataSource,
-    UICollectionViewDelegate,
-    UICollectionViewDelegateFlowLayout,
-    PHPickerViewControllerDelegate
->
-
-@property (nonatomic, strong, nullable) NSMutableArray *photosArray;
-
-@property (nonatomic, weak) id <PublishCollectionViewDelegate> publishCVDelegate;
+//@property (nonatomic, weak) id <PublishCollectionViewDelegate> publishCVDelegate;
 
 @end
 
