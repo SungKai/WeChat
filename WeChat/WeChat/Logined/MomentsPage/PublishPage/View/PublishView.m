@@ -7,13 +7,8 @@
 
 #import "PublishView.h"
 
-// View
-#import "PublishCollectionViewCell.h"
-#import "PublishCollectionView.h"
-
 // Tool
 #import "Masonry.h"
-#import <PhotosUI/PHPicker.h>
 
 @interface PublishView () 
 

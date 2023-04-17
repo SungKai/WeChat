@@ -51,18 +51,6 @@
     self.avatarImageView.image = [UIImage imageWithData:data];
 }
 
-- (void)clickToChangeavatar {
-    NSLog(@"换头像");
-    PHPickerConfiguration *picker = [[PHPickerConfiguration alloc] init];
-    picker.selectionLimit = 1;
-    picker.filter = [PHPickerFilter imagesFilter];
-    // 安装配置
-    PHPickerViewController *pVC = [[PHPickerViewController alloc] initWithConfiguration:picker];
-    
-    pVC.delegate = self;
-    [self presentViewController:pVC animated:YES completion:nil];
-}
-
 /// 生成退出登录的UILabel
 - (UILabel *)logoutLab {
     UILabel *logoutLab = [[UILabel alloc] init];
@@ -81,6 +69,28 @@
         [self.minePageDelegate logout];
     }
 }
+
+- (void)addGesture {
+    // 设置点击手势
+    UIGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickToChangeavatar)];
+    [self.topView addGestureRecognizer:tapGestureRecognizer];
+    self.topView.userInteractionEnabled = YES;
+}
+
+// MARK: SEL
+
+- (void)clickToChangeavatar {
+    NSLog(@"换头像");
+    PHPickerConfiguration *picker = [[PHPickerConfiguration alloc] init];
+    picker.selectionLimit = 1;
+    picker.filter = [PHPickerFilter imagesFilter];
+    // 安装配置
+    PHPickerViewController *pVC = [[PHPickerViewController alloc] initWithConfiguration:picker];
+    
+    pVC.delegate = self;
+    [self presentViewController:pVC animated:YES completion:nil];
+}
+
 
 #pragma mark - UITableViewDataSource
 
@@ -215,10 +225,6 @@
             make.centerY.equalTo(self.avatarImageView);
             make.right.equalTo(_topView).offset(-20);
         }];
-        // 设置点击手势
-        UIGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickToChangeavatar)];
-        [_topView addGestureRecognizer:tapGestureRecognizer];
-        _topView.userInteractionEnabled = YES;
     }
     return _topView;
 }

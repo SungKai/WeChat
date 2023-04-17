@@ -5,12 +5,8 @@
 //  Created by 宋开开 on 2022/6/6.
 //
 
-//此类为朋友圈发布界面的View
+// 此类为朋友圈发布界面的View
 #import <UIKit/UIKit.h>
-
-#import "MomentsModel.h"
-//Tools
-#import <PhotosUI/PHPicker.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
