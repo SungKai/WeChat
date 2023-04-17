@@ -30,37 +30,17 @@
 #pragma mark - Life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self addView];
-    [self setPosition];
     self.view.backgroundColor = [UIColor colorNamed:@"#FEFEFE'00^#191919'00"];
     self.publishBtn.backgroundColor = [UIColor lightGrayColor];
     // 隐藏顶部和底部导航
     self.navigationController.navigationBarHidden = YES;
     self.tabBarController.tabBar.hidden = YES;  // 返回时也隐藏了
+    [self addView];
+    [self addSEL];
+    [self setPosition];
 }
 
 #pragma mark - Method
-
-/// 点击取消按钮，返回
-- (void)clickCancelBtn {
-    [self.navigationController popViewControllerAnimated:YES];
-    self.navigationController.navigationBarHidden = NO;
-    self.tabBarController.tabBar.hidden = NO;
-}
-
-/// 点击发布按钮
-- (void)clickPublishBtn {
-    if (self.textView.text.length == 0) {
-        self.publishBtn.enabled = NO;
-    } else {
-        // 拿到输入的内容
-        NSString *nameString = @"Vermouth : ";
-        NSString *commentText = [nameString stringByAppendingString:self.textView.text];
-        NSLog(@"commentText = %@", commentText);
-        // 回调
-        self.getCommentsData(commentText);
-    }
-}
 
 /// 点击任意一处退出键盘
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -99,6 +79,35 @@
     }];
 }
 
+- (void)addSEL {
+    [self.cancelBtn addTarget:self action:@selector(clickCancelBtn) forControlEvents:UIControlEventTouchUpInside];
+    [self.publishBtn addTarget:self action:@selector(clickPublishBtn) forControlEvents:UIControlEventTouchUpInside];
+}
+
+
+// MARK: SEL
+
+/// 点击取消按钮，返回
+- (void)clickCancelBtn {
+    [self.navigationController popViewControllerAnimated:YES];
+    self.navigationController.navigationBarHidden = NO;
+    self.tabBarController.tabBar.hidden = NO;
+}
+
+/// 点击发布按钮
+- (void)clickPublishBtn {
+    if (self.textView.text.length == 0) {
+        self.publishBtn.enabled = NO;
+    } else {
+        // 拿到输入的内容
+        NSString *nameString = @"Vermouth : ";
+        NSString *commentText = [nameString stringByAppendingString:self.textView.text];
+        NSLog(@"commentText = %@", commentText);
+        // 回调
+        self.getCommentsData(commentText);
+    }
+}
+
 #pragma mark - Delegate
 
 
@@ -125,7 +134,6 @@
         [_cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
         [_cancelBtn setTitleColor:[UIColor colorNamed:@"#181818'00^#CFCFCF'00"] forState:UIControlStateNormal];
         _cancelBtn.titleLabel.font = [UIFont systemFontOfSize:20];
-        [_cancelBtn addTarget:self action:@selector(clickCancelBtn) forControlEvents:UIControlEventTouchUpInside];
     }
     return _cancelBtn;
 }
@@ -137,7 +145,6 @@
         _publishBtn.titleLabel.font = [UIFont boldSystemFontOfSize:20];
         _publishBtn.layer.masksToBounds = YES;
         _publishBtn.layer.cornerRadius = 5;
-        [_publishBtn addTarget:self action:@selector(clickPublishBtn) forControlEvents:UIControlEventTouchUpInside];
     }
     return _publishBtn;
 }
