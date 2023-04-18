@@ -1,8 +1,6 @@
 # WeChat
 
-## 0 iOS 架构设计-MVC 模式文档
-
-
+[iOS 架构设计-MVC 模式 掘金文章](https://juejin.cn/post/7223201717063712826)
 
 ## 1 简要介绍
 
